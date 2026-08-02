@@ -1,0 +1,372 @@
+:root {
+  --bg-canvas: #000056;
+  --accent: #0846F0;
+  --cta-band: #0535BA;
+  --faq-grad-1: #0303AC;
+  --faq-grad-2: #063FDF;
+  --card-white: #FFFFFF;
+  --footer-grey: #B6B6B6;
+
+  --side-margin: 28px;
+  --container-max: 1272px;
+
+  --fs-h1: 73.3px;
+  --fs-footer-title: 65.6px;
+  --fs-faq-title: 50px;
+  --fs-section-title: 47.8px;
+  --fs-faq-card-title: 30.4px;
+  --fs-hero-subtitle: 28.4px;
+  --fs-body: 17.3px;
+  --fs-competencies-item: 14.3px;
+  --fs-btn-cta-band: 13.2px;
+  --fs-btn-hero: 12.5px;
+  --fs-descriptor: 11.5px;
+  --fs-nav: 10px;
+  --fs-btn-header: 8.25px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg-canvas);
+  color: var(--card-white);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.4;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+.page {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--side-margin);
+}
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--card-white);
+  border-radius: 999px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn--header { font-size: var(--fs-btn-header); padding: 0.6em 1.4em; }
+.btn--hero { font-size: var(--fs-btn-hero); padding: 0.9em 2em; margin-top: 2em; }
+.btn--cta-band {
+  font-size: var(--fs-btn-cta-band);
+  padding: 0.9em 2em;
+  background: var(--card-white);
+  color: var(--cta-band);
+  margin-top: 1em;
+}
+
+/* Шапка сидит прямо на фоне полотна, без отдельной подложки — координат в спеке нет */
+.site-header {
+  padding-block: 24px;
+}
+
+.site-header__row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* Лого шапки — тёмный текст "ТЕХНОЛОГИЧНО" на тёмном фоне полотна иначе не читается;
+   белая подложка — то же допустимое отклонение №1, что и для логотипов партнёров. */
+.site-header__brand {
+  display: inline-flex;
+  background: var(--card-white);
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+.site-header__brand img {
+  width: 195px;
+  height: auto;
+}
+
+.site-header__nav {
+  margin-inline: auto;
+}
+
+.site-header__nav ul {
+  display: flex;
+  gap: 28px;
+}
+
+.site-header__nav a {
+  font-size: var(--fs-nav);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.card {
+  background: var(--card-white);
+  color: var(--bg-canvas);
+}
+
+.section-title {
+  font-size: var(--fs-section-title);
+  font-weight: 700;
+  margin: 0 0 0.6em;
+}
+
+/* --- Hero --- */
+.hero { padding-block: 24px 48px; }
+
+.card--hero {
+  padding: 5% 4.6%;
+  text-align: left;
+  position: relative;
+}
+
+.hero__graphic {
+  width: 45%;
+  max-width: 450px;
+  margin-bottom: 1em;
+}
+
+.hero__title {
+  font-size: var(--fs-h1);
+  font-weight: 800;
+  margin: 0 0 0.2em;
+  line-height: 1.05;
+}
+
+.hero__subtitle {
+  font-size: var(--fs-hero-subtitle);
+  margin: 0 0 0.8em;
+  max-width: 42em;
+}
+
+.hero__descriptor {
+  font-size: var(--fs-descriptor);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  max-width: 46em;
+  margin: 0;
+}
+
+/* --- Компетенции --- */
+.competencies { padding-block: 24px; }
+
+.card--competencies {
+  padding-top: 5%;
+}
+
+.card--competencies > .section-title {
+  padding-inline: 21.3%;
+}
+
+/* Разрыв между пунктами больше межстрочного внутри пункта — воспроизводит "рыхлый" список макета, не чинить */
+.competencies__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-flow: column;
+  column-gap: 23.4%;
+  row-gap: 2.4em;
+  padding-inline: 21.3%;
+  padding-bottom: 5%;
+}
+
+.competencies__list li {
+  font-size: var(--fs-competencies-item);
+  line-height: 1.15;
+}
+
+/* Полоса CTA — во всю карточку (без бокового инсета), см. спеку */
+.cta-band {
+  padding: 4% 21.3%;
+  background: var(--cta-band);
+  color: var(--card-white);
+  text-align: center;
+}
+
+.cta-band .section-title { color: var(--card-white); }
+
+/* --- FAQ --- */
+.faq { padding-block: 48px; }
+
+.section-title--faq {
+  font-size: var(--fs-faq-title);
+  text-align: center;
+}
+
+.faq__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 100px;
+  max-width: 951px;
+  margin-inline: auto;
+}
+
+.faq__card {
+  background: linear-gradient(180deg, var(--faq-grad-1), var(--faq-grad-2));
+  border-radius: 16px;
+  padding: 2em 1.6em;
+  text-align: center;
+}
+
+.faq__card h3 {
+  font-size: var(--fs-faq-card-title);
+  margin: 0 0 0.6em;
+}
+
+.faq__card p {
+  font-size: var(--fs-body);
+  margin: 0;
+}
+
+/* --- Организаторы / Партнёры ---
+   В спеке нет отдельной белой подложки для этих секций и нет замера кегля заголовка;
+   белая карточка добавлена как допустимое отклонение №1 (логотипы иначе теряются на тёмном
+   фоне полотна), кегль заголовка взят по аналогии с --fs-section-title. */
+.logos-section { padding-block: 24px; }
+
+.section-title--logos {
+  text-align: center;
+}
+
+.card--logos { padding: 4% 4.6%; text-align: center; }
+
+.logos-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.logos-row img {
+  width: 190px;
+  height: auto;
+}
+
+/* --- Футер ---
+   Фон футера сознательно НЕ ограничен боковыми полями .page (x=0, ширина=во весь холст
+   в спеке) — воспроизводит дефект несогласованности с остальными секциями, не чинить. */
+.site-footer {
+  background: var(--footer-grey);
+  color: var(--bg-canvas);
+  padding-block: 48px;
+  margin-top: 24px;
+}
+
+.site-footer__row {
+  display: flex;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.footer-title {
+  font-size: var(--fs-footer-title);
+  font-weight: 700;
+  margin: 0 0 0.4em;
+}
+
+.site-footer__block p {
+  font-size: var(--fs-body);
+  margin: 0 0 0.4em;
+}
+
+/* ===== Брейкпоинты — адаптив построен по той же дизайн-системе, в макете мобильной версии нет ===== */
+
+@media (max-width: 1440px) {
+  :root { --container-max: 1272px; }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --fs-h1: 56px;
+    --fs-footer-title: 44px;
+    --fs-faq-title: 38px;
+    --fs-section-title: 34px;
+    --fs-faq-card-title: 24px;
+    --fs-hero-subtitle: 22px;
+  }
+
+  .card--competencies > .section-title,
+  .competencies__list { padding-inline: 12%; }
+  .cta-band { padding-inline: 12%; }
+  .competencies__list { column-gap: 10%; }
+
+  .faq__cards { max-width: 100%; gap: 32px; }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --fs-h1: 42px;
+    --fs-footer-title: 32px;
+    --fs-faq-title: 30px;
+    --fs-section-title: 26px;
+    --fs-faq-card-title: 20px;
+    --fs-hero-subtitle: 18px;
+    --fs-body: 15px;
+    --fs-competencies-item: 14px;
+    --side-margin: 20px;
+  }
+
+  .site-header__row { flex-wrap: wrap; row-gap: 16px; }
+  .site-header__nav { order: 3; width: 100%; margin-inline: 0; }
+  .site-header__nav ul { flex-wrap: wrap; gap: 16px; }
+
+  .card--competencies > .section-title,
+  .competencies__list { padding-inline: 6%; }
+  .cta-band { padding-inline: 6%; }
+  .competencies__list {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    column-gap: 0;
+    row-gap: 1.4em;
+  }
+
+  .faq__cards { grid-template-columns: 1fr; }
+
+  .site-footer__row { gap: 40px; }
+}
+
+@media (max-width: 390px) {
+  :root {
+    --fs-h1: 32px;
+    --fs-footer-title: 26px;
+    --fs-faq-title: 24px;
+    --fs-section-title: 21px;
+    --fs-faq-card-title: 18px;
+    --fs-hero-subtitle: 16px;
+    --fs-descriptor: 10px;
+    --side-margin: 16px;
+  }
+
+  .card--hero { padding: 8% 6%; }
+  .card--competencies { padding-top: 8%; }
+  .card--competencies > .section-title,
+  .competencies__list { padding-inline: 5%; }
+  .cta-band { padding: 6% 5%; }
+  .card--logos { padding: 8% 5%; }
+  .logos-row img { width: 140px; }
+  .site-header__brand img { width: 150px; }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --fs-h1: 29px;
+    --fs-section-title: 19px;
+    --side-margin: 14px;
+  }
+
+  .logos-row img { width: 120px; }
+  .logos-row { gap: 24px; }
+}
