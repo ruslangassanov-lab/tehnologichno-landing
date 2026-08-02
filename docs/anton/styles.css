@@ -1,28 +1,56 @@
+/*
+  Геометрия воспроизведена по src/shared/anton-blueprint.md — абсолютные координаты
+  чертежа (canvas 1272px) переведены в проценты внутри каждой карточки и в cqw
+  (container query width, 1cqw = 1% ширины .canvas) для кеглей/отступов, поэтому
+  расположение элементов остаётся тем же на любой ширине экрана — это и есть
+  "адаптация по той же системе", а не отдельный редизайн для мобильных.
+*/
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-800.woff2') format('woff2');
+}
+
 :root {
-  --bg-canvas: #000056;
-  --accent: #0846F0;
-  --cta-band: #0535BA;
-  --faq-grad-1: #0303AC;
-  --faq-grad-2: #063FDF;
-  --card-white: #FFFFFF;
+  --bg-canvas: #000057;
+  --text-navy: #000057;
+  --text-black: #000000;
+  --white: #FFFFFF;
+  --accent-blue: #0947F1;
+  --grad-1: #0303AC;
+  --grad-2: #063FDF;
   --footer-grey: #B6B6B6;
-
-  --side-margin: 28px;
-  --container-max: 1272px;
-
-  --fs-h1: 73.3px;
-  --fs-footer-title: 65.6px;
-  --fs-faq-title: 50px;
-  --fs-section-title: 47.8px;
-  --fs-faq-card-title: 30.4px;
-  --fs-hero-subtitle: 28.4px;
-  --fs-body: 17.3px;
-  --fs-competencies-item: 14.3px;
-  --fs-btn-cta-band: 13.2px;
-  --fs-btn-hero: 12.5px;
-  --fs-descriptor: 11.5px;
-  --fs-nav: 10px;
-  --fs-btn-header: 8.25px;
 }
 
 * { box-sizing: border-box; }
@@ -36,8 +64,7 @@ html, body {
 
 body {
   background: var(--bg-canvas);
-  color: var(--card-white);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   line-height: 1.4;
 }
 
@@ -45,332 +72,393 @@ a { color: inherit; text-decoration: none; }
 ul { margin: 0; padding: 0; list-style: none; }
 img { display: block; max-width: 100%; height: auto; }
 
-.page {
-  max-width: var(--container-max);
+/* Единственный источник cqw-масштаба: 1cqw = 1% ширины .canvas.
+   На экранах >=1272px canvas стоит на максимуме (1272px) и дальше не растёт —
+   "базовая ширина макета 1272, пропорции держать". На узких экранах canvas
+   сжимается до 100vw, и вместе с ним пропорционально все кегли/координаты.
+   Пробовали дать кеглям нижний порог (clamp) на 390/360px, где чистое сжатие
+   даёт ~4px текст — но вся геометрия здесь построена на абсолютном % позицио-
+   нировании, рассчитанном именно на кегль, растущий/сжимающийся в ту же
+   пропорцию, что и бокс; кегль-пол ломает это и текст залезает на соседние
+   блоки, что уже редизайн вёрстки, а не адаптация. Оставлено как чистое линей-
+   ное масштабирование — см. "Рекомендации прорабу" в report.md про читаемость
+   на узких экранах, это несогласуемо без пересборки мобильной раскладки. */
+.canvas {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 1272px;
   margin-inline: auto;
-  padding-inline: var(--side-margin);
-}
-
-.btn {
-  display: inline-block;
-  background: var(--accent);
-  color: var(--card-white);
-  border-radius: 999px;
-  font-weight: 600;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.btn--header { font-size: var(--fs-btn-header); padding: 0.6em 1.4em; }
-.btn--hero { font-size: var(--fs-btn-hero); padding: 0.9em 2em; margin-top: 2em; }
-.btn--cta-band {
-  font-size: var(--fs-btn-cta-band);
-  padding: 0.9em 2em;
-  background: var(--card-white);
-  color: var(--cta-band);
-  margin-top: 1em;
-}
-
-/* Шапка сидит прямо на фоне полотна, без отдельной подложки — координат в спеке нет */
-.site-header {
-  padding-block: 24px;
-}
-
-.site-header__row {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-
-/* Лого шапки — тёмный текст "ТЕХНОЛОГИЧНО" на тёмном фоне полотна иначе не читается;
-   белая подложка — то же допустимое отклонение №1, что и для логотипов партнёров. */
-.site-header__brand {
-  display: inline-flex;
-  background: var(--card-white);
-  padding: 10px 16px;
-  border-radius: 8px;
-}
-
-.site-header__brand img {
-  width: 195px;
-  height: auto;
-}
-
-.site-header__nav {
-  margin-inline: auto;
-}
-
-.site-header__nav ul {
-  display: flex;
-  gap: 28px;
-}
-
-.site-header__nav a {
-  font-size: var(--fs-nav);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.card {
-  background: var(--card-white);
-  color: var(--bg-canvas);
-}
-
-.section-title {
-  font-size: var(--fs-section-title);
-  font-weight: 700;
-  margin: 0 0 0.6em;
-}
-
-/* --- Hero --- */
-.hero { padding-block: 24px 48px; }
-
-.card--hero {
-  padding: 5% 4.6%;
-  text-align: left;
   position: relative;
 }
 
+.section-title { font-weight: 700; margin: 0; }
+
+/* ===== Шапка ===== */
+.site-header {
+  position: relative;
+  aspect-ratio: 1272 / 64;
+  display: flex;
+  align-items: center;
+  padding-inline: 2.2013cqw;
+}
+
+.site-header__brand img {
+  height: 3.6cqw;
+  width: auto;
+}
+
+.site-header__nav { margin-inline: auto; }
+
+.site-header__nav ul {
+  display: flex;
+  gap: 2.2cqw;
+}
+
+.site-header__nav a {
+  font-size: 0.7862cqw;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.btn--header {
+  position: absolute;
+  left: 86.164%;
+  top: 23.4375%;
+  width: 7.390%;
+  height: 42.1875%;
+  background: var(--white);
+  color: var(--text-navy);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6525cqw;
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* ===== Hero ===== */
+.hero { margin-top: 0; }
+
+.card {
+  background: var(--white);
+  position: relative;
+}
+
+.card--hero {
+  aspect-ratio: 1216 / 591;
+  border-radius: 3.1447cqw;
+  margin-inline: 2.2013cqw;
+}
+
+.hero__graphic-box {
+  position: absolute;
+  left: 55.099%;
+  top: 13.028%;
+  width: 45.395%;
+  height: 61.591%;
+}
+
 .hero__graphic {
-  width: 45%;
-  max-width: 450px;
-  margin-bottom: 1em;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
 }
 
 .hero__title {
-  font-size: var(--fs-h1);
+  position: absolute;
+  left: 7.072%;
+  top: 24.365%;
+  width: 38.076%;
+  margin: 0;
+  color: var(--text-navy);
+  font-size: 5.7625cqw;
   font-weight: 800;
-  margin: 0 0 0.2em;
   line-height: 1.05;
 }
 
 .hero__subtitle {
-  font-size: var(--fs-hero-subtitle);
-  margin: 0 0 0.8em;
-  max-width: 42em;
-}
-
-.hero__descriptor {
-  font-size: var(--fs-descriptor);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  max-width: 46em;
+  position: absolute;
+  left: 7.977%;
+  top: 35.194%;
+  width: 48%;
   margin: 0;
-}
-
-/* --- Компетенции --- */
-.competencies { padding-block: 24px; }
-
-.card--competencies {
-  padding-top: 5%;
-}
-
-.card--competencies > .section-title {
-  padding-inline: 21.3%;
-}
-
-/* Разрыв между пунктами больше межстрочного внутри пункта — воспроизводит "рыхлый" список макета, не чинить */
-.competencies__list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(5, auto);
-  grid-auto-flow: column;
-  /* Спека: левая колонка x=573, правая x=1557 при карточке x=56 w=2434 → 21.24% и 61.67%
-     от ширины карточки. ВНИМАНИЕ: процент в column-gap считается от content-box грида
-     (57.4% ширины карточки после padding-inline 21.3%), а не от самой карточки.
-     Нужный зазор 23.34% карточки = 23.34/57.4 = 40.65% content-box. */
-  column-gap: 40.65%;
-  row-gap: 2.4em;
-  padding-inline: 21.3%;
-  padding-bottom: 5%;
-}
-
-.competencies__list li {
-  font-size: var(--fs-competencies-item);
+  color: var(--text-black);
+  font-size: 2.2327cqw;
   line-height: 1.15;
 }
 
-/* Полоса CTA — во всю карточку (без бокового инсета), см. спеку */
-.cta-band {
-  padding: 4% 21.3%;
-  background: var(--cta-band);
-  color: var(--card-white);
-  text-align: center;
+.hero__descriptor {
+  position: absolute;
+  left: 7.977%;
+  top: 53.807%;
+  width: 47.286%;
+  margin: 0;
+  color: var(--text-black);
+  font-size: 0.9040cqw;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
 }
 
-.cta-band .section-title { color: var(--card-white); }
-
-/* --- FAQ --- */
-.faq { padding-block: 48px; }
-
-.section-title--faq {
-  font-size: var(--fs-faq-title);
+.btn--hero {
+  position: absolute;
+  left: 7.977%;
+  top: 64.467%;
+  width: 15.296%;
+  height: 6.768%;
+  min-height: 28px;
+  background: var(--accent-blue);
+  color: var(--white);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  font-size: 0.9748cqw;
+  font-weight: 600;
+  padding-inline: 0.6em;
+}
+
+/* ===== Компетенции ===== */
+.competencies { margin-top: 2.5157cqw; }
+
+.card--competencies {
+  aspect-ratio: 1216 / 671;
+  border-radius: 3.1447cqw;
+  margin-inline: 2.2013cqw;
+  overflow: hidden;
+}
+
+.competencies__title {
+  position: absolute;
+  left: 0;
+  top: 13.263%;
+  width: 100%;
+  text-align: center;
+  color: var(--text-navy);
+  font-size: 3.7579cqw;
+}
+
+.competencies__list {
+  position: absolute;
+  top: 28.1%;
+  width: 36%;
+  display: flex;
+  flex-direction: column;
+  gap: 4.286cqw;
+}
+
+.competencies__list--a { left: 21.217%; }
+.competencies__list--b { left: 61.678%; }
+
+.competencies__list li {
+  color: var(--text-black);
+  font-size: 1.1242cqw;
+  line-height: 1.15;
+}
+
+.cta-band {
+  position: absolute;
+  left: 0;
+  top: 78.539%;
+  width: 100%;
+  height: 21.461%;
+  background: linear-gradient(180deg, var(--grad-1), var(--grad-2));
+}
+
+.cta-band__title {
+  position: absolute;
+  left: 15%;
+  top: 15.972%;
+  width: 70%;
+  margin: 0;
+  color: var(--white);
+  text-align: center;
+  line-height: 1.1;
+  font-size: 3.7579cqw;
+}
+
+.btn--cta-band {
+  position: absolute;
+  left: 43.75%;
+  top: 58.333%;
+  width: 12.418%;
+  height: 30.556%;
+  min-height: 26px;
+  border: 1.5px solid var(--white);
+  border-radius: 999px;
+  color: var(--white);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.0377cqw;
+  font-weight: 600;
+  white-space: nowrap;
+  padding-inline: 0.6em;
+}
+
+/* ===== FAQ ===== */
+.faq {
+  position: relative;
+  aspect-ratio: 1272 / 507;
+  margin-top: 8.3333cqw;
+}
+
+.faq__title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--white);
+  font-size: 3.9308cqw;
 }
 
 .faq__cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 100px;
-  max-width: 951px;
-  margin-inline: auto;
+  position: absolute;
+  top: 22.879%;
+  left: 0;
+  width: 100%;
+  height: 77.121%;
 }
 
 .faq__card {
-  background: linear-gradient(180deg, var(--faq-grad-1), var(--faq-grad-2));
-  border-radius: 16px;
-  padding: 2em 1.6em;
-  text-align: center;
+  position: absolute;
+  top: 0;
+  width: 24.764%;
+  height: 100%;
+  background: linear-gradient(180deg, var(--grad-1), var(--grad-2));
+  border-radius: 1.8868cqw;
+}
+
+.faq__card:nth-child(1) { left: 10.063%; }
+.faq__card:nth-child(2) { left: 37.657%; }
+.faq__card:nth-child(3) { left: 65.252%; }
+
+.faq__star {
+  position: absolute;
+  left: 4.127%;
+  top: 6.138%;
+  width: 6.984%;
+  height: 5.627%;
 }
 
 .faq__card h3 {
-  font-size: var(--fs-faq-card-title);
-  margin: 0 0 0.6em;
+  position: absolute;
+  left: 7.937%;
+  top: 22%;
+  width: 79.365%;
+  margin: 0;
+  color: var(--white);
+  font-size: 2.3899cqw;
+  line-height: 1.0;
 }
 
 .faq__card p {
-  font-size: var(--fs-body);
+  position: absolute;
+  left: 7.937%;
+  top: 55.499%;
+  width: 79.365%;
   margin: 0;
+  color: var(--white);
+  font-size: 1.1164cqw;
+  line-height: 1.25;
 }
 
-/* --- Организаторы / Партнёры ---
-   В спеке нет отдельной белой подложки для этих секций и нет замера кегля заголовка;
-   белая карточка добавлена как допустимое отклонение №1 (логотипы иначе теряются на тёмном
-   фоне полотна), кегль заголовка взят по аналогии с --fs-section-title. */
-.logos-section { padding-block: 24px; }
+/* ===== Организаторы / Партнёры =====
+   В чертеже нет отдельной белой подложки для этих секций (координаты есть только
+   у заголовков и логотипов), но заливка текста/части логотипов — тёмно-навy
+   #000057, на тёмном полотне это было бы невидимо (тот же дефект, что и с лого
+   партнёров, см. discrepancies_for_ruslan в content.json). Белая карточка —
+   зафиксированное как допустимое отклонение решение, границы карточки подобраны
+   по содержимому с симметричным полем 40px сверху/снизу вокруг измеренных точек
+   (64px не влезали в реальный зазор чертежа между секциями — см. report.md). */
+.logos-section { margin-inline: 2.2013cqw; }
 
-.section-title--logos {
-  text-align: center;
+.logos-section--organizers { margin-top: 9.5126cqw; }
+.logos-section--partners { margin-top: 2.5157cqw; }
+
+.card--logos {
+  border-radius: 3.1447cqw;
 }
 
-.card--logos { padding: 4% 4.6%; text-align: center; }
+.logos-section--organizers .card--logos { aspect-ratio: 1216 / 278; }
+.logos-section--partners .card--logos { aspect-ratio: 1216 / 252; }
 
-.logos-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
+.logos__title {
+  position: absolute;
+  color: var(--text-navy);
+  font-size: 3.9308cqw;
 }
 
-.logos-row img {
-  width: 190px;
-  height: auto;
-}
+.logos-section--organizers .logos__title { left: 37.582%; top: 14.388%; width: 24.589%; white-space: nowrap; }
+.logos-section--partners .logos__title { left: 24.507%; top: 15.873%; width: 50.987%; white-space: nowrap; }
 
-/* --- Футер ---
-   Фон футера сознательно НЕ ограничен боковыми полями .page (x=0, ширина=во весь холст
-   в спеке) — воспроизводит дефект несогласованности с остальными секциями, не чинить. */
+.logo { position: absolute; width: auto; height: auto; object-fit: contain; }
+
+.logo--depinvest { left: 15.132%; top: 49.640%; width: 26.069%; height: 28.058%; }
+.logo--kmz { left: 59.786%; top: 42.446%; width: 24.918%; height: 43.165%; }
+
+.logo--platforma { left: 15.296%; top: 55.556%; width: 14.145%; height: 28.571%; }
+.logo--mosprom { left: 32.483%; top: 53.968%; width: 16.694%; height: 20.238%; }
+.logo--arpm { left: 52.220%; top: 55.556%; width: 14.638%; height: 28.175%; }
+.logo--fcbas { left: 70.066%; top: 64.286%; width: 14.638%; height: 10.317%; }
+
+/* ===== Футер =====
+   Полотно чертежа задаёт высоту подвала 1064px (2714-3778), но всё измеренное
+   содержимое (заголовки/иконки/юр.строка) укладывается в 2714-3042 — 328px.
+   1064 оставляло бы ~700px пустой серой заливки без единого элемента внутри,
+   что похоже на артефакт извлечения bbox из PDF, а не осознанный отступ дизайна.
+   Высота подвала здесь = контент + симметричный отступ снизу (см. report.md). */
 .site-footer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1272 / 421;
   background: var(--footer-grey);
-  color: var(--bg-canvas);
-  padding-block: 48px;
-  margin-top: 24px;
-}
-
-.site-footer__row {
-  display: flex;
-  gap: 80px;
-  flex-wrap: wrap;
+  border-radius: 3.1447cqw 3.1447cqw 0 0;
+  margin-top: 4.7170cqw;
 }
 
 .footer-title {
-  font-size: var(--fs-footer-title);
+  position: absolute;
+  margin: 0;
+  color: var(--text-navy);
   font-weight: 700;
-  margin: 0 0 0.4em;
+  font-size: 5.1651cqw;
 }
 
-.site-footer__block p {
-  font-size: var(--fs-body);
-  margin: 0 0 0.4em;
+.site-footer__block--contacts .footer-title { left: 16.981%; top: 22.090%; white-space: nowrap; }
+.site-footer__block--hours .footer-title { left: 54.166%; top: 21.615%; white-space: nowrap; }
+
+.footer-row {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  margin: 0;
+  color: var(--text-black);
+  font-size: 1.3600cqw;
 }
 
-/* ===== Брейкпоинты — адаптив построен по той же дизайн-системе, в макете мобильной версии нет ===== */
+.site-footer__block--contacts .footer-row:nth-of-type(1) { left: 17.610%; top: 40.380%; }
+.site-footer__block--contacts .footer-row:nth-of-type(2) { left: 17.610%; top: 53.682%; }
+.site-footer__block--hours .footer-row:nth-of-type(1) { left: 54.558%; top: 39.430%; }
+.site-footer__block--hours .footer-row:nth-of-type(2) { left: 54.558%; top: 52.732%; }
 
-@media (max-width: 1440px) {
-  :root { --container-max: 1272px; }
-}
+.footer-icon { width: 1.6509cqw; height: 1.6509cqw; flex: none; }
+.footer-icon--clock { width: 2.2013cqw; height: 2.2013cqw; }
 
-@media (max-width: 1024px) {
-  :root {
-    --fs-h1: 56px;
-    --fs-footer-title: 44px;
-    --fs-faq-title: 38px;
-    --fs-section-title: 34px;
-    --fs-faq-card-title: 24px;
-    --fs-hero-subtitle: 22px;
-  }
-
-  .card--competencies > .section-title,
-  .competencies__list { padding-inline: 12%; }
-  .cta-band { padding-inline: 12%; }
-  .competencies__list { column-gap: 10%; }
-
-  .faq__cards { max-width: 100%; gap: 32px; }
-}
-
-@media (max-width: 768px) {
-  :root {
-    --fs-h1: 42px;
-    --fs-footer-title: 32px;
-    --fs-faq-title: 30px;
-    --fs-section-title: 26px;
-    --fs-faq-card-title: 20px;
-    --fs-hero-subtitle: 18px;
-    --fs-body: 15px;
-    --fs-competencies-item: 14px;
-    --side-margin: 20px;
-  }
-
-  .site-header__row { flex-wrap: wrap; row-gap: 16px; }
-  .site-header__nav { order: 3; width: 100%; margin-inline: 0; }
-  .site-header__nav ul { flex-wrap: wrap; gap: 16px; }
-
-  .card--competencies > .section-title,
-  .competencies__list { padding-inline: 6%; }
-  .cta-band { padding-inline: 6%; }
-  .competencies__list {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-    grid-auto-flow: row;
-    column-gap: 0;
-    row-gap: 1.4em;
-  }
-
-  .faq__cards { grid-template-columns: 1fr; }
-
-  .site-footer__row { gap: 40px; }
-}
-
-@media (max-width: 390px) {
-  :root {
-    --fs-h1: 32px;
-    --fs-footer-title: 26px;
-    --fs-faq-title: 24px;
-    --fs-section-title: 21px;
-    --fs-faq-card-title: 18px;
-    --fs-hero-subtitle: 16px;
-    --fs-descriptor: 10px;
-    --side-margin: 16px;
-  }
-
-  .card--hero { padding: 8% 6%; }
-  .card--competencies { padding-top: 8%; }
-  .card--competencies > .section-title,
-  .competencies__list { padding-inline: 5%; }
-  .cta-band { padding: 6% 5%; }
-  .card--logos { padding: 8% 5%; }
-  .logos-row img { width: 140px; }
-  .site-header__brand img { width: 150px; }
-}
-
-@media (max-width: 360px) {
-  :root {
-    --fs-h1: 29px;
-    --fs-section-title: 19px;
-    --side-margin: 14px;
-  }
-
-  .logos-row img { width: 120px; }
-  .logos-row { gap: 24px; }
+.footer-legal {
+  position: absolute;
+  left: 37.421%;
+  top: 74.109%;
+  width: 26.887%;
+  margin: 0;
+  text-align: center;
+  color: var(--text-black);
+  font-size: 0.9434cqw;
 }
