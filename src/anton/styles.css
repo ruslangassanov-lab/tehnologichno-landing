@@ -175,7 +175,11 @@ img { display: block; max-width: 100%; height: auto; }
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(5, auto);
   grid-auto-flow: column;
-  column-gap: 23.4%;
+  /* Спека: левая колонка x=573, правая x=1557 при карточке x=56 w=2434 → 21.24% и 61.67%
+     от ширины карточки. ВНИМАНИЕ: процент в column-gap считается от content-box грида
+     (57.4% ширины карточки после padding-inline 21.3%), а не от самой карточки.
+     Нужный зазор 23.34% карточки = 23.34/57.4 = 40.65% content-box. */
+  column-gap: 40.65%;
   row-gap: 2.4em;
   padding-inline: 21.3%;
   padding-bottom: 5%;
