@@ -11,35 +11,35 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-400.woff2') format('woff2');
+  src: url('../assets/fonts/inter-400.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
   font-weight: 500;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-500.woff2') format('woff2');
+  src: url('../assets/fonts/inter-500.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
   font-weight: 600;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-600.woff2') format('woff2');
+  src: url('../assets/fonts/inter-600.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-700.woff2') format('woff2');
+  src: url('../assets/fonts/inter-700.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
   font-weight: 800;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-800.woff2') format('woff2');
+  src: url('../assets/fonts/inter-800.woff2') format('woff2');
 }
 
 :root {
@@ -480,3 +480,55 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--text-black);
   font-size: 0.9434cqw;
 }
+
+/* === PDF EXACT OVERRIDES — supplied source 2544×6164, scale 1:2 === */
+body{background:#fff;font-family:'Inter',Arial,sans-serif}
+.canvas{position:relative;width:100%;max-width:1272px;aspect-ratio:1272/3082;margin:0 auto;overflow:hidden;background:linear-gradient(to bottom,#000057 0 67.180727%,#fff 67.180727% 88.043478%,#b6b6b6 88.043478% 100%)}
+main{position:absolute;inset:0}
+.site-header{position:absolute;left:0;top:0;width:100%;height:2.076574%;padding:0}
+.site-header__brand{position:absolute;left:5.738994%;top:25%;width:8.333333%;height:42.1875%}
+.site-header__brand img{width:100%;height:100%;object-fit:contain}
+.site-header__nav{position:absolute;inset:0;margin:0}
+.site-header__nav ul{position:absolute;inset:0;display:block}
+.site-header__nav li{position:absolute;top:33.375%}
+.site-header__nav li:nth-child(1){left:38.034591%}.site-header__nav li:nth-child(2){left:48.592767%}.site-header__nav li:nth-child(3){left:58.72956%}
+.site-header__nav ul{gap:0}.site-header__nav a{font-size:.786164cqw}
+.btn--header{left:86.139937%;top:24.21875%;width:7.421384%;height:42.5%;border:1px solid #fff;background:transparent;color:#fff;padding-left:.7cqw;justify-content:flex-start;font-weight:400}
+.btn--header::after,.btn--hero::after,.btn--cta-band::after{content:'↗';position:absolute;right:.32cqw;top:50%;transform:translateY(-50%);width:1.58cqw;height:1.58cqw;border-radius:50%;background:#fff;color:#063fdf;display:grid;place-items:center;font-size:1.1cqw;line-height:1}
+.hero{position:absolute;left:0;top:2.076574%;width:100%;height:19.17586%;margin:0}
+.card--hero{position:absolute;left:2.201258%;top:0;width:95.597484%;height:100%;margin:0;aspect-ratio:auto;border-radius:3.144654cqw}
+.hero__title{font-weight:400}
+.hero__descriptor{color:#777;font-weight:400}
+.btn--hero{min-height:0;font-weight:400;justify-content:flex-start;padding-left:1.05cqw}
+.competencies{position:absolute;left:0;top:22.29072%;width:100%;height:21.771577%;margin:0}
+.card--competencies{position:absolute;left:2.201258%;top:0;width:95.597484%;height:100%;margin:0;aspect-ratio:auto}
+.competencies__title{font-weight:400}
+.cta-band__title{font-weight:400}
+.btn--cta-band{min-height:0;font-weight:400;justify-content:flex-start;padding-left:1.25cqw}
+.faq{position:absolute;left:0;top:46.950033%;width:100%;height:20.23037%;margin:0;aspect-ratio:auto}
+.faq__title{top:0;font-weight:400}
+.faq__cards{top:21.331195%;height:62.710505%}
+.faq__card h3{font-weight:400}
+.logos-section{position:absolute;left:0;width:100%;margin:0;background:transparent}
+.logos-section--organizers{top:68.640493%;height:6.976%;margin:0}
+.logos-section--partners{top:78.698897%;height:7.463%;margin:0}
+.card--logos,.logos-section--organizers .card--logos,.logos-section--partners .card--logos{position:absolute;inset:0;background:transparent;border-radius:0;aspect-ratio:auto}
+.logos__title{font-weight:400}
+.logos-section--organizers .logos__title{left:38.146226%;top:0}
+.logos-section--partners .logos__title{left:31.139937%;top:0}
+.logo--depinvest{left:16.666667%;top:43.953488%;width:24.921384%;height:36.27907%}
+.logo--kmz{left:59.355346%;top:43.953488%;width:23.820755%;height:55.813953%}
+.logo--platforma{left:16.823899%;top:48.913043%;width:13.522013%;height:31.304348%}
+.logo--mosprom{left:33.254717%;top:48.913043%;width:15.959119%;height:22.173913%}
+.logo--arpm{left:52.122642%;top:48.913043%;width:13.993711%;height:30.869565%}
+.logo--fcbas{left:69.18239%;top:48.913043%;width:13.993711%;height:11.304348%}
+.site-footer{position:absolute;left:0;top:88.043478%;width:100%;height:11.956522%;margin:0;aspect-ratio:auto;border-radius:3.144654cqw 3.144654cqw 0 0;background:#b6b6b6}
+.footer-title{font-weight:400}
+.site-footer__block--contacts .footer-title{left:16.981132%;top:19.348711%}
+.site-footer__block--hours .footer-title{left:54.166667%;top:19.348711%}
+.site-footer__block--contacts .footer-row:nth-of-type(1){left:16.981132%;top:44.097693%}
+.site-footer__block--contacts .footer-row:nth-of-type(2){left:16.981132%;top:59.158752%}
+.site-footer__block--hours .footer-row:nth-of-type(1){left:54.166667%;top:44.097693%}
+.site-footer__block--hours .footer-row:nth-of-type(2){left:54.166667%;top:59.158752%}
+.footer-row{color:#fff}.footer-icon{filter:brightness(0) invert(1)}
+.footer-legal{left:37.421384%;top:83.364993%;color:#fff}
