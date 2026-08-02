@@ -54,9 +54,20 @@
   --shadow:0 24px 60px -28px rgba(0,0,20,.55);
   --shadow-sm:0 10px 30px -18px rgba(0,0,20,.5);
 
-  --fs-display:clamp(2.75rem,6.5vw,5.25rem);
+  /* Типографическая шкала — РОВНО 7 ступеней, других кеглей в файле нет.
+     Значения справа — рендер на 1440px.
+     7 display  clamp → 84px    — H1
+     6 h2       clamp → 41.6px  — заголовки секций, крупные числа
+     5 date     clamp → 30.4px  — даты чемпионата (ключевой факт)
+     4 lead     clamp → 21.6px  — лиды, вопросы FAQ, номера карточек
+     3 body     16px            — основной текст, кнопки, имена компетенций
+     2 label    15px            — меню, подписи, футер
+     1 eyebrow  13px            — надзаголовки/метки
+     Нижняя граница display — 2.25rem (36px): при 2.75rem слово «ТЕХНОЛОГИЧНО»
+     не влезало в 360px и обрезалось (см. verdict.md, п.1). */
+  --fs-display:clamp(2.25rem,6.5vw,5.25rem);
   --fs-h2:clamp(1.75rem,3.2vw,2.6rem);
-  --fs-h3:1.25rem;
+  --fs-date:clamp(1.25rem,2.4vw,1.9rem);
   --fs-lead:clamp(1.06rem,1.5vw,1.375rem);
   --fs-body:1rem;
   --fs-label:.9375rem;   /* 15px — меню/подписи */
@@ -122,7 +133,7 @@ body{
 }
 .btn:hover{transform:translateY(-2px);box-shadow:0 18px 34px -12px rgba(8,70,240,.85)}
 .btn:active{transform:translateY(0)}
-.btn--lg{font-size:1rem;padding:1.05em 1.9em}
+.btn--lg{font-size:var(--fs-body);padding:1.05em 1.9em}
 .btn--sm{padding:.7em 1.2em;font-size:var(--fs-label)}
 .btn--ghost{background:transparent;color:#EAECFF;border-color:var(--line-dark);box-shadow:none}
 .btn--ghost:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);box-shadow:none}
@@ -137,7 +148,14 @@ body{
   border-bottom:1px solid var(--line-dark);
 }
 .header__inner{display:flex;align-items:center;gap:24px;min-height:72px}
-.header__brand img{height:34px;width:auto}
+/* На десктопе обёртка «растворяется»: .nav и .header__cta остаются
+   прямыми флекс-элементами .header__inner. */
+.header__drawer{display:contents}
+/* logo-header.png сверстан под СВЕТЛЫЙ фон: словесная часть залита rgb(0,0,87),
+   что на полотне #000056 даёт контраст 1.00:1 — название бренда физически не видно.
+   Выбиваем лого в белый (knockout). Правильное решение — отдельный светлый ассет,
+   см. «Вопросы Руслану» в verdict.md. */
+.header__brand img{height:34px;width:auto;filter:brightness(0) invert(1)}
 .nav{margin-left:8px}
 .nav__list{display:flex;gap:6px}
 .nav__link{
@@ -179,7 +197,7 @@ body{
   border:1px solid rgba(120,150,255,.4);
 }
 .date-badge__label{font-size:var(--fs-eyebrow);letter-spacing:.14em;text-transform:uppercase;color:#9DB6FF;font-weight:700}
-.date-badge__range{display:flex;align-items:baseline;gap:12px;font-weight:800;color:#fff;font-size:clamp(1.25rem,2.4vw,1.9rem);letter-spacing:-.01em}
+.date-badge__range{display:flex;align-items:baseline;gap:12px;font-weight:800;color:#fff;font-size:var(--fs-date);letter-spacing:-.01em}
 .date-badge__arrow{color:var(--blue);font-weight:700}
 
 .hero__actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
@@ -197,13 +215,13 @@ body{
   background-size:34px 34px;-webkit-mask-image:radial-gradient(120% 90% at 50% 0,#000,transparent 75%);mask-image:radial-gradient(120% 90% at 50% 0,#000,transparent 75%)}
 .hero__panel-eyebrow{position:relative;font-size:var(--fs-eyebrow);letter-spacing:.2em;text-transform:uppercase;color:var(--blue-600);font-weight:700}
 .hero__monogram{position:relative;width:min(62%,190px);height:auto;margin:4px 0 2px}
-.hero__panel-word{position:relative;font-size:1.4rem;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+.hero__panel-word{position:relative;font-size:var(--fs-lead);font-weight:800;letter-spacing:-.01em;color:var(--ink)}
 .hero__stat{
   display:flex;align-items:center;gap:16px;
   padding:16px 24px;border-radius:var(--r);
   background:rgba(255,255,255,.05);border:1px solid var(--line-dark);
 }
-.hero__stat-num{font-size:3rem;font-weight:800;line-height:1;color:#fff;letter-spacing:-.02em}
+.hero__stat-num{font-size:var(--fs-h2);font-weight:800;line-height:1;color:#fff;letter-spacing:-.02em}
 .hero__stat-cap{font-size:var(--fs-label);color:#B7BEEC;line-height:1.25}
 
 /* ---------- About ---------- */
@@ -215,12 +233,12 @@ body{
   background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
   border:1px solid var(--line-dark);
 }
-.fact__num{display:block;font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1}
+.fact__num{display:block;font-size:var(--fs-h2);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1}
 .fact__sep{color:var(--blue);padding:0 .1em}
 .fact__cap{display:block;margin-top:12px;color:#AEB4E0;font-size:var(--fs-label);line-height:1.4}
 
 /* ---------- Competencies ---------- */
-.comp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;counter-reset:c}
+.comp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .comp-card{
   position:relative;display:flex;align-items:center;gap:20px;
   padding:22px 24px;border-radius:var(--r);
@@ -234,11 +252,11 @@ body{
 .comp-card:hover{transform:translateY(-4px);box-shadow:0 26px 50px -24px rgba(0,0,30,.5)}
 .comp-card:hover::before{transform:scaleY(1)}
 .comp-card__num{
-  flex:0 0 auto;font-size:1.35rem;font-weight:800;color:var(--blue);
+  flex:0 0 auto;font-size:var(--fs-lead);font-weight:800;color:var(--blue);
   font-variant-numeric:tabular-nums;letter-spacing:-.02em;
   min-width:2.4ch;
 }
-.comp-card__name{font-size:1.0625rem;font-weight:600;line-height:1.3;color:var(--ink)}
+.comp-card__name{font-size:var(--fs-body);font-weight:600;line-height:1.3;color:var(--ink)}
 
 /* ---------- CTA band ---------- */
 .cta-band{background:var(--blue-600);position:relative;overflow:hidden}
@@ -257,15 +275,15 @@ body{
 }
 .faq-card__q-mark{
   width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
-  background:rgba(255,255,255,.16);color:#fff;font-weight:800;font-size:1.4rem;
+  background:rgba(255,255,255,.16);color:#fff;font-weight:800;font-size:var(--fs-lead);
 }
-.faq-card__q{font-size:var(--fs-h3);font-weight:700;color:#fff;line-height:1.25}
+.faq-card__q{font-size:var(--fs-lead);font-weight:700;color:#fff;line-height:1.25}
 .faq-card__a{color:#D6DEFF;font-size:var(--fs-body);line-height:1.55}
 
 /* ---------- Trust: organizers + partners ---------- */
 .trust__block+.trust__block{margin-top:clamp(48px,6vw,80px)}
 .logo-grid{display:grid;gap:18px}
-.logo-grid--org{grid-template-columns:repeat(2,1fr)}
+.logo-grid--org{grid-template-columns:repeat(2,minmax(0,380px));justify-content:start}
 .logo-grid--partners{grid-template-columns:repeat(4,1fr)}
 .logo-tile{
   display:grid;place-items:center;
@@ -297,7 +315,8 @@ body{
 /* ---------- Footer ---------- */
 .footer{background:var(--navy-900);border-top:1px solid var(--line-dark);padding-block:44px}
 .footer__inner{display:flex;align-items:center;gap:28px;flex-wrap:wrap;justify-content:space-between}
-.footer__logo{height:40px;width:auto;background:#fff;border-radius:10px;padding:8px 12px}
+/* Тот же knockout, что и в шапке: единая трактовка лого вместо белой плашки. */
+.footer__logo{height:40px;width:auto;filter:brightness(0) invert(1);opacity:.9}
 .footer__copy{color:#9299CB;font-size:var(--fs-label);max-width:62ch;line-height:1.5}
 
 /* ---------- Skip link ---------- */
@@ -322,17 +341,24 @@ body{
   .logo-grid--partners{grid-template-columns:repeat(2,1fr)}
 }
 
-@media (max-width:720px){
-  .nav,.header__cta{display:none}
+/* 840px, а не 720: замер показал, что горизонтальное меню + кнопка заявки
+   перестают помещаться в строку уже на 839px — «О чемпионате» и «Оставить
+   заявку» ломались на две строки в диапазоне 721–839px. */
+@media (max-width:839px){
+  .header__drawer{display:none}
   .nav-toggle{display:flex}
-  .site-header.is-open .nav{
+  /* Панель целиком: и пункты меню, и кнопка заявки — внутри неё.
+     Раньше .header__cta оставалась флекс-элементом шапки и при открытом меню
+     влезала в строку с логотипом, ломая её в две строки. */
+  .site-header.is-open .header__drawer{
     display:block;position:absolute;left:0;right:0;top:100%;
     background:var(--navy-900);border-bottom:1px solid var(--line-dark);
     padding:12px var(--pad-inline) 20px;margin:0;
   }
+  .site-header.is-open .nav{margin:0}
   .site-header.is-open .nav__list{flex-direction:column;gap:4px}
-  .site-header.is-open .nav__link{padding:14px 12px;font-size:1.0625rem}
-  .site-header.is-open .header__cta{display:inline-flex;margin:14px var(--pad-inline) 0;width:calc(100% - 2*var(--pad-inline))}
+  .site-header.is-open .nav__link{padding:14px 12px;font-size:var(--fs-body)}
+  .site-header.is-open .header__cta{display:flex;margin:14px 0 0;width:100%}
   .site-header.is-open{position:sticky}
   .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
@@ -350,6 +376,14 @@ body{
   .logo-grid--org,.logo-grid--partners{grid-template-columns:1fr}
   .btn,.btn--lg{width:100%}
   .hero__actions{flex-direction:column;align-items:stretch}
+}
+
+/* ---------- Печать ----------
+   .reveal стартует с opacity:0 и раскрывается только через IntersectionObserver.
+   При печати наблюдатель не срабатывает — без этого правила всё, что ниже
+   первого экрана, уходит в печать пустыми страницами. */
+@media print{
+  .reveal{opacity:1!important;transform:none!important}
 }
 
 /* ---------- Reduced motion ---------- */

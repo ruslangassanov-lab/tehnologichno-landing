@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ТехноЛогично — международный открытый чемпионат высокотехнологичных профессий</title>
-<meta name="description" content="Международный открытый чемпионат высокотехнологичных профессий «ТехноЛогично». 25 сентября — 3 октября. 10 компетенций. Организатор — Карачаровский механический завод при поддержке Правительства Москвы.">
-<link rel="preconnect" href="/">
+<meta name="description" content="Международный открытый чемпионат высокотехнологичных профессий «ТехноЛогично». 25 сентября — 3 октября. 10 компетенций. Организатор — Карачаровский механический завод при поддержке Департамента инвестиционной и промышленной политики города Москвы.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<a class="skip-link" href="#competencies">К содержанию</a>
+<a class="skip-link" href="#main">К содержанию</a>
 
 <!-- ============ HEADER ============ -->
 <header class="site-header" id="top">
@@ -18,23 +17,28 @@
       <img src="../../public/assets/logo-header.png" alt="ТехноЛогично" width="390" height="96">
     </a>
 
-    <nav class="nav" aria-label="Основная навигация">
-      <ul class="nav__list" id="nav-list">
-        <li><a class="nav__link" href="#about">О чемпионате</a></li>
-        <li><a class="nav__link" href="#competencies">Компетенции</a></li>
-        <li><a class="nav__link" href="#docs">Документы</a></li>
-      </ul>
-    </nav>
+    <!-- На десктопе .header__drawer — display:contents, т.е. nav и CTA остаются
+         прямыми флекс-элементами шапки. На мобильном это выпадающая панель,
+         внутри которой лежат и пункты меню, и кнопка заявки. -->
+    <div class="header__drawer" id="header-drawer">
+      <nav class="nav" aria-label="Основная навигация">
+        <ul class="nav__list" id="nav-list">
+          <li><a class="nav__link" href="#about">О чемпионате</a></li>
+          <li><a class="nav__link" href="#competencies">Компетенции</a></li>
+          <li><a class="nav__link" href="#docs">Документы</a></li>
+        </ul>
+      </nav>
 
-    <a class="btn btn--sm header__cta" href="#apply">Оставить заявку</a>
+      <a class="btn btn--sm header__cta" href="#apply">Оставить заявку</a>
+    </div>
 
-    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Меню">
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="header-drawer" aria-label="Меню">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
   <!-- ============ HERO ============ -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__grid-lines" aria-hidden="true"></div>
@@ -61,8 +65,8 @@
         </div>
       </div>
 
-      <div class="hero__visual" aria-hidden="true">
-        <div class="hero__panel">
+      <div class="hero__visual">
+        <div class="hero__panel" aria-hidden="true">
           <span class="hero__panel-eyebrow">Чемпионат</span>
           <svg class="hero__monogram" viewBox="0 0 200 120" role="img" aria-label="ТехноЛогично">
             <defs>
@@ -78,10 +82,10 @@
           </svg>
           <span class="hero__panel-word">ТехноЛогично</span>
         </div>
-        <div class="hero__stat">
+        <p class="hero__stat">
           <span class="hero__stat-num">10</span>
           <span class="hero__stat-cap">высокотехнологичных<br>компетенций</span>
-        </div>
+        </p>
       </div>
     </div>
   </section>
@@ -123,16 +127,16 @@
       </div>
 
       <ol class="comp-grid" id="comp-grid">
-        <li class="comp-card"><span class="comp-card__num">01</span><span class="comp-card__name">Промышленный дизайн</span></li>
-        <li class="comp-card"><span class="comp-card__num">02</span><span class="comp-card__name">Аддитивное производство и обратный инжиниринг</span></li>
-        <li class="comp-card"><span class="comp-card__num">03</span><span class="comp-card__name">Программирование логистических роботов</span></li>
-        <li class="comp-card"><span class="comp-card__num">04</span><span class="comp-card__name">Роботизация промышленного предприятия</span></li>
-        <li class="comp-card"><span class="comp-card__num">05</span><span class="comp-card__name">Машинное обучение и большие данные</span></li>
-        <li class="comp-card"><span class="comp-card__num">06</span><span class="comp-card__name">Техническое обслуживание БАС</span></li>
-        <li class="comp-card"><span class="comp-card__num">07</span><span class="comp-card__name">Проектирование логистических цепочек на предприятии</span></li>
-        <li class="comp-card"><span class="comp-card__num">08</span><span class="comp-card__name">Цифровые двойники технологических процессов</span></li>
-        <li class="comp-card"><span class="comp-card__num">09</span><span class="comp-card__name">Электромеханик вертикального транспорта</span></li>
-        <li class="comp-card"><span class="comp-card__num">10</span><span class="comp-card__name">Компьютерное зрение в промышленности</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">01</span><span class="comp-card__name">Промышленный дизайн</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">02</span><span class="comp-card__name">Аддитивное производство и обратный инжиниринг</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">03</span><span class="comp-card__name">Программирование логистических роботов</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">04</span><span class="comp-card__name">Роботизация промышленного предприятия</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">05</span><span class="comp-card__name">Машинное обучение и большие данные</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">06</span><span class="comp-card__name">Техническое обслуживание БАС</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">07</span><span class="comp-card__name">Проектирование логистических цепочек на предприятии</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">08</span><span class="comp-card__name">Цифровые двойники технологических процессов</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">09</span><span class="comp-card__name">Электромеханик вертикального транспорта</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">10</span><span class="comp-card__name">Компьютерное зрение в промышленности</span></li>
       </ol>
     </div>
   </section>
