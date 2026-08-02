@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ТехноЛогично — международный открытый чемпионат высокотехнологичных профессий</title>
-<meta name="description" content="Международный открытый чемпионат высокотехнологичных профессий «ТехноЛогично». 25 сентября — 3 октября. 10 компетенций. Организатор — Карачаровский механический завод при поддержке Правительства Москвы.">
-<link rel="preconnect" href="../">
+<meta name="description" content="Международный открытый чемпионат высокотехнологичных профессий «ТехноЛогично». 25 сентября — 3 октября. 10 компетенций. Организатор — Карачаровский механический завод при поддержке Департамента инвестиционной и промышленной политики города Москвы.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="../switcher.css"></head>
+<link rel="stylesheet" href="../switcher.css">
+</head>
 <body>
-<a class="skip-link" href="#competencies">К содержанию</a>
+<a class="skip-link" href="#main">К содержанию</a>
 
 <!-- ============ HEADER ============ -->
 <header class="site-header" id="top">
@@ -19,23 +19,28 @@
       <img src="../assets/logo-header.png" alt="ТехноЛогично" width="390" height="96">
     </a>
 
-    <nav class="nav" aria-label="Основная навигация">
-      <ul class="nav__list" id="nav-list">
-        <li><a class="nav__link" href="#about">О чемпионате</a></li>
-        <li><a class="nav__link" href="#competencies">Компетенции</a></li>
-        <li><a class="nav__link" href="#docs">Документы</a></li>
-      </ul>
-    </nav>
+    <!-- На десктопе .header__drawer — display:contents, т.е. nav и CTA остаются
+         прямыми флекс-элементами шапки. На мобильном это выпадающая панель,
+         внутри которой лежат и пункты меню, и кнопка заявки. -->
+    <div class="header__drawer" id="header-drawer">
+      <nav class="nav" aria-label="Основная навигация">
+        <ul class="nav__list" id="nav-list">
+          <li><a class="nav__link" href="#about">О чемпионате</a></li>
+          <li><a class="nav__link" href="#competencies">Компетенции</a></li>
+          <li><a class="nav__link" href="#docs">Документы</a></li>
+        </ul>
+      </nav>
 
-    <a class="btn btn--sm header__cta" href="#apply">Оставить заявку</a>
+      <a class="btn btn--sm header__cta" href="#apply">Оставить заявку</a>
+    </div>
 
-    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Меню">
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="header-drawer" aria-label="Меню">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
   <!-- ============ HERO ============ -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__grid-lines" aria-hidden="true"></div>
@@ -62,23 +67,44 @@
         </div>
       </div>
 
-      <div class="hero__visual" aria-hidden="true">
-        <div class="hero__panel">
-          <span class="hero__panel-eyebrow">Чемпионат</span>
-          <svg class="hero__monogram" viewBox="0 0 200 120" role="img" aria-label="ТехноЛогично">
-            <defs>
-              <linearGradient id="ttg" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#0846F0"/>
-                <stop offset="1" stop-color="#00157A"/>
-              </linearGradient>
-            </defs>
-            <g fill="none" stroke="url(#ttg)" stroke-width="16" stroke-linecap="round">
-              <path d="M20 30 h64 M52 30 V104"/>
-              <path d="M116 30 h64 M148 30 V104"/>
-            </g>
-          </svg>
-          <span class="hero__panel-word">ТехноЛогично</span>
-        </div>
+      <div class="hero__visual">
+        <svg class="hero__monogram" viewBox="0 0 520 400" aria-hidden="true">
+          <defs>
+            <marker id="tick" markerWidth="8" markerHeight="8" refX="4" refY="4">
+              <line x1="0" y1="0" x2="8" y2="0" stroke="#FF5A00" stroke-width="2"/>
+            </marker>
+          </defs>
+          <!-- Кернер-рамка (справа отступ для сохранения композиции) -->
+          <g fill="none" stroke="#8A93A8" stroke-width="1" opacity="0.5">
+            <rect x="30" y="40" width="380" height="330" rx="2"/>
+          </g>
+          <!-- Основные штрихи ТТ -->
+          <g fill="none" stroke="#0947F1" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 60 L140 60 M100 60 L100 200"/>
+            <path d="M280 60 L380 60 M340 60 L340 200"/>
+          </g>
+          <!-- Сигнальный маркер -->
+          <g fill="none" stroke="#FF5A00" stroke-width="3">
+            <line x1="100" y1="200" x2="110" y2="200"/>
+          </g>
+          <!-- Обмерные тики (усилены: opacity 0.6, добавлены размеры) -->
+          <g fill="none" stroke="#8A93A8" stroke-width="2" opacity="0.6">
+            <line x1="40" y1="50" x2="40" y2="60"/>
+            <line x1="140" y1="50" x2="140" y2="60"/>
+            <line x1="100" y1="190" x2="100" y2="210"/>
+            <line x1="280" y1="50" x2="280" y2="60"/>
+            <line x1="380" y1="50" x2="380" y2="60"/>
+            <line x1="340" y1="190" x2="340" y2="210"/>
+          </g>
+          <!-- Выноски и размерные цифры (микротекст, инженерный стиль) -->
+          <g fill="#8A93A8" font-family="Inter, monospace" font-size="11" opacity="0.7">
+            <text x="70" y="35" text-anchor="middle">100</text>
+            <text x="210" y="35" text-anchor="middle">140</text>
+            <text x="310" y="35" text-anchor="middle">100</text>
+            <text x="120" y="225" text-anchor="middle">140</text>
+            <text x="360" y="225" text-anchor="middle">140</text>
+          </g>
+        </svg>
         <div class="hero__stat">
           <span class="hero__stat-num">10</span>
           <span class="hero__stat-cap">высокотехнологичных<br>компетенций</span>
@@ -124,16 +150,16 @@
       </div>
 
       <ol class="comp-grid" id="comp-grid">
-        <li class="comp-card"><span class="comp-card__num">01</span><span class="comp-card__name">Промышленный дизайн</span></li>
-        <li class="comp-card"><span class="comp-card__num">02</span><span class="comp-card__name">Аддитивное производство и обратный инжиниринг</span></li>
-        <li class="comp-card"><span class="comp-card__num">03</span><span class="comp-card__name">Программирование логистических роботов</span></li>
-        <li class="comp-card"><span class="comp-card__num">04</span><span class="comp-card__name">Роботизация промышленного предприятия</span></li>
-        <li class="comp-card"><span class="comp-card__num">05</span><span class="comp-card__name">Машинное обучение и большие данные</span></li>
-        <li class="comp-card"><span class="comp-card__num">06</span><span class="comp-card__name">Техническое обслуживание БАС</span></li>
-        <li class="comp-card"><span class="comp-card__num">07</span><span class="comp-card__name">Проектирование логистических цепочек на предприятии</span></li>
-        <li class="comp-card"><span class="comp-card__num">08</span><span class="comp-card__name">Цифровые двойники технологических процессов</span></li>
-        <li class="comp-card"><span class="comp-card__num">09</span><span class="comp-card__name">Электромеханик вертикального транспорта</span></li>
-        <li class="comp-card"><span class="comp-card__num">10</span><span class="comp-card__name">Компьютерное зрение в промышленности</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">01</span><span class="comp-card__name">Промышленный дизайн</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">02</span><span class="comp-card__name">Аддитивное производство и обратный инжиниринг</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">03</span><span class="comp-card__name">Программирование логистических роботов</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">04</span><span class="comp-card__name">Роботизация промышленного предприятия</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">05</span><span class="comp-card__name">Машинное обучение и большие данные</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">06</span><span class="comp-card__name">Техническое обслуживание БАС</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">07</span><span class="comp-card__name">Проектирование логистических цепочек на предприятии</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">08</span><span class="comp-card__name">Цифровые двойники технологических процессов</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">09</span><span class="comp-card__name">Электромеханик вертикального транспорта</span></li>
+        <li class="comp-card"><span class="comp-card__num" aria-hidden="true">10</span><span class="comp-card__name">Компьютерное зрение в промышленности</span></li>
       </ol>
     </div>
   </section>
@@ -157,17 +183,17 @@
       </div>
       <div class="faq-grid">
         <article class="faq-card">
-          <span class="faq-card__q-mark" aria-hidden="true">?</span>
+          <span class="faq-card__q-mark" aria-hidden="true">01</span>
           <h3 class="faq-card__q">Как принять участие в чемпионате</h3>
           <p class="faq-card__a">Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке «Участвовать в чемпионате» или по ссылке</p>
         </article>
         <article class="faq-card">
-          <span class="faq-card__q-mark" aria-hidden="true">?</span>
+          <span class="faq-card__q-mark" aria-hidden="true">02</span>
           <h3 class="faq-card__q">Где ознакомиться с положением конкурса</h3>
           <p class="faq-card__a">В разделе «Документы» есть все необходимые документы для ознакомления</p>
         </article>
         <article class="faq-card">
-          <span class="faq-card__q-mark" aria-hidden="true">?</span>
+          <span class="faq-card__q-mark" aria-hidden="true">03</span>
           <h3 class="faq-card__q">Кто является организатором чемпионата</h3>
           <p class="faq-card__a">Карачаровский механический завод при поддержке Департамента инвестиционной и промышленной политики города Москвы</p>
         </article>
@@ -249,5 +275,6 @@
 </footer>
 
 <script src="app.js" defer></script>
-<script src="../switcher.js"></script></body>
+<script src="../switcher.js" defer></script>
+</body>
 </html>
