@@ -129,20 +129,20 @@
   /* Цвета — акцент */
   --accent-signal-500: #ff6b2c;
 
-  /* Типографика */
+  /* типографика */
   --f-display: "Saira Condensed", "Saira", "Inter", system-ui, sans-serif;
   --f-text: "Inter", system-ui, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
-  /* Onest — только для hero-зоны (лого-текст, H1 «ТЕХНОЛОГИЧНО», дата в бейдже «СРОКИ»),
-     см. SPEC.md узлы 47:281, 47:301, 47:305. Остальные секции страницы используют Saira
-     Condensed (--f-display) и не входят в периметр этой правки. */
+  /* Onest — только для hero-зоны (лого-текст, H1 «TEXNOЛОГИЧНО»,
+     дата в бейдже «СРОКИ»), см. SPEC.md узлы 47:281, 47:301, 47:305. Остальные секции
+     страницы используют Saira Condensed (--f-display) и не входят в периметр этой правки. */
   --f-onest: "Onest", "Inter", system-ui, sans-serif;
 
   /* Наследование для backward-compatibility */
   --font-display: var(--f-display);
   --font-text: var(--f-text);
 
-  /* Радиусы */
+  /* радиусы */
   --radius-3: 3px;
   --radius-8: 8px;
   --radius-14: 14px;
@@ -275,8 +275,8 @@ button {
   border: var(--border-cta) solid var(--brand-blue-600);
   border-radius: var(--radius-pill);
   /* Figma-обводка (1.5px) не увеличивает bounding box фрейма (stroke inside), а CSS-border
-     всегда добавляет к auto-высоте/ширине — паддинг уменьшен на толщину обводки
-     (11→9.5px, 20→18.5px), чтобы итоговые 39x157 (47:286) совпали с макетом. */
+     всегда добавляет к auto-высоте/ширине — паддинг уменьшен на толщину
+     обводки (11→9.5px, 20→18.5px), чтобы итоговые 39x157 (47:286) совпали с макетом. */
   padding: 9.5px 18.5px;
   font-size: 14px;
   font-weight: 600;
@@ -363,7 +363,7 @@ button {
   align-items: flex-start;
 }
 
-/* Сетка-разметка (декор, узлы 47:289-47:294): 5 вертикальных направляющих
+/* сетка-разметка (декор, узлы 47:289-47:294): 5 вертикальных направляющих
    (x=96,490,884,1278,1344) + 1 горизонтальная (y=560), цвет neutral/600. */
 .hero__grid {
   position: absolute;
@@ -399,7 +399,7 @@ button {
   height: 1.5px;
 } /* 47:294 */
 
-/* Декоративные плашки «Т» (узлы 47:295-47:298): синие сплошные + оранжевые контурные. */
+/* декоративные плашки «т» (узлы 47:295-47:298): синие сплошные + оранжевые контурные. */
 .hero__deco {
   position: absolute;
   top: 0;
@@ -468,7 +468,7 @@ button {
 }
 
 .hero__title {
-  /* 47:301: Onest ExtraBold 92/100, tracking -2.76px — снято на 1440px (десктоп ≥1280px) */
+  /* 47:301: Onest ExtraBold 92/100, tracking -2.76px — снято на 1440px (десктоп ≥10280px) */
   font-family: var(--f-onest);
   font-size: 92px;
   font-weight: 800;
@@ -503,9 +503,6 @@ button {
   line-height: 16px; /* 47:304 */
   letter-spacing: 0.78px;
   color: var(--brand-navy-900);
-  /* Figma (47:304) задаёт opacity:0.55 — на фоне accent/signal-500 это даёт контраст
-     ~3.37:1, ниже требуемых 4.5:1 (WCAG AA для мелкого текста). Осознанное отклонение:
-     opacity поднята до 0.7 (контраст ~4.75:1), HEX не менян. */
   opacity: 0.7;
 }
 
@@ -524,8 +521,6 @@ button {
 }
 
 .hero__monogram {
-  /* Объёмная монограмма ТТ: local viewBox 743x814 со смещением в Figma-точку x=752,y=-40.
-     Правая часть намеренно уходит за viewport и клипуется родителем .hero. */
   position: absolute;
   left: 752px;
   top: -40px;
@@ -730,11 +725,16 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border: 1.5px solid transparent;
 }
 
 .competencies__card--featured {
   background-color: var(--brand-blue-600);
   grid-column: span 2;
+}
+
+.competencies__card--accent {
+  border-color: var(--accent-signal-500);
 }
 
 .competencies__number {
@@ -751,6 +751,10 @@ button {
 
 .competencies__card:not(.competencies__card--featured) .competencies__number {
   color: var(--brand-blue-300);
+}
+
+.competencies__card--accent .competencies__number {
+  color: var(--accent-signal-500);
 }
 
 .competencies__text {
@@ -1167,6 +1171,7 @@ button {
   font-weight: 600;
   letter-spacing: 0.208px;
   color: var(--neutral-600);
+  text-transform: uppercase;
 }
 
 .footer__list {
@@ -1248,9 +1253,6 @@ button {
     height: 500px;
   }
 
-  /* Декор «Т» и второстепенные направляющие сняты только на 1440px (SPEC.md) —
-     на переходной ширине скрываем, чтобы фиксированные 1440-координаты не наезжали
-     на контент; направляющая v1 (x=96) и горизонтальная сохранены как и раньше. */
   .hero__deco {
     display: none;
   }
@@ -1300,7 +1302,7 @@ button {
 }
 
 /* ============================================================================
-   RESPONSIVE: 768px — 1023px (Широкая мобильная)
+   RESPONSIVE: 768px — 1023px (широкая мобильная)
    ============================================================================ */
 
 @media (max-width: 1023px) {
@@ -1479,7 +1481,7 @@ button {
 }
 
 /* ============================================================================
-   RESPONSIVE: 390px — 767px (Мобильный)
+   RESPONSIVE: 390px — 767px (мобильный)
    ============================================================================ */
 
 @media (max-width: 767px) {
@@ -1494,8 +1496,6 @@ button {
   }
 
   .header__wordmark {
-    /* Onest шире Saira Condensed — на узких экранах уменьшаем кегль, чтобы
-     * лого-текст не переносился на 2 строки (было в 1 строку на Saira Condensed). */
     font-size: 14px;
   }
 
@@ -1678,6 +1678,10 @@ button {
     border-radius: var(--radius-16);
     padding: 18px;
     grid-column: span 1;
+  }
+
+  .competencies__card--accent {
+    border-bottom: 1px solid var(--neutral-600);
   }
 
   .competencies__number {
