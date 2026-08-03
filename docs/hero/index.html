@@ -52,24 +52,38 @@
       <span class="hero__deco-shape hero__deco-shape--outline-v"></span>
     </div>
 
-    <!-- Монограмма «ТТ» справа (десктоп) / фоновый акцент (мобайл), узел 47:311/47:312 -->
+    <!-- Монограмма «ТТ» desktop (монументальная 3D): масштаб 743×814 -->
     <svg class="hero__monogram" viewBox="0 0 743 814" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" aria-hidden="true">
+      <!-- Белая = синяя +(255,190); правое крыло шапки до 743 как на боевом -->
       <g id="mono-t2">
-        <polygon class="mono-wall--bottom" fill="#d1541c" points="303,268 743,268 695,332 255,332"/>
-        <polygon class="mono-wall--bottom" fill="#d1541c" points="479,750 567,750 519,814 431,814"/>
-        <polygon class="mono-wall" fill="#ff6b2c" points="303,190 255,254 255,332 303,268"/>
-        <polygon class="mono-wall" fill="#ff6b2c" points="479,190 431,254 431,814 479,750"/>
-        <polygon class="mono-wall--top" fill="#ff6b2c" points="303,190 743,190 695,126 255,126"/>
-        <path class="mono-face" fill="#ffffff" d="M303 190 H743 V268 H567 V750 H479 V268 H303 Z"/>
+        <polygon fill="#d1541c" points="303,268 474,268 426,332 255,332"/>
+        <polygon fill="#d1541c" points="562,268 743,268 695,332 514,332"/>
+        <polygon fill="#d1541c" points="474,790 562,790 514,814 426,814"/>
+        <polygon fill="#ff6b2c" points="303,190 255,254 255,332 303,268"/>
+        <polygon fill="#ff6b2c" points="474,268 426,332 426,814 474,790"/>
+        <path fill="#ffffff" d="M303 190 H743 V268 H562 V790 H474 V268 H303 Z"/>
       </g>
+      <!-- Синяя -->
       <g id="mono-t1">
-        <polygon class="mono-wall--bottom" fill="#d1541c" points="48,78 478,78 430,142 0,142"/>
-        <polygon class="mono-wall--bottom" fill="#d1541c" points="219,600 307,600 259,664 171,664"/>
-        <polygon class="mono-wall" fill="#ff6b2c" points="48,0 0,64 0,142 48,78"/>
-        <polygon class="mono-wall" fill="#ff6b2c" points="219,0 171,64 171,664 219,600"/>
-        <path class="mono-face" fill="#0846f0" d="M48 0 H478 V78 H307 V600 H219 V78 H48 Z"/>
+        <polygon fill="#d1541c" points="48,78 219,78 171,142 0,142"/>
+        <polygon fill="#d1541c" points="307,78 478,78 430,142 259,142"/>
+        <polygon fill="#d1541c" points="219,600 307,600 259,664 171,664"/>
+        <polygon fill="#ff6b2c" points="48,0 0,64 0,142 48,78"/>
+        <polygon fill="#ff6b2c" points="219,78 171,142 171,664 219,600"/>
+        <path fill="#0846f0" d="M48 0 H478 V78 H307 V600 H219 V78 H48 Z"/>
       </g>
     </svg>
+
+    <!-- Мобильный декор: ровная симметричная монограмма, ножки до низа секции -->
+    <div class="hero__logo" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 720" fill="none" preserveAspectRatio="xMaxYMax slice">
+        <g stroke="#ffffff" stroke-width="32" stroke-linecap="butt" stroke-linejoin="round" fill="none">
+          <path d="M0 56 H196 A88 88 0 0 1 284 144 V720"/>
+          <path d="M0 120 H132 A88 88 0 0 1 220 208 V720"/>
+          <path d="M0 184 H68 A88 88 0 0 1 156 272 V720"/>
+        </g>
+      </svg>
+    </div>
 
     <!-- Контент -->
     <div class="hero__content">
@@ -101,15 +115,15 @@
 
     <div class="stats__numbers">
       <div class="stats__column">
-        <div class="stats__number">10</div>
+        <div class="stats__number" data-count="10">10</div>
         <div class="stats__caption">Компетенций</div>
       </div>
       <div class="stats__column">
-        <div class="stats__number">9</div>
+        <div class="stats__number" data-count="9">9</div>
         <div class="stats__caption">Дней · 25.09 — 03.10</div>
       </div>
       <div class="stats__column">
-        <div class="stats__number stats__number--accent">6</div>
+        <div class="stats__number stats__number--accent" data-count="6">6</div>
         <div class="stats__caption">Организаторов и партнёров</div>
       </div>
     </div>
@@ -123,45 +137,43 @@
     </div>
 
     <div class="competencies__grid">
-      <!-- Карточка 01 (выделенная) -->
-      <div class="competencies__card competencies__card--featured">
+      <div class="competencies__card competencies__card--w7" tabindex="0">
         <div class="competencies__number">01</div>
         <div class="competencies__text">Промышленный дизайн</div>
       </div>
-      <!-- Карточки 02-10 -->
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w5" tabindex="0">
         <div class="competencies__number">02</div>
         <div class="competencies__text">Аддитивное производство и обратный инжиниринг</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">03</div>
         <div class="competencies__text">Программирование логистических роботов</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">04</div>
         <div class="competencies__text">Роботизация промышленного предприятия</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">05</div>
         <div class="competencies__text">Машинное обучение и большие данные</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w5" tabindex="0">
         <div class="competencies__number">06</div>
         <div class="competencies__text">Техническое обслуживание БАС</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w7" tabindex="0">
         <div class="competencies__number">07</div>
         <div class="competencies__text">Проектирование логистических цепочек на предприятии</div>
       </div>
-      <div class="competencies__card competencies__card--accent">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">08</div>
         <div class="competencies__text">Цифровые двойники технологических процессов</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">09</div>
         <div class="competencies__text">Электромеханик вертикального транспорта</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">10</div>
         <div class="competencies__text">Компьютерное зрение в промышленности</div>
       </div>
@@ -192,21 +204,25 @@
         <p class="timeline__step-desc">Зарегистрируйтесь на сайте партнёра по кнопке «Участвовать».</p>
       </div>
       <div class="timeline__step">
-        <div class="timeline__circle timeline__circle--accent">04</div>
+        <div class="timeline__circle">04</div>
         <h3 class="timeline__step-title">Старт</h3>
         <p class="timeline__step-desc">Участвуйте в чемпионате: 25 сентября — 3 октября.</p>
       </div>
     </div>
   </section>
 
-  <!-- КОНВЕРСИОННАЯ ПОЛОСА -->
+  <!-- КОНВЕРСИОННАЯ ПОЛОСА: вся «Т» — одна кликабельная конструкция -->
   <section class="cta-band" id="apply">
     <div class="cta-band__content">
       <div class="cta-band__overline">ПРИЁМ ЗАЯВОК ОТКРЫТ</div>
       <h2 class="cta-band__title">Оставьте заявку<br>прямо сейчас</h2>
-      <button class="cta-band__button">Оставить заявку</button>
     </div>
-    <div class="cta-band__decor"></div>
+    <a href="#callback" class="cta-band__construct" aria-label="Оставить заявку">
+      <span class="cta-band__bar">
+        <span class="cta-band__label">Оставить заявку</span>
+      </span>
+      <span class="cta-band__stem" aria-hidden="true"></span>
+    </a>
   </section>
 
   <!-- ВОПРОС-ОТВЕТ -->
@@ -217,28 +233,28 @@
       <div class="faq__item">
         <div class="faq__number">01</div>
         <div class="faq__content">
-          <h3 class="faq__question">Как принять участие в чемпионате</h3>
-          <p class="faq__answer">Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по ссылке</p>
+          <h3 class="faq__question" id="q-01">Как принять участие в чемпионате</h3>
+          <p class="faq__answer" id="answer-01">Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по ссылке</p>
         </div>
-        <button class="faq__toggle" aria-expanded="true" aria-controls="answer-01">+</button>
+        <button class="faq__toggle" type="button" aria-expanded="true" aria-controls="answer-01" aria-labelledby="q-01">−</button>
       </div>
 
       <div class="faq__item">
         <div class="faq__number">02</div>
         <div class="faq__content">
-          <h3 class="faq__question">Где ознакомиться с положением конкурса</h3>
-          <p class="faq__answer">В разделе "Документы" есть все необходимые документы для ознакомления</p>
+          <h3 class="faq__question" id="q-02">Где ознакомиться с положением конкурса</h3>
+          <p class="faq__answer" id="answer-02">В разделе "Документы" есть все необходимые документы для ознакомления</p>
         </div>
-        <button class="faq__toggle" aria-expanded="true" aria-controls="answer-02">+</button>
+        <button class="faq__toggle" type="button" aria-expanded="true" aria-controls="answer-02" aria-labelledby="q-02">−</button>
       </div>
 
       <div class="faq__item">
         <div class="faq__number">03</div>
         <div class="faq__content">
-          <h3 class="faq__question">Кто является организатором чемпионата</h3>
-          <p class="faq__answer">Карачаровский механический завод при поддержке Департамента инвестиционной и промышленной политики города Москвы</p>
+          <h3 class="faq__question" id="q-03">Кто является организатором чемпионата</h3>
+          <p class="faq__answer" id="answer-03">Карачаровский механический завод при поддержке Департамента инвестиционной и промышленной политики города Москвы</p>
         </div>
-        <button class="faq__toggle" aria-expanded="true" aria-controls="answer-03">+</button>
+        <button class="faq__toggle" type="button" aria-expanded="true" aria-controls="answer-03" aria-labelledby="q-03">−</button>
       </div>
     </div>
   </section>

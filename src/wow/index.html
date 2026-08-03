@@ -8,32 +8,82 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="../switcher.css">
 </head>
-<body>
+<body id="top">
   <!-- ШАПКА -->
   <header class="header" id="header">
-    <div class="header__logo">
+    <a href="#top" class="header__logo" aria-label="ТехноЛогично — на главную">
       <svg class="header__monogram" viewBox="0 0 33 21.891" width="33" height="22" xmlns="http://www.w3.org/2000/svg" style="background-color: white; border-radius: 3px; padding: 2px;">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M32.8858 4.10992L32.7716 4.05283H24.3789L23.7223 4.13846L23.2085 4.33825L22.8088 4.56657L22.1522 5.16594L21.6955 5.87946L21.4957 6.42174L21.4386 6.82132V15.5834L21.5242 15.6976L23.4654 15.7261L23.6367 15.5834V7.07819L23.7509 6.70716L24.0649 6.3932L24.4645 6.2505L32.7431 6.27904L32.9144 6.16488L33 5.96509L32.9429 5.7653L32.9715 4.22408L32.8858 4.10992ZM0 4.05283V6.2505H8.50692L8.93512 6.42174L9.1064 6.59299L9.33478 6.99257V15.5834L9.47751 15.7261L11.4472 15.6976L11.5614 15.4978L11.5329 6.8784L11.3616 6.07925L11.1903 5.79384L11.1618 5.65114L10.705 5.05177L10.1912 4.59512L9.82007 4.36679L9.22059 4.13846L8.87803 4.08138L0 4.05283ZM32.8573 0H23.8365L23.6652 0.142705L22.923 0.25687L22.6946 0.371034L22.2379 0.485198L21.2673 0.941856L20.8962 1.17018L19.7258 2.0835L19.1834 2.65432L18.7837 3.16806L18.327 3.88159L17.8702 4.85198L17.6133 5.65114L17.3849 7.02111V21.891H19.6116V6.99257L19.6687 6.53591L19.9256 5.65114L20.3538 4.76636L20.4965 4.62366L20.6107 4.39533L21.4957 3.45347L22.1522 2.96827L23.0372 2.54016L23.9792 2.28329L24.5502 2.2262H32.7716L32.8858 2.0835L32.8573 0ZM13.7595 0.342493L13.9593 1.1131L14.1592 1.48414L14.359 1.74101L14.7587 2.0835L18.2699 2.05496L18.4126 1.96934L18.6696 1.68392L18.8694 1.36997L19.0692 0.941856L19.1834 0.485198V0.313952L19.0121 0H13.9308V0.114164L13.7595 0.342493ZM0 0V2.11204L0.228374 2.2262H8.39273L8.99221 2.28329L9.93426 2.54016L10.8478 2.99681L11.6185 3.59618L12.0753 4.05283L12.532 4.6522L12.9888 5.50843L13.0173 5.70822L13.1886 6.10779L13.3599 7.16381V21.891H15.558L15.5294 6.70716L15.4723 6.19342L15.3296 5.7653L15.2439 5.2801L15.1012 4.99469L15.0156 4.6522L14.5588 3.73888L14.1021 3.0539L13.1315 1.99788L12.4178 1.39851L11.8183 1.05602L11.7042 0.941856L10.7336 0.485198L9.90571 0.228329L9.27768 0.142705L9.13495 0H0Z" fill="#00002e"/>
       </svg>
       <span class="header__wordmark">ТЕХНОЛОГИЧНО</span>
-    </div>
-    <nav class="header__nav" aria-label="Основная навигация">
+    </a>
+    <nav class="header__nav" id="primary-nav" aria-label="Основная навигация">
       <a href="#about" class="header__nav-link">О чемпионате</a>
       <a href="#competencies" class="header__nav-link">Компетенции</a>
       <a href="#docs" class="header__nav-link">Документы</a>
     </nav>
-    <button class="header__cta" onclick="location.href='#apply'">Оставить заявку</button>
+    <div class="header__actions">
+      <a href="#apply" class="header__cta">Оставить заявку</a>
+      <button type="button" class="header__menu-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Открыть меню">
+        <span class="header__menu-toggle-bar"></span>
+        <span class="header__menu-toggle-bar"></span>
+        <span class="header__menu-toggle-bar"></span>
+      </button>
+    </div>
   </header>
 
   <!-- ПЕРВЫЙ ЭКРАН (HERO) -->
   <section class="hero" id="about">
-    <!-- Декоративный слой линий и плашек (только десктоп) -->
-    <div class="hero__grid"></div>
+    <!-- Сетка-разметка (декор, узлы 47:289-47:294) -->
+    <div class="hero__grid" aria-hidden="true">
+      <span class="hero__grid-line hero__grid-line--v hero__grid-line--v1"></span>
+      <span class="hero__grid-line hero__grid-line--v hero__grid-line--v2"></span>
+      <span class="hero__grid-line hero__grid-line--v hero__grid-line--v3"></span>
+      <span class="hero__grid-line hero__grid-line--v hero__grid-line--v4"></span>
+      <span class="hero__grid-line hero__grid-line--v hero__grid-line--v5"></span>
+      <span class="hero__grid-line hero__grid-line--h"></span>
+    </div>
 
-    <!-- Монограмма справа (десктоп) / фоновый акцент (мобайл) -->
-    <svg class="hero__monogram" viewBox="0 0 843.083 559.271" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" overflow="visible" style="display: block;">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M840.166 105L837.248 103.542H622.831L606.057 105.729L592.929 110.833L582.719 116.667L565.945 131.979L554.276 150.208L549.171 164.062L547.712 174.271V398.125L549.9 401.042L599.493 401.771L603.869 398.125V180.833L606.786 171.354L614.809 163.333L625.019 159.687L836.519 160.417L840.895 157.5L843.083 152.396L841.624 147.292L842.353 107.917L840.166 105ZM0 103.542V159.687H217.334L228.274 164.062L232.65 168.437L238.484 178.646V398.125L242.131 401.771L292.453 401.042L295.371 395.937L294.641 175.729L290.266 155.312L285.89 148.021L285.16 144.375L273.491 129.062L260.364 117.396L250.883 111.562L235.567 105.729L226.816 104.271L0 103.542ZM839.436 0H608.974L604.598 3.64583L585.636 6.5625L579.802 9.47917L568.133 12.3958L543.336 24.0625L533.855 29.8958L503.953 53.2292L490.097 67.8125L479.886 80.9375L468.217 99.1667L456.548 123.958L449.984 144.375L444.15 179.375V559.271H501.036V178.646L502.495 166.979L509.059 144.375L519.998 121.771L523.645 118.125L526.562 112.292L549.171 88.2292L565.945 75.8333L588.553 64.8958L612.621 58.3333L627.207 56.875H837.248L840.166 53.2292L839.436 0ZM351.528 8.75L356.633 28.4375L361.738 37.9167L366.843 44.4792L377.053 53.2292L466.759 52.5L470.405 50.3125L476.969 43.0208L482.074 35L487.179 24.0625L490.097 12.3958V8.02083L485.721 0H355.903V2.91667L351.528 8.75ZM0 0V53.9583L5.83448 56.875H214.417L229.733 58.3333L253.8 64.8958L277.138 76.5625L296.829 91.875L308.498 103.542L320.167 118.854L331.836 140.729L332.566 145.833L336.941 156.042L341.317 183.021V559.271H397.474L396.745 171.354L395.286 158.229L391.64 147.292L389.452 134.896L385.805 127.604L383.617 118.854L371.948 95.5208L360.279 78.0208L335.483 51.0417L317.25 35.7292L301.934 26.9792L299.017 24.0625L274.221 12.3958L253.071 5.83333L237.026 3.64583L233.379 0H0Z" fill="white"/>
+    <!-- Декоративные плашки «Т» (узлы 47:295-47:298) -->
+    <div class="hero__deco" aria-hidden="true">
+      <span class="hero__deco-shape hero__deco-shape--blue-h"></span>
+      <span class="hero__deco-shape hero__deco-shape--blue-v"></span>
+      <span class="hero__deco-shape hero__deco-shape--outline-h"></span>
+      <span class="hero__deco-shape hero__deco-shape--outline-v"></span>
+    </div>
+
+    <!-- Монограмма «ТТ» desktop (монументальная 3D): масштаб 743×814 -->
+    <svg class="hero__monogram" viewBox="0 0 743 814" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" aria-hidden="true">
+      <!-- Белая = синяя +(255,190); правое крыло шапки до 743 как на боевом -->
+      <g id="mono-t2">
+        <polygon fill="#d1541c" points="303,268 474,268 426,332 255,332"/>
+        <polygon fill="#d1541c" points="562,268 743,268 695,332 514,332"/>
+        <polygon fill="#d1541c" points="474,790 562,790 514,814 426,814"/>
+        <polygon fill="#ff6b2c" points="303,190 255,254 255,332 303,268"/>
+        <polygon fill="#ff6b2c" points="474,268 426,332 426,814 474,790"/>
+        <path fill="#ffffff" d="M303 190 H743 V268 H562 V790 H474 V268 H303 Z"/>
+      </g>
+      <!-- Синяя -->
+      <g id="mono-t1">
+        <polygon fill="#d1541c" points="48,78 219,78 171,142 0,142"/>
+        <polygon fill="#d1541c" points="307,78 478,78 430,142 259,142"/>
+        <polygon fill="#d1541c" points="219,600 307,600 259,664 171,664"/>
+        <polygon fill="#ff6b2c" points="48,0 0,64 0,142 48,78"/>
+        <polygon fill="#ff6b2c" points="219,78 171,142 171,664 219,600"/>
+        <path fill="#0846f0" d="M48 0 H478 V78 H307 V600 H219 V78 H48 Z"/>
+      </g>
     </svg>
+
+    <!-- Мобильный декор: ровная симметричная монограмма, ножки до низа секции -->
+    <div class="hero__logo" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 720" fill="none" preserveAspectRatio="xMaxYMax slice">
+        <g stroke="#ffffff" stroke-width="32" stroke-linecap="butt" stroke-linejoin="round" fill="none">
+          <path d="M0 56 H196 A88 88 0 0 1 284 144 V720"/>
+          <path d="M0 120 H132 A88 88 0 0 1 220 208 V720"/>
+          <path d="M0 184 H68 A88 88 0 0 1 156 272 V720"/>
+        </g>
+      </svg>
+    </div>
 
     <!-- Контент -->
     <div class="hero__content">
@@ -47,8 +97,8 @@
       </div>
 
       <div class="hero__buttons">
-        <button class="btn btn--primary" onclick="location.href='#apply'">Участвовать в чемпионате</button>
-        <button class="btn btn--secondary">Оставить заявку</button>
+        <a href="#apply" class="btn btn--primary">Участвовать в чемпионате</a>
+        <a href="#callback" class="btn btn--secondary">Оставить заявку</a>
       </div>
     </div>
   </section>
@@ -65,15 +115,15 @@
 
     <div class="stats__numbers">
       <div class="stats__column">
-        <div class="stats__number">10</div>
+        <div class="stats__number" data-count="10">10</div>
         <div class="stats__caption">Компетенций</div>
       </div>
       <div class="stats__column">
-        <div class="stats__number">9</div>
+        <div class="stats__number" data-count="9">9</div>
         <div class="stats__caption">Дней · 25.09 — 03.10</div>
       </div>
       <div class="stats__column">
-        <div class="stats__number stats__number--accent">6</div>
+        <div class="stats__number stats__number--accent" data-count="6">6</div>
         <div class="stats__caption">Организаторов и партнёров</div>
       </div>
     </div>
@@ -87,45 +137,43 @@
     </div>
 
     <div class="competencies__grid">
-      <!-- Карточка 01 (выделенная) -->
-      <div class="competencies__card competencies__card--featured">
+      <div class="competencies__card competencies__card--w7" tabindex="0">
         <div class="competencies__number">01</div>
         <div class="competencies__text">Промышленный дизайн</div>
       </div>
-      <!-- Карточки 02-10 -->
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w5" tabindex="0">
         <div class="competencies__number">02</div>
         <div class="competencies__text">Аддитивное производство и обратный инжиниринг</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">03</div>
         <div class="competencies__text">Программирование логистических роботов</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">04</div>
         <div class="competencies__text">Роботизация промышленного предприятия</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">05</div>
         <div class="competencies__text">Машинное обучение и большие данные</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w5" tabindex="0">
         <div class="competencies__number">06</div>
         <div class="competencies__text">Техническое обслуживание БАС</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w7" tabindex="0">
         <div class="competencies__number">07</div>
         <div class="competencies__text">Проектирование логистических цепочек на предприятии</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">08</div>
         <div class="competencies__text">Цифровые двойники технологических процессов</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">09</div>
         <div class="competencies__text">Электромеханик вертикального транспорта</div>
       </div>
-      <div class="competencies__card">
+      <div class="competencies__card competencies__card--w4" tabindex="0">
         <div class="competencies__number">10</div>
         <div class="competencies__text">Компьютерное зрение в промышленности</div>
       </div>
@@ -156,11 +204,25 @@
         <p class="timeline__step-desc">Зарегистрируйтесь на сайте партнёра по кнопке «Участвовать».</p>
       </div>
       <div class="timeline__step">
-        <div class="timeline__circle timeline__circle--accent">04</div>
+        <div class="timeline__circle">04</div>
         <h3 class="timeline__step-title">Старт</h3>
         <p class="timeline__step-desc">Участвуйте в чемпионате: 25 сентября — 3 октября.</p>
       </div>
     </div>
+  </section>
+
+  <!-- КОНВЕРСИОННАЯ ПОЛОСА: вся «Т» — одна кликабельная конструкция -->
+  <section class="cta-band" id="apply">
+    <div class="cta-band__content">
+      <div class="cta-band__overline">ПРИЁМ ЗАЯВОК ОТКРЫТ</div>
+      <h2 class="cta-band__title">Оставьте заявку<br>прямо сейчас</h2>
+    </div>
+    <a href="#callback" class="cta-band__construct" aria-label="Оставить заявку">
+      <span class="cta-band__bar">
+        <span class="cta-band__label">Оставить заявку</span>
+      </span>
+      <span class="cta-band__stem" aria-hidden="true"></span>
+    </a>
   </section>
 
   <!-- ВОПРОС-ОТВЕТ -->
@@ -171,40 +233,30 @@
       <div class="faq__item">
         <div class="faq__number">01</div>
         <div class="faq__content">
-          <h3 class="faq__question">Как принять участие в чемпионате</h3>
-          <p class="faq__answer">Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по ссылке</p>
+          <h3 class="faq__question" id="q-01">Как принять участие в чемпионате</h3>
+          <p class="faq__answer" id="answer-01">Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по ссылке</p>
         </div>
-        <button class="faq__toggle" aria-expanded="true" aria-controls="answer-01">−</button>
+        <button class="faq__toggle" type="button" aria-expanded="true" aria-controls="answer-01" aria-labelledby="q-01">−</button>
       </div>
 
       <div class="faq__item">
         <div class="faq__number">02</div>
         <div class="faq__content">
-          <h3 class="faq__question">Где ознакомиться с положением конкурса</h3>
-          <p class="faq__answer">В разделе "Документы" есть все необходимые документы для ознакомления</p>
+          <h3 class="faq__question" id="q-02">Где ознакомиться с положением конкурса</h3>
+          <p class="faq__answer" id="answer-02">В разделе "Документы" есть все необходимые документы для ознакомления</p>
         </div>
-        <button class="faq__toggle" aria-expanded="true" aria-controls="answer-02">−</button>
+        <button class="faq__toggle" type="button" aria-expanded="true" aria-controls="answer-02" aria-labelledby="q-02">−</button>
       </div>
 
       <div class="faq__item">
         <div class="faq__number">03</div>
         <div class="faq__content">
-          <h3 class="faq__question">Кто является организатором чемпионата</h3>
-          <p class="faq__answer">Карачаровский механический завод при поддержке Департамента инвестиционной и промышленной политики города Москвы</p>
+          <h3 class="faq__question" id="q-03">Кто является организатором чемпионата</h3>
+          <p class="faq__answer" id="answer-03">Карачаровский механический завод при поддержке Департамента инвестиционной и промышленной политики города Москвы</p>
         </div>
-        <button class="faq__toggle" aria-expanded="true" aria-controls="answer-03">−</button>
+        <button class="faq__toggle" type="button" aria-expanded="true" aria-controls="answer-03" aria-labelledby="q-03">−</button>
       </div>
     </div>
-  </section>
-
-  <!-- КОНВЕРСИОННАЯ ПОЛОСА -->
-  <section class="cta-band" id="apply">
-    <div class="cta-band__content">
-      <div class="cta-band__overline">ПРИЁМ ЗАЯВОК ОТКРЫТ</div>
-      <h2 class="cta-band__title">Оставьте заявку<br>прямо сейчас</h2>
-      <button class="cta-band__button">Оставить заявку</button>
-    </div>
-    <div class="cta-band__decor"></div>
   </section>
 
   <!-- ОРГАНИЗАТОРЫ И ПАРТНЁРЫ -->
@@ -257,21 +309,21 @@
 
       <div class="footer__columns">
         <div class="footer__column">
-          <h3 class="footer__heading">КОНТАКТЫ</h3>
+          <h3 class="footer__heading">Контакты</h3>
           <ul class="footer__list">
             <li><a href="tel:+79057245963">+7 (905) 724-59-63</a></li>
             <li><a href="mailto:technologic@kmz.mos.ru">technologic@kmz.mos.ru</a></li>
           </ul>
         </div>
         <div class="footer__column">
-          <h3 class="footer__heading">ВРЕМЯ РАБОТЫ</h3>
+          <h3 class="footer__heading">Время работы</h3>
           <ul class="footer__list">
             <li>Пн—Пт: 10:00—18:00</li>
             <li>Сб—Вс: выходные</li>
           </ul>
         </div>
         <div class="footer__column">
-          <h3 class="footer__heading">НАВИГАЦИЯ</h3>
+          <h3 class="footer__heading">Навигация</h3>
           <ul class="footer__list">
             <li><a href="#about">О чемпионате</a></li>
             <li><a href="#competencies">Компетенции</a></li>

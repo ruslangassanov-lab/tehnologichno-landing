@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Mobile menu (hamburger) in header
   setupMobileMenu();
+
+  // Scroll reveal (как в src/ruslan)
+  setupScrollReveal();
+
+  // Цифры чемпионата — count-up при появлении в зоне
+  setupStatsCount();
 });
 
 /* ============================================================================
@@ -86,39 +92,36 @@ function setupMobileMenu() {
 function setupFaqAccordion() {
   const toggles = document.querySelectorAll('.faq__toggle');
 
-  toggles.forEach(toggle => {
+  const setExpanded = (toggle, expanded) => {
+    const item = toggle.closest('.faq__item');
+    const answer = item.querySelector('.faq__answer');
+    toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    toggle.textContent = expanded ? '−' : '+';
+    if (answer) {
+      if (expanded) {
+        answer.removeAttribute('hidden');
+      } else {
+        answer.setAttribute('hidden', '');
+      }
+    }
+  };
+
+  // Старт: всё раскрыто, знак «−»
+  toggles.forEach((toggle) => setExpanded(toggle, true));
+
+  toggles.forEach((toggle) => {
     toggle.addEventListener('click', (e) => {
       e.preventDefault();
-      const item = toggle.closest('.faq__item');
       const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-
-      // Toggle state
-      toggle.setAttribute('aria-expanded', !isExpanded);
-
-      // Rotate icon (or change + to -)
-      if (isExpanded) {
-        toggle.textContent = '−';  // Was expanded, now collapsed
-      } else {
-        toggle.textContent = '+';  // Was collapsed, now expanded
-      }
-
-      // Hide/show answer
-      const answer = item.querySelector('.faq__answer');
-      if (isExpanded) {
-        answer.style.display = 'none';
-      } else {
-        answer.style.display = 'block';
-      }
+      setExpanded(toggle, !isExpanded);
     });
   });
 
-  // Also handle click on the question itself
-  const questions = document.querySelectorAll('.faq__question');
-  questions.forEach(question => {
+  document.querySelectorAll('.faq__question').forEach((question) => {
     question.style.cursor = 'pointer';
     question.addEventListener('click', () => {
       const toggle = question.closest('.faq__item').querySelector('.faq__toggle');
-      toggle.click();
+      if (toggle) toggle.click();
     });
   });
 }
@@ -190,6 +193,112 @@ function setupButtonInteractions() {
       button.style.transition = 'none';
     }
   });
+}
+
+/* ============================================================================
+   STATS COUNT-UP — отсчёт до целевого числа при появлении в viewport
+   ============================================================================ */
+
+function setupStatsCount() {
+  const nums = document.querySelectorAll('.stats__number[data-count]');
+  if (!nums.length) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const duration = 1600;
+
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  const runCount = (el) => {
+    const target = Number(el.getAttribute('data-count'));
+    if (!Number.isFinite(target)) return;
+
+    if (reduce) {
+      el.textContent = String(target);
+      return;
+    }
+
+    const start = performance.now();
+    el.textContent = '0';
+
+    const frame = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      el.textContent = String(Math.round(easeOutCubic(t) * target));
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        el.textContent = String(target);
+      }
+    };
+
+    requestAnimationFrame(frame);
+  };
+
+  if (!('IntersectionObserver' in window)) {
+    nums.forEach(runCount);
+    return;
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (el.dataset.counted === '1') return;
+        el.dataset.counted = '1';
+        runCount(el);
+        io.unobserve(el);
+      });
+    },
+    { threshold: 0.35, rootMargin: '0px 0px -8% 0px' }
+  );
+
+  nums.forEach((el) => {
+    if (!reduce) el.textContent = '0';
+    io.observe(el);
+  });
+}
+
+/* ============================================================================
+   SCROLL REVEAL
+   ============================================================================ */
+
+function setupScrollReveal() {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = document.querySelectorAll(
+    '.hero__content, .stats__header, .stats__column, .competencies__header, .competencies__card, .timeline__header, .timeline__step, .cta-band__content, .faq__title, .faq__item, .partners__title, .partners__group, .footer__brand, .footer__column'
+  );
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  targets.forEach((el) => el.classList.add('reveal'));
+
+  const stagger = (nodeList) => {
+    nodeList.forEach((el, i) => {
+      el.style.setProperty('--d', Math.min(i * 55, 330) + 'ms');
+    });
+  };
+  stagger(document.querySelectorAll('.competencies__card'));
+  stagger(document.querySelectorAll('.stats__column'));
+  stagger(document.querySelectorAll('.timeline__step'));
+  stagger(document.querySelectorAll('.faq__item'));
+  stagger(document.querySelectorAll('.partners__card'));
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+  );
+
+  targets.forEach((el) => io.observe(el));
 }
 
 /* ============================================================================

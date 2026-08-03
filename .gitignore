@@ -1,0 +1,12 @@
+
+.venv/
+outputs/renders/pdf-*
+outputs/renders/compare-*
+outputs/renders/anton-*
+outputs/renders/faq-*
+outputs/renders/diff-*
+outputs/renders/inspect-*
+outputs/renders/header*
+outputs/renders/cta-*
+outputs/renders/hero-*
+outputs/renders/star-*

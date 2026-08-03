@@ -1,6 +1,6 @@
 #vswitch{position:fixed;top:0;left:0;right:0;z-index:99999;display:flex;gap:.5rem;align-items:center;justify-content:center;padding:.5rem;background:#0b1020;border-bottom:1px solid rgba(255,255,255,.15);font:600 14px/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 #vswitch span{color:#9fb0d0;margin-right:.35rem}
-#vswitch a{color:#cfe0ff;text-decoration:none;padding:.4rem .8rem;border:1px solid rgba(255,255,255,.25);border-radius:999px}
+#vswitch a{color:#cfe0ff;text-decoration:none;padding:.4rem .8rem;border:1px solid rgba(255,255,255,.25);border-radius:999px;width:11rem;box-sizing:border-box;text-align:center;display:inline-flex;align-items:center;justify-content:center}
 #vswitch a[aria-current=page]{background:#0846F0;border-color:#0846F0;color:#fff}
 #vswitch a:focus-visible{outline:2px solid #fff;outline-offset:2px}
 body{padding-top:46px!important}
