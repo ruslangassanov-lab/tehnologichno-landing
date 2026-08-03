@@ -1,6 +1,6 @@
 /* ТехноЛогично — Антон. Прогрессивное улучшение: без JS страница
-   читаема. JS добавляет мягкие появления секций (как src/ruslan)
-   и подчёркивание навигации слева→направо. */
+   читаема. JS добавляет мягкие появления секций и подчёркивание
+   навигации слева→направо (классы ah-* / pixel-perfect build). */
 (function () {
   'use strict';
 
@@ -8,12 +8,12 @@
 
   /* Nav underline: fills left → right on hover */
   (function setupNavUnderline() {
-    var links = document.querySelectorAll('.site-header__nav a');
+    var links = document.querySelectorAll('.ah-nav a');
     if (!links.length) return;
 
     links.forEach(function (link) {
       var line = document.createElement('span');
-      line.className = 'site-header__nav-line';
+      line.className = 'ah-nav-line';
       line.setAttribute('aria-hidden', 'true');
       link.appendChild(line);
 
@@ -33,7 +33,7 @@
   })();
 
   var targets = document.querySelectorAll(
-    '.card--hero, .competencies__title, .competencies__list li, .cta-band, .faq__title, .faq__card, .logos__title, .logo, .site-footer__block, .footer-legal'
+    '.ah-hero, .ac-sec, .faq__title, .faq__card, .logos__title, .logo, .site-footer__block, .footer-legal'
   );
 
   if (!targets.length) return;
@@ -50,7 +50,6 @@
       el.style.setProperty('--d', Math.min(i * 55, 330) + 'ms');
     });
   };
-  stagger(document.querySelectorAll('.competencies__list li'));
   stagger(document.querySelectorAll('.faq__card'));
   stagger(document.querySelectorAll('.logo'));
 
