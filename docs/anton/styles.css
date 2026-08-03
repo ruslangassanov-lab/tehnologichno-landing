@@ -60,6 +60,7 @@ html, body {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  background: var(--bg-canvas);
 }
 
 body {
@@ -86,8 +87,8 @@ img { display: block; max-width: 100%; height: auto; }
 .canvas {
   container-type: inline-size;
   width: 100%;
-  max-width: none;
-  margin-inline: 0;
+  max-width: 1272px;
+  margin-inline: auto;
   position: relative;
 }
 
@@ -345,6 +346,7 @@ img { display: block; max-width: 100%; height: auto; }
   left: 0;
   width: 100%;
   height: 77.121%;
+  overflow: visible;
 }
 
 .faq__card {
@@ -403,14 +405,13 @@ img { display: block; max-width: 100%; height: auto; }
    зафиксированное как допустимое отклонение решение, границы карточки подобраны
    по содержимому с симметричным полем 40px сверху/снизу вокруг измеренных точек
    (64px не влезали в реальный зазор чертежа между секциями — см. report.md). */
-.logos-section { margin-inline: 0; width: 100%; }
+.logos-section { margin-inline: 2.2013cqw; }
 
 .logos-section--organizers { margin-top: 9.5126cqw; }
 .logos-section--partners { margin-top: 2.5157cqw; }
 
 .card--logos {
-  border-radius: 0;
-  width: 100%;
+  border-radius: 3.1447cqw;
 }
 
 .logos-section--organizers .card--logos { aspect-ratio: 1216 / 278; }
@@ -447,24 +448,20 @@ img { display: block; max-width: 100%; height: auto; }
 .logo--arpm { left: 52.220%; top: 70%; width: 14.638%; transform: translateY(-50%); }
 .logo--fcbas { left: 70.066%; top: 70%; width: 14.638%; transform: translateY(-50%); }
 
-/* ===== Футер =====
-   Фон на всю ширину экрана; геометрия PDF (1272) — во внутреннем контейнере,
-   чтобы full-bleed не раздувал cqw/проценты и не делал блок «жидким».
-   Заголовки — navy на сером (#B6B6B6), как в рабочем макете до поломки. */
+/* ===== Футер (PDF): серая карточка на navy, navy-заголовки, белые круги-иконки ===== */
 .site-footer {
   position: relative;
   width: 100%;
   background: var(--footer-grey);
-  border-radius: 0;
+  border-radius: 3.1447cqw 3.1447cqw 0 0;
   margin-top: 4.7170cqw;
+  overflow: hidden;
 }
 
 .site-footer__inner {
   position: relative;
   container-type: inline-size;
   width: 100%;
-  max-width: 1272px;
-  margin-inline: auto;
   aspect-ratio: 1272 / 421;
 }
 
@@ -493,18 +490,22 @@ img { display: block; max-width: 100%; height: auto; }
   line-height: 1.2;
 }
 
+.footer-row a { color: inherit; }
+
 .site-footer__block--contacts .footer-row:nth-of-type(1) { left: 17.610%; top: 40.380%; }
 .site-footer__block--contacts .footer-row:nth-of-type(2) { left: 17.610%; top: 53.682%; }
 .site-footer__block--hours .footer-row:nth-of-type(1) { left: 54.558%; top: 39.430%; }
 .site-footer__block--hours .footer-row:nth-of-type(2) { left: 54.558%; top: 52.732%; }
 
 .footer-icon {
-  width: 1.6509cqw;
-  height: 1.6509cqw;
+  width: 2.9088cqw;
+  height: 2.9088cqw;
   flex: none;
   object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
 }
-.footer-icon--clock { width: 2.2013cqw; height: 2.2013cqw; }
+.footer-icon--clock { width: 2.9088cqw; height: 2.9088cqw; }
 
 .footer-legal {
   position: absolute;
@@ -620,25 +621,25 @@ img { display: block; max-width: 100%; height: auto; }
 
 .faq__card {
   cursor: default;
+  will-change: transform, box-shadow;
   transform: translate3d(0, 0, 0);
-  filter: brightness(1);
-  box-shadow: 0 0.4cqw 1.2cqw rgba(0, 0, 30, 0.18);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 40, 0.12),
+    0 8px 20px rgba(0, 0, 40, 0.16);
   transition:
-    transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
-    filter 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transform 220ms ease,
+    box-shadow 220ms ease;
 }
 
 .faq__card:hover,
 .faq__card:focus-within,
 .faq__card.reveal.is-visible:hover,
 .faq__card.reveal.is-visible:focus-within {
-  transform: translate3d(0, -0.7cqw, 0);
-  filter: brightness(1.06);
+  transform: translate3d(0, -8px, 0);
   box-shadow:
-    0 0.25cqw 0.5cqw rgba(0, 0, 40, 0.12),
-    0 1.1cqw 2cqw rgba(0, 10, 60, 0.28),
-    0 2.2cqw 4cqw rgba(0, 0, 40, 0.32);
+    0 6px 12px rgba(0, 0, 40, 0.14),
+    0 18px 36px rgba(0, 10, 60, 0.28),
+    0 32px 56px rgba(0, 0, 40, 0.22);
   z-index: 3;
 }
 
@@ -697,7 +698,10 @@ img { display: block; max-width: 100%; height: auto; }
   .faq__card:hover,
   .faq__card:focus-within {
     transform: none;
-    filter: none;
+  }
+
+  .faq__card {
+    will-change: auto;
   }
 
   .reveal {

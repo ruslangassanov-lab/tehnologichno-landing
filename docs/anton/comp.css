@@ -1,6 +1,6 @@
-/* ===== БЛОК «КОМПЕТЕНЦИИ» + КОНВЕРСИОННАЯ ПОЛОСА — full-bleed ===== */
-.ac-sec{position:relative;margin-left:0;margin-right:0;width:100%;height:52.79088cqw;
-  border-radius:0;overflow:hidden;background:#fff;margin-top:2.43711cqw;}
+/* ===== БЛОК «КОМПЕТЕНЦИИ» + КОНВЕРСИОННАЯ ПОЛОСА — inset карточка PDF ===== */
+.ac-sec{position:relative;margin-left:2.20126cqw;width:95.59748cqw;height:52.79088cqw;
+  border-radius:4.95283cqw;overflow:hidden;background:#fff;margin-top:2.43711cqw;}
 .ac-band{position:absolute;left:0;top:41.47013cqw;width:100%;height:11.32075cqw;
   background:linear-gradient(180deg,#042B99 0%,#0640E2 100%);}
 .ac-sec span,.ac-sec h2,.ac-sec p{position:absolute;margin:0;white-space:nowrap;display:block;

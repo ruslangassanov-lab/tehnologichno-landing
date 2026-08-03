@@ -18,12 +18,12 @@
   --ah-grey:#707070;
 }
 
-/* полотно на всю ширину экрана: без боковых «полей» тёмно-синего */
+/* body navy на весь экран; .ah-canvas = 1272 по центру — боковые поля тёмно-синие */
 body.ah{background:#000057;}
 .ah-canvas, .ah-canvas *{text-rendering:geometricPrecision;font-kerning:normal;}
 .ah-canvas{
   container-type:inline-size;
-  width:100%;max-width:none;margin-inline:0;position:relative;
+  width:100%;max-width:1272px;margin-inline:auto;position:relative;
   background:linear-gradient(180deg,#0303AF 0, #000057 108.4906cqw);
 }
 
@@ -49,10 +49,10 @@ body.ah{background:#000057;}
 .ah-pill__a{position:absolute;left:5.40409cqw;top:0.26179cqw;
   width:1.43474cqw;height:1.43474cqw;display:block;}
 
-/* ================= HERO — full-bleed белый фон ================= */
-.ah-hero{position:relative;margin-left:0;margin-right:0;
-  width:100%;height:46.54088cqw;
-  background:#fff;border-radius:0;overflow:hidden;}
+/* ================= HERO-КАРТОЧКА (inset, скругления как в презе) ================= */
+.ah-hero{position:relative;margin-left:2.19182cqw;
+  width:95.67610cqw;height:46.54088cqw;
+  background:#fff;border-radius:3.40409cqw;overflow:hidden;}
 
 .ah-hero__tt{position:absolute;left:52.72170cqw;top:6.05346cqw;
   width:42.95440cqw;height:28.66352cqw;display:block;}
