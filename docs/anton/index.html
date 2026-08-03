@@ -7,39 +7,37 @@
 <title>ТЕХНОЛОГИЧНО — Международный открытый чемпионат высокотехнологичных профессий</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="../switcher.css"></head>
-<body>
-<div class="canvas">
+<link rel="stylesheet" href="hero.css">
+</head>
+<body class="ah">
+<div class="canvas ah-canvas">
 
-  <header class="site-header">
-    <a href="#about" class="site-header__brand">
-      <img src="../assets/tt-mono-white.svg" alt="" width="36" height="24">
-      <span class="site-header__wordmark">ТЕХНОЛОГИЧНО</span>
-    </a>
-    <nav class="site-header__nav" aria-label="Основная навигация">
-      <ul>
-        <li><a href="#about">О чемпионате</a></li>
-        <li><a href="#competencies">Компетенции</a></li>
-        <li><a href="#docs">Документы</a></li>
-      </ul>
+  <header class="ah-header">
+    <a href="#top"><img class="ah-header__logo" src="../assets/anton/logo-tt.webp" alt="ТехноЛогично"></a>
+    <span class="ah-header__word">ТЕХНОЛОГИЧНО</span>
+    <nav class="ah-nav" aria-label="Основная навигация">
+      <a class="n1" href="#about">О чемпионате</a>
+      <a class="n2" href="#competencies">Компетенции</a>
+      <a class="n3" href="#docs">Документы</a>
     </nav>
-    <a href="#apply" class="btn btn--header">Оставить заявку</a>
+    <a class="ah-pill" href="#apply">
+      <span class="ah-pill__t">Оставить заявку</span>
+      <img class="ah-pill__a" src="../assets/anton/arrow-pill.webp" alt="">
+    </a>
   </header>
 
-  <main>
-    <section id="about" class="hero">
-      <div class="card card--hero">
-        <div class="hero__graphic-box">
-          <img class="hero__graphic" src="../assets/tt-mono-gradient.svg" alt="" width="552" height="364">
-        </div>
-        <h1 class="hero__title">ТЕХНОЛОГИЧНО</h1>
-        <p class="hero__subtitle">Международный открытый чемпионат высокотехнологичных профессий</p>
-        <p class="hero__descriptor">РАЗВИТИЕ ТЕХНОЛОГИЧЕСКОЙ КООПЕРАЦИИ И КАДРОВОГО ПОТЕНЦИАЛА ДЛЯ СОВМЕСТНОГО ПРЕОДОЛЕНИЯ ТЕХНОЛОГИЧЕСКИХ ВЫЗОВОВ</p>
-        <a href="#apply" class="btn btn--hero">Участвовать в чемпионате</a>
-      </div>
-    </section>
+  <section class="ah-hero" id="about">
+    <img class="ah-hero__tt" src="../assets/anton/hero-tt.webp" alt="">
+    <h1 class="ah-hero__h1">ТЕХНОЛОГИЧНО</h1>
+    <p class="ah-hero__sub"><span class="l1">Международный открытый чемпионат</span><span class="l2">высокотехнологичных профессий</span></p>
+    <p class="ah-hero__descr"><span class="l1">РАЗВИТИЕ ТЕХНОЛОГИЧЕСКОЙ КООПЕРАЦИИ И КАДРОВОГО ПОТЕНЦИАЛА ДЛЯ СОВМЕСТНОГО ПРЕОДОЛЕНИЯ</span><span class="l2">ТЕХНОЛОГИЧЕСКИХ ВЫЗОВОВ</span></p>
+    <a class="ah-hero__btn" href="#apply">
+      <span class="ah-hero__btn-t">Участвовать в чемпионате</span>
+      <img class="ah-hero__btn-a" src="../assets/anton/arrow-btn.webp" alt="">
+    </a>
+  </section>
 
     <section id="competencies" class="competencies">
       <div class="card card--competencies">
@@ -47,7 +45,7 @@
         <ul class="competencies__list competencies__list--a">
           <li>Промышленный дизайн</li>
           <li>Аддитивное производство и обратный инжиниринг</li>
-          <li>Программирование логистических робостов</li>
+          <li>Программирование логистических роботов</li>
           <li>Роботизация промышленного предприятия</li>
           <li>Машинное обучение и большие данные</li>
         </ul>
@@ -76,7 +74,7 @@
         </article>
         <article class="faq__card">
           <svg class="faq__star" viewBox="0 0 22 22" aria-hidden="true"><path d="M11 0 L13.4 8.6 L22 11 L13.4 13.4 L11 22 L8.6 13.4 L0 11 L8.6 8.6 Z" fill="#FFFFFF"/></svg>
-          <h3>Где познакомиться с положением конкурса</h3>
+          <h3>Где ознакомиться с положением конкурса</h3>
           <p>В разделе "Документы" есть все необходимые документы для ознакомления</p>
         </article>
         <article class="faq__card">
@@ -133,5 +131,5 @@
   </footer>
 
 </div>
-<script src="../switcher.js"></script></body>
+</body>
 </html>

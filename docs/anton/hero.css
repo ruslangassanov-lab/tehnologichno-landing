@@ -1,0 +1,85 @@
+/* ============================================================
+   HERO ANTON — попиксельная реализация PDF-макета заказчика.
+   Все координаты — обмеры из PDF (холст 1272px), переведённые в
+   cqw: 1cqw = 1% ширины .canvas, поэтому пропорции держатся на любой ширине.
+   Шрифты: Good Head Pro News (H1/лого), FuturaBookC (текст) — от заказчика.
+   ============================================================ */
+
+@font-face{font-family:'GoodHeadPro';font-weight:400;font-style:normal;font-display:block;
+  src:url('../assets/fonts/goodheadpro-news.woff2') format('woff2');}
+@font-face{font-family:'FuturaBookC';font-weight:400;font-style:normal;font-display:block;
+  src:url('../assets/fonts/futurabookc.woff2') format('woff2');}
+@font-face{font-family:'FuturaDemiC';font-weight:400;font-style:normal;font-display:block;
+  src:url('../assets/fonts/futurademic.woff2') format('woff2');}
+
+:root{
+  --ah-navy:#000057;
+  --ah-blue:#0947F1;
+  --ah-grey:#707070;
+}
+
+/* полотно первого экрана: вертикальный градиент #0303AF -> #000057 на 1380px */
+body.ah{background:#000057;}
+.ah-canvas, .ah-canvas *{text-rendering:geometricPrecision;font-kerning:normal;}
+.ah-canvas{
+  container-type:inline-size;
+  width:100%;max-width:1272px;margin-inline:auto;position:relative;
+  background:linear-gradient(180deg,#0303AF 0, #000057 108.4906cqw);
+}
+
+/* ================= ШАПКА ================= */
+.ah-header{position:relative;height:5.03145cqw;}
+.ah-header__logo{position:absolute;left:5.73899cqw;top:1.25786cqw;
+  width:3.09591cqw;height:2.05346cqw;display:block;}
+.ah-header__word{position:absolute;left:9.00157cqw;top:1.98541cqw;
+  font-family:'GoodHeadPro',sans-serif;font-size:0.79009cqw;line-height:1;
+  color:#fff;white-space:nowrap;}
+.ah-nav a{position:absolute;font-family:'FuturaBookC',sans-serif;
+  font-size:0.78616cqw;line-height:1;color:#fff;white-space:nowrap;text-decoration:none;}
+.ah-nav .n1{left:38.04874cqw;top:1.98973cqw;}
+.ah-nav .n2{left:48.58648cqw;top:2.01514cqw;}
+.ah-nav .n3{left:58.72012cqw;top:2.02005cqw;}
+
+.ah-pill{position:absolute;left:86.21226cqw;top:1.28774cqw;
+  width:7.27201cqw;height:2.00472cqw;border:0.0786cqw solid #fff;border-radius:999px;
+  box-sizing:border-box;text-decoration:none;display:block;}
+.ah-pill__t{position:absolute;left:0.57862cqw;top:0.58628cqw;
+  font-family:'FuturaBookC',sans-serif;font-size:0.64701cqw;line-height:1;
+  color:#fff;white-space:nowrap;}
+.ah-pill__a{position:absolute;left:5.40409cqw;top:0.26179cqw;
+  width:1.43474cqw;height:1.43474cqw;display:block;}
+
+/* ================= HERO-КАРТОЧКА ================= */
+.ah-hero{position:relative;margin-left:2.19182cqw;
+  width:95.67610cqw;height:46.54088cqw;
+  background:#fff;border-radius:3.40409cqw;overflow:hidden;}
+
+.ah-hero__tt{position:absolute;left:52.72170cqw;top:6.05346cqw;
+  width:42.95440cqw;height:28.66352cqw;display:block;}
+
+.ah-hero__h1{position:absolute;left:6.76179cqw;top:10.69385cqw;margin:0;
+  font-family:'GoodHeadPro',sans-serif;font-weight:400;font-size:5.76179cqw;line-height:1;
+  color:var(--ah-navy);white-space:nowrap;}
+
+.ah-hero__sub{position:absolute;left:0;top:0;margin:0;
+  font-family:'FuturaBookC',sans-serif;font-size:2.22956cqw;line-height:1;
+  color:#000;white-space:nowrap;}
+.ah-hero__sub .l1,.ah-hero__sub .l2{position:absolute;display:block;white-space:nowrap;}
+.ah-hero__sub .l1{left:7.61478cqw;top:16.25527cqw;}
+.ah-hero__sub .l2{left:7.63581cqw;top:18.80028cqw;}
+
+.ah-hero__descr{position:absolute;left:0;top:0;margin:0;
+  font-family:'FuturaBookC',sans-serif;font-size:0.90330cqw;line-height:1;
+  color:var(--ah-grey);white-space:nowrap;}
+.ah-hero__descr .l1,.ah-hero__descr .l2{position:absolute;display:block;white-space:nowrap;}
+.ah-hero__descr .l1{left:7.64387cqw;top:25.09356cqw;}
+.ah-hero__descr .l2{left:7.63365cqw;top:26.13089cqw;}
+
+.ah-hero__btn{position:absolute;left:7.63522cqw;top:29.95283cqw;
+  width:14.58333cqw;height:3.11478cqw;background:var(--ah-blue);
+  border-radius:999px;display:block;text-decoration:none;}
+.ah-hero__btn-t{position:absolute;left:1.06053cqw;top:1.00237cqw;
+  font-family:'FuturaBookC',sans-serif;font-size:0.97642cqw;line-height:1;
+  color:#fff;white-space:nowrap;}
+.ah-hero__btn-a{position:absolute;left:12.03459cqw;top:0.39308cqw;
+  width:2.23113cqw;height:2.23113cqw;display:block;}
