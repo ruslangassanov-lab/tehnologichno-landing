@@ -382,13 +382,13 @@ img { display: block; max-width: 100%; height: auto; }
 
 .logo { position: absolute; width: auto; height: auto; object-fit: contain; }
 
-.logo--depinvest { left: 15.132%; top: 49.640%; width: 26.069%; height: 28.058%; }
-.logo--kmz { left: 59.786%; top: 42.446%; width: 24.918%; height: 43.165%; }
+.logo--depinvest { left: 15.132%; top: 63.669%; width: 26.069%; transform: translateY(-50%); }
+.logo--kmz { left: 59.786%; top: 64.029%; width: 24.918%; transform: translateY(-50%); }
 
-.logo--platforma { left: 15.296%; top: 55.556%; width: 14.145%; height: 28.571%; }
-.logo--mosprom { left: 32.483%; top: 53.968%; width: 16.694%; height: 20.238%; }
-.logo--arpm { left: 52.220%; top: 55.556%; width: 14.638%; height: 28.175%; }
-.logo--fcbas { left: 70.066%; top: 64.286%; width: 14.638%; height: 10.317%; }
+.logo--platforma { left: 15.296%; top: 69.842%; width: 14.145%; transform: translateY(-50%); }
+.logo--mosprom { left: 32.483%; top: 64.087%; width: 16.694%; transform: translateY(-50%); }
+.logo--arpm { left: 52.220%; top: 69.644%; width: 14.638%; transform: translateY(-50%); }
+.logo--fcbas { left: 70.066%; top: 69.445%; width: 14.638%; transform: translateY(-50%); }
 
 /* ===== Футер =====
    Полотно чертежа задаёт высоту подвала 1064px (2714-3778), но всё измеренное
@@ -480,12 +480,12 @@ main{position:absolute;inset:0}
 .logos__title{font-weight:300}
 .logos-section--organizers .logos__title{left:38.146226%;top:0}
 .logos-section--partners .logos__title{left:31.139937%;top:0}
-.logo--depinvest{left:16.666667%;top:43.953488%;width:24.921384%;height:36.27907%}
-.logo--kmz{left:59.355346%;top:43.953488%;width:23.820755%;height:55.813953%}
-.logo--platforma{left:16.823899%;top:48.913043%;width:13.522013%;height:31.304348%}
-.logo--mosprom{left:33.254717%;top:48.913043%;width:15.959119%;height:22.173913%}
-.logo--arpm{left:52.122642%;top:48.913043%;width:13.993711%;height:30.869565%}
-.logo--fcbas{left:69.18239%;top:48.913043%;width:13.993711%;height:11.304348%}
+.logo--depinvest{left:16.666667%;top:62.093023%;width:24.921384%;transform:translateY(-50%)}
+.logo--kmz{left:59.355346%;top:71.860465%;width:23.820755%;transform:translateY(-50%)}
+.logo--platforma{left:16.823899%;top:64.565217%;width:13.522013%;transform:translateY(-50%)}
+.logo--mosprom{left:33.254717%;top:60.000000%;width:15.959119%;transform:translateY(-50%)}
+.logo--arpm{left:52.122642%;top:64.347826%;width:13.993711%;transform:translateY(-50%)}
+.logo--fcbas{left:69.18239%;top:54.565217%;width:13.993711%;transform:translateY(-50%)}
 .site-footer{position:absolute;left:0;top:88.043478%;width:100%;height:11.956522%;margin:0;aspect-ratio:auto;border-radius:3.144654cqw 3.144654cqw 0 0;background:#b6b6b6}
 .footer-title{font-weight:300}
 .site-footer__block--contacts .footer-title{left:16.981132%;top:19.348711%}
