@@ -86,8 +86,8 @@ img { display: block; max-width: 100%; height: auto; }
 .canvas {
   container-type: inline-size;
   width: 100%;
-  max-width: 1272px;
-  margin-inline: auto;
+  max-width: none;
+  margin-inline: 0;
   position: relative;
 }
 
@@ -403,13 +403,14 @@ img { display: block; max-width: 100%; height: auto; }
    зафиксированное как допустимое отклонение решение, границы карточки подобраны
    по содержимому с симметричным полем 40px сверху/снизу вокруг измеренных точек
    (64px не влезали в реальный зазор чертежа между секциями — см. report.md). */
-.logos-section { margin-inline: 2.2013cqw; }
+.logos-section { margin-inline: 0; width: 100%; }
 
 .logos-section--organizers { margin-top: 9.5126cqw; }
 .logos-section--partners { margin-top: 2.5157cqw; }
 
 .card--logos {
-  border-radius: 3.1447cqw;
+  border-radius: 0;
+  width: 100%;
 }
 
 .logos-section--organizers .card--logos { aspect-ratio: 1216 / 278; }
@@ -453,7 +454,7 @@ img { display: block; max-width: 100%; height: auto; }
   width: 100%;
   aspect-ratio: 1272 / 421;
   background: var(--footer-grey);
-  border-radius: 3.1447cqw 3.1447cqw 0 0;
+  border-radius: 0;
   margin-top: 4.7170cqw;
 }
 
