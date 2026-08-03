@@ -418,12 +418,16 @@ img { display: block; max-width: 100%; height: auto; }
 
 .logos__title {
   position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
   color: var(--text-navy);
   font-size: 3.9308cqw;
+  white-space: nowrap;
 }
 
-.logos-section--organizers .logos__title { left: 37.582%; top: 14.388%; width: 24.589%; white-space: nowrap; }
-.logos-section--partners .logos__title { left: 24.507%; top: 15.873%; width: 50.987%; white-space: nowrap; text-align: center; }
+.logos-section--organizers .logos__title { top: 14.388%; }
+.logos-section--partners .logos__title { top: 15.873%; }
 
 /* Логотипы: только width + общая вертикаль (translateY(-50%)), без height-% —
    иначе PNG 1214×~500 сжимаются в «полоски» (как mosprom 203×51). */
@@ -444,27 +448,34 @@ img { display: block; max-width: 100%; height: auto; }
 .logo--fcbas { left: 70.066%; top: 70%; width: 14.638%; transform: translateY(-50%); }
 
 /* ===== Футер =====
-   Полотно чертежа задаёт высоту подвала 1064px (2714-3778), но всё измеренное
-   содержимое (заголовки/иконки/юр.строка) укладывается в 2714-3042 — 328px.
-   1064 оставляло бы ~700px пустой серой заливки без единого элемента внутри,
-   что похоже на артефакт извлечения bbox из PDF, а не осознанный отступ дизайна.
-   Высота подвала здесь = контент + симметричный отступ снизу → 1272/421. */
+   Фон на всю ширину экрана; геометрия PDF (1272) — во внутреннем контейнере,
+   чтобы full-bleed не раздувал cqw/проценты и не делал блок «жидким».
+   Заголовки — navy на сером (#B6B6B6), как в рабочем макете до поломки. */
 .site-footer {
   position: relative;
   width: 100%;
-  aspect-ratio: 1272 / 421;
   background: var(--footer-grey);
   border-radius: 0;
   margin-top: 4.7170cqw;
 }
 
+.site-footer__inner {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 1272px;
+  margin-inline: auto;
+  aspect-ratio: 1272 / 421;
+}
+
 .footer-title {
   position: absolute;
   margin: 0;
-  color: #FFFFFF;
+  color: var(--text-navy);
   font-family: 'FuturaBookC', sans-serif;
   font-weight: 400;
   font-size: 5.1651cqw;
+  line-height: 1;
 }
 
 .site-footer__block--contacts .footer-title { left: 16.981%; top: 22.090%; white-space: nowrap; }
@@ -474,10 +485,12 @@ img { display: block; max-width: 100%; height: auto; }
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 0.6em;
+  gap: 0.55em;
   margin: 0;
-  color: var(--text-black);
+  color: var(--text-navy);
+  font-family: 'FuturaBookC', sans-serif;
   font-size: 1.3600cqw;
+  line-height: 1.2;
 }
 
 .site-footer__block--contacts .footer-row:nth-of-type(1) { left: 17.610%; top: 40.380%; }
@@ -485,18 +498,26 @@ img { display: block; max-width: 100%; height: auto; }
 .site-footer__block--hours .footer-row:nth-of-type(1) { left: 54.558%; top: 39.430%; }
 .site-footer__block--hours .footer-row:nth-of-type(2) { left: 54.558%; top: 52.732%; }
 
-.footer-icon { width: 1.6509cqw; height: 1.6509cqw; flex: none; }
+.footer-icon {
+  width: 1.6509cqw;
+  height: 1.6509cqw;
+  flex: none;
+  object-fit: contain;
+}
 .footer-icon--clock { width: 2.2013cqw; height: 2.2013cqw; }
 
 .footer-legal {
   position: absolute;
-  left: 37.421%;
+  left: 0;
+  right: 0;
   top: 74.109%;
-  width: 26.887%;
+  width: 100%;
   margin: 0;
   text-align: center;
-  color: var(--text-black);
-  font-size: 0.9434cqw;
+  color: var(--text-navy);
+  font-family: 'FuturaBookC', sans-serif;
+  font-size: 1.2579cqw;
+  white-space: nowrap;
 }
 
 /* ===== Progressive polish (ah-* build): nav / buttons / FAQ / reveal ===== */
@@ -599,27 +620,59 @@ img { display: block; max-width: 100%; height: auto; }
 
 .faq__card {
   cursor: default;
+  transform: translate3d(0, 0, 0);
+  filter: brightness(1);
   box-shadow: 0 0.4cqw 1.2cqw rgba(0, 0, 30, 0.18);
-  transition: box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .faq__card:hover,
-.faq__card:focus-within {
+.faq__card:focus-within,
+.faq__card.reveal.is-visible:hover,
+.faq__card.reveal.is-visible:focus-within {
+  transform: translate3d(0, -0.7cqw, 0);
+  filter: brightness(1.06);
   box-shadow:
     0 0.25cqw 0.5cqw rgba(0, 0, 40, 0.12),
-    0 1.1cqw 2cqw rgba(0, 10, 60, 0.28);
+    0 1.1cqw 2cqw rgba(0, 10, 60, 0.28),
+    0 2.2cqw 4cqw rgba(0, 0, 40, 0.32);
   z-index: 3;
 }
 
-/* Только opacity — transform ломал logo translateY(-50%) и FAQ hover */
+/* Появление при скролле: opacity + лёгкий translateY.
+   Логотипы — только fade (.reveal--fade), transform не трогаем
+   (иначе ломается translateY(-50%) центрирование). */
 .reveal {
   opacity: 0;
-  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
   transition-delay: var(--d, 0ms);
+}
+
+.reveal:not(.reveal--fade) {
+  transform: translateY(22px);
 }
 
 .reveal.is-visible {
   opacity: 1;
+}
+
+.reveal:not(.reveal--fade).is-visible {
+  transform: none;
+}
+
+.faq__card.reveal:not(.reveal--fade).is-visible {
+  transform: translate3d(0, 0, 0);
+}
+
+.reveal.reveal--fade,
+.logo.reveal {
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -640,13 +693,22 @@ img { display: block; max-width: 100%; height: auto; }
   .ah-hero__btn:hover,
   .ah-hero__btn:focus-visible,
   .ac-pill:hover,
-  .ac-pill:focus-visible {
+  .ac-pill:focus-visible,
+  .faq__card:hover,
+  .faq__card:focus-within {
     transform: none;
+    filter: none;
   }
 
   .reveal {
     opacity: 1 !important;
+    transform: none !important;
     transition: none !important;
+  }
+
+  /* Сохраняем центрирование логотипов даже при reduced-motion override */
+  .logo.reveal {
+    transform: translateY(-50%) !important;
   }
 }
 

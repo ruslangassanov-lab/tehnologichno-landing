@@ -1,5 +1,5 @@
 /* ТехноЛогично — Антон. Прогрессивное улучшение: без JS страница
-   читаема. JS добавляет мягкие появления, подчёркивание навигации
+   читаема. JS добавляет появления при скролле, подчёркивание навигации
    и hover по группам компетенций (классы ah-* / ac-*). */
 (function () {
   'use strict';
@@ -76,7 +76,21 @@
   })();
 
   var targets = document.querySelectorAll(
-    '.ah-hero, .ac-sec, .faq__title, .faq__card, .logos__title, .logo, .site-footer__block, .footer-legal'
+    [
+      '.ah-hero',
+      '.ac-sec',
+      '.ac-title',
+      '.ac-item',
+      '.ac-ctatitle',
+      '.ac-pill',
+      '.ac-pillarrow',
+      '.faq__title',
+      '.faq__card',
+      '.logos__title',
+      '.logo',
+      '.site-footer__block',
+      '.footer-legal'
+    ].join(', ')
   );
 
   if (!targets.length) return;
@@ -86,15 +100,24 @@
     return;
   }
 
-  targets.forEach(function (el) { el.classList.add('reveal'); });
+  targets.forEach(function (el) {
+    el.classList.add('reveal');
+    if (el.classList.contains('logo')) {
+      el.classList.add('reveal--fade');
+    }
+  });
 
-  var stagger = function (nodeList) {
+  var stagger = function (nodeList, step, cap) {
+    step = step == null ? 55 : step;
+    cap = cap == null ? 330 : cap;
     nodeList.forEach(function (el, i) {
-      el.style.setProperty('--d', Math.min(i * 55, 330) + 'ms');
+      el.style.setProperty('--d', Math.min(i * step, cap) + 'ms');
     });
   };
+
   stagger(document.querySelectorAll('.faq__card'));
   stagger(document.querySelectorAll('.logo'));
+  stagger(document.querySelectorAll('.ac-item'), 45, 400);
 
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
