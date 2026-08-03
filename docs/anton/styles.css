@@ -496,3 +496,25 @@ main{position:absolute;inset:0}
 .site-footer__block--hours .footer-row:nth-of-type(2){left:54.166667%;top:59.158752%}
 .footer-row{color:#fff}.footer-icon{filter:brightness(0) invert(1)}
 .footer-legal{left:37.421384%;top:83.364993%;color:#fff}
+
+/* === Фирменные шрифты Антона (Futura Book/Demi), из презентации === */
+@font-face {
+  font-family: 'FuturaBookC';
+  src: url('assets/fonts/FuturaBookC.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FuturaDemiC';
+  src: url('assets/fonts/FuturaDemiC.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+body, .canvas, .canvas * {
+  font-family: 'FuturaBookC', 'Nunito', Arial, sans-serif !important;
+}
+h1, h2, h3, .btn, .site-header__brand-name, strong, b {
+  font-family: 'FuturaDemiC', 'Nunito', Arial, sans-serif !important;
+}
