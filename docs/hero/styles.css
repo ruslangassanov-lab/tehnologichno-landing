@@ -524,16 +524,15 @@ button {
 }
 
 .hero__monogram {
-  /* Контейнер = viewBox 1:1 по брифу: 846x560 в точке x=880,y=150.
-     Правый край (880+846=1726) уходит за границу фрейма 1440 — обрезается overflow:hidden
-     родителя .hero, как и в самом макете (Figma-фрейм клипует содержимое). */
+  /* Объёмная монограмма ТТ: local viewBox 743x814 со смещением в Figma-точку x=752,y=-40.
+     Правая часть намеренно уходит за viewport и клипуется родителем .hero. */
   position: absolute;
-  width: 846px;
-  height: 560px;
-  left: 880px;
-  top: 150px;
+  left: 752px;
+  top: -40px;
+  width: 743px;
+  height: 814px;
   z-index: 2;
-  opacity: 0.9;
+  opacity: 1;
   pointer-events: none;
   overflow: visible;
 }
@@ -1244,8 +1243,8 @@ button {
   .hero__monogram {
     left: auto;
     right: 0;
-    width: 500px;
-    height: 331px;
+    width: 456px;
+    height: 500px;
   }
 
   /* Декор «Т» и второстепенные направляющие сняты только на 1440px (SPEC.md) —
@@ -1350,7 +1349,7 @@ button {
   .hero__monogram {
     position: static;
     width: 300px;
-    height: 198px;
+    height: 329px;
     opacity: 0.16;
     margin-top: 20px;
   }
@@ -1546,10 +1545,10 @@ button {
 
   .hero__monogram {
     position: absolute;
-    width: 453px;
-    height: 300px;
-    right: auto;
-    left: 150px;
+    width: 340px;
+    height: 373px;
+    right: -60px;
+    left: auto;
     top: 86px;
     opacity: 0.16;
     z-index: 1;
