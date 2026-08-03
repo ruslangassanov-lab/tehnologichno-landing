@@ -411,34 +411,34 @@ button {
 }
 
 .hero__deco-shape--blue-h {
-  left: 800px;
-  top: -40px;
+  left: 801px;
+  top: 150px;
   width: 430px;
-  height: 78px;
+  height: 88px;
   background-color: var(--brand-blue-600);
 } /* 47:295 */
 
 .hero__deco-shape--blue-v {
-  left: 971px;
-  top: -40px;
+  left: 972px;
+  top: 150px;
   width: 88px;
-  height: 600px;
+  height: 528px;
   background-color: var(--brand-blue-600);
 } /* 47:296 */
 
 .hero__deco-shape--outline-h {
-  left: 1055px;
+  left: 1058px;
   top: 150px;
   width: 440px;
-  height: 78px;
+  height: 88px;
   border: var(--border-accent-plate) solid var(--accent-signal-500);
 } /* 47:297 */
 
 .hero__deco-shape--outline-v {
-  left: 1231px;
+  left: 1234px;
   top: 150px;
   width: 88px;
-  height: 560px;
+  height: 528px;
   border: var(--border-accent-plate) solid var(--accent-signal-500);
 } /* 47:298 */
 
@@ -519,17 +519,17 @@ button {
 }
 
 .hero__monogram {
-  /* 47:311/47:312: контейнер 846x560 в точке x=880,y=150 (лок. координаты .hero);
-     правый край (880+846=1726) уходит за границу фрейма 1440 — обрезается overflow:hidden
+  /* Контейнер = viewBox 1:1 по брифу: 704x528 в точке x=884,y=150.
+     Правый край (884+704=1588) уходит за границу фрейма 1440 — обрезается overflow:hidden
      родителя .hero, как и в самом макете (Figma-фрейм клипует содержимое). */
   position: absolute;
-  width: 846px;
-  height: 560px;
-  left: 880px;
+  width: 704px;
+  height: 528px;
+  left: 884px;
   top: 150px;
-  z-index: 4;
-  opacity: 0.9; /* соответствует <g opacity="0.9"> в реальном ассете hero-monogram-tt.svg */
-  object-fit: contain;
+  z-index: 2;
+  color: var(--neutral-100);
+  opacity: 0.9;
   pointer-events: none;
 }
 
