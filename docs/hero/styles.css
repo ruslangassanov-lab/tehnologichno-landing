@@ -416,34 +416,34 @@ button {
 }
 
 .hero__deco-shape--blue-h {
-  left: 801px;
-  top: 150px;
+  left: 800px;
+  top: -40px;
   width: 430px;
-  height: 88px;
+  height: 78px;
   background-color: var(--brand-blue-600);
 } /* 47:295 */
 
 .hero__deco-shape--blue-v {
-  left: 972px;
-  top: 150px;
+  left: 971px;
+  top: -40px;
   width: 88px;
-  height: 528px;
+  height: 600px;
   background-color: var(--brand-blue-600);
 } /* 47:296 */
 
 .hero__deco-shape--outline-h {
-  left: 1058px;
+  left: 1055px;
   top: 150px;
   width: 440px;
-  height: 88px;
+  height: 78px;
   border: var(--border-accent-plate) solid var(--accent-signal-500);
 } /* 47:297 */
 
 .hero__deco-shape--outline-v {
-  left: 1234px;
+  left: 1231px;
   top: 150px;
   width: 88px;
-  height: 528px;
+  height: 560px;
   border: var(--border-accent-plate) solid var(--accent-signal-500);
 } /* 47:298 */
 
@@ -524,18 +524,22 @@ button {
 }
 
 .hero__monogram {
-  /* Контейнер = viewBox 1:1 по брифу: 704x528 в точке x=884,y=150.
-     Правый край (884+704=1588) уходит за границу фрейма 1440 — обрезается overflow:hidden
+  /* Контейнер = viewBox 1:1 по брифу: 846x560 в точке x=880,y=150.
+     Правый край (880+846=1726) уходит за границу фрейма 1440 — обрезается overflow:hidden
      родителя .hero, как и в самом макете (Figma-фрейм клипует содержимое). */
   position: absolute;
-  width: 704px;
-  height: 528px;
-  left: 884px;
+  width: 846px;
+  height: 560px;
+  left: 880px;
   top: 150px;
   z-index: 2;
-  color: var(--neutral-100);
   opacity: 0.9;
   pointer-events: none;
+  overflow: visible;
+}
+
+.hero__monogram-path {
+  fill: #ffffff;
 }
 
 /* ============================================================================
@@ -1241,7 +1245,7 @@ button {
     left: auto;
     right: 0;
     width: 500px;
-    height: 330px;
+    height: 331px;
   }
 
   /* Декор «Т» и второстепенные направляющие сняты только на 1440px (SPEC.md) —
@@ -1346,7 +1350,7 @@ button {
   .hero__monogram {
     position: static;
     width: 300px;
-    height: 200px;
+    height: 198px;
     opacity: 0.16;
     margin-top: 20px;
   }
@@ -1549,7 +1553,7 @@ button {
     top: 86px;
     opacity: 0.16;
     z-index: 1;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .hero {
