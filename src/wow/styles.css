@@ -1964,44 +1964,20 @@ button {
     border-bottom: 1px solid rgba(74, 85, 120, 0.4);
   }
 
-  .competencies__card:first-child {
-    background-color: var(--brand-blue-600);
-    border-radius: var(--radius-16);
-    padding: 18px;
-  }
-
-  .competencies__card:first-child .competencies__number,
-  .competencies__card:first-child .competencies__text {
-    color: var(--neutral-white);
-  }
-
-  /* No orange hover chrome on mobile — match Figma static list */
+  /* Blue fill is hover/focus only — not a static default on 01 */
   .competencies__card:hover,
   .competencies__card:focus-visible {
-    background-color: transparent;
-    border-color: rgba(74, 85, 120, 0.4);
+    background-color: var(--brand-blue-600);
+    border-radius: var(--radius-16);
+    border-color: transparent;
     transform: none;
     outline: none;
   }
 
-  .competencies__card:first-child:hover,
-  .competencies__card:first-child:focus-visible {
-    background-color: var(--brand-blue-600);
-    border-color: transparent;
-  }
-
-  .competencies__card:last-child:hover,
-  .competencies__card:last-child:focus-visible {
-    border-color: transparent;
-  }
-
   .competencies__card:hover .competencies__number,
-  .competencies__card:focus-visible .competencies__number {
-    color: var(--brand-blue-600);
-  }
-
-  .competencies__card:first-child:hover .competencies__number,
-  .competencies__card:first-child:focus-visible .competencies__number {
+  .competencies__card:focus-visible .competencies__number,
+  .competencies__card:hover .competencies__text,
+  .competencies__card:focus-visible .competencies__text {
     color: var(--neutral-white);
   }
 
@@ -2087,10 +2063,6 @@ button {
     font-weight: 800;
     flex-shrink: 0;
     background-color: var(--brand-blue-600);
-  }
-
-  .timeline__step:nth-child(4) .timeline__circle {
-    background-color: var(--accent-signal-500);
   }
 
   .timeline__step-title {
