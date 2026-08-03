@@ -1,6 +1,6 @@
 /* ТехноЛогично — Антон. Прогрессивное улучшение: без JS страница
-   читаема. JS добавляет мягкие появления секций и подчёркивание
-   навигации слева→направо (классы ah-* / pixel-perfect build). */
+   читаема. JS добавляет мягкие появления, подчёркивание навигации
+   и hover по группам компетенций (классы ah-* / ac-*). */
 (function () {
   'use strict';
 
@@ -28,6 +28,49 @@
       });
       link.addEventListener('blur', function () {
         line.classList.remove('is-on');
+      });
+    });
+  })();
+
+  /* Competencies: hover/focus highlights a whole competence (1–2 lines) */
+  (function setupCompetenciesHover() {
+    var sec = document.querySelector('.ac-sec');
+    if (!sec) return;
+
+    var groups = [
+      ['.ac-L1'],
+      ['.ac-L2a', '.ac-L2b'],
+      ['.ac-L3a', '.ac-L3b'],
+      ['.ac-L4a', '.ac-L4b'],
+      ['.ac-L5a', '.ac-L5b'],
+      ['.ac-R1'],
+      ['.ac-R2a', '.ac-R2b'],
+      ['.ac-R3a', '.ac-R3b'],
+      ['.ac-R4a', '.ac-R4b'],
+      ['.ac-R5a', '.ac-R5b']
+    ];
+
+    groups.forEach(function (sels) {
+      var nodes = sels.map(function (s) { return sec.querySelector(s); }).filter(Boolean);
+      if (!nodes.length) return;
+
+      nodes.forEach(function (el) {
+        el.classList.add('ac-item');
+        el.setAttribute('tabindex', '0');
+      });
+
+      var setOn = function () {
+        nodes.forEach(function (el) { el.classList.add('is-hot'); });
+      };
+      var setOff = function () {
+        nodes.forEach(function (el) { el.classList.remove('is-hot'); });
+      };
+
+      nodes.forEach(function (el) {
+        el.addEventListener('mouseenter', setOn);
+        el.addEventListener('mouseleave', setOff);
+        el.addEventListener('focus', setOn);
+        el.addEventListener('blur', setOff);
       });
     });
   })();

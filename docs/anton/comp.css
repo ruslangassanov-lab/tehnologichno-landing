@@ -29,3 +29,13 @@
 .ac-pill{position:absolute;left:41.98113cqw;top:48.18239cqw;width:11.63522cqw;height:3.19340cqw;
   border:0.10849cqw solid #fff;border-radius:999px;box-sizing:border-box;display:block;}
 .ac-pillarrow{position:absolute;left:50.61950cqw;top:48.58569cqw;width:2.27987cqw;height:2.27987cqw;display:block;}
+
+/* Hover по компетенции (группы строк, вешает app.js) — без сдвига геометрии */
+.ac-sec .ac-item{
+  cursor:default;
+  transition:color .25s cubic-bezier(.22,.61,.36,1);
+}
+.ac-sec .ac-item.is-hot{color:#0947F1;}
+@media (prefers-reduced-motion:reduce){
+  .ac-sec .ac-item{transition:none;}
+}

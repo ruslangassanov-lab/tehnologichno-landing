@@ -318,7 +318,9 @@ img { display: block; max-width: 100%; height: auto; }
   padding-inline: 0.6em;
 }
 
-/* ===== FAQ ===== */
+/* ===== FAQ =====
+   Карточки как в презе/PDF: градиент + декор (шестерёнка + волны) из faq-card-bg,
+   ответы всегда видны — это статичный блок макета, не аккордеон. */
 .faq {
   position: relative;
   aspect-ratio: 1272 / 507;
@@ -332,6 +334,8 @@ img { display: block; max-width: 100%; height: auto; }
   width: 100%;
   text-align: center;
   color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
   font-size: 3.9308cqw;
 }
 
@@ -348,20 +352,22 @@ img { display: block; max-width: 100%; height: auto; }
   top: 0;
   width: 24.764%;
   height: 100%;
-  background: linear-gradient(180deg, var(--grad-1), var(--grad-2));
   border-radius: 1.8868cqw;
+  overflow: hidden;
+  background-color: var(--grad-2);
+  background-image: url('../assets/faq-card-bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
 }
 
 .faq__card:nth-child(1) { left: 10.063%; }
 .faq__card:nth-child(2) { left: 37.657%; }
 .faq__card:nth-child(3) { left: 65.252%; }
 
+/* Шестерёнка уже в faq-card-bg — SVG-дубль скрываем */
 .faq__star {
-  position: absolute;
-  left: 4.127%;
-  top: 6.138%;
-  width: 6.984%;
-  height: 5.627%;
+  display: none;
 }
 
 .faq__card h3 {
@@ -371,8 +377,9 @@ img { display: block; max-width: 100%; height: auto; }
   width: 79.365%;
   margin: 0;
   color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
   font-size: 2.3899cqw;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.0;
 }
 
@@ -383,6 +390,7 @@ img { display: block; max-width: 100%; height: auto; }
   width: 79.365%;
   margin: 0;
   color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
   font-size: 1.1164cqw;
   line-height: 1.25;
 }
@@ -416,26 +424,34 @@ img { display: block; max-width: 100%; height: auto; }
 .logos-section--organizers .logos__title { left: 37.582%; top: 14.388%; width: 24.589%; white-space: nowrap; }
 .logos-section--partners .logos__title { left: 24.507%; top: 15.873%; width: 50.987%; white-space: nowrap; text-align: center; }
 
-.logo { position: absolute; width: auto; height: auto; object-fit: contain; }
+/* Логотипы: только width + общая вертикаль (translateY(-50%)), без height-% —
+   иначе PNG 1214×~500 сжимаются в «полоски» (как mosprom 203×51). */
+.card--logos .logo {
+  position: absolute;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center center;
+}
 
-.logo--depinvest { left: 15.132%; top: 49.640%; width: 26.069%; height: 28.058%; }
-.logo--kmz { left: 59.786%; top: 42.446%; width: 24.918%; height: 43.165%; }
+.logo--depinvest { left: 15.132%; top: 64%; width: 26.069%; transform: translateY(-50%); }
+.logo--kmz { left: 59.786%; top: 64%; width: 24.918%; transform: translateY(-50%); }
 
-.logo--platforma { left: 15.296%; top: 55.556%; width: 14.145%; height: 28.571%; }
-.logo--mosprom { left: 32.483%; top: 53.968%; width: 16.694%; height: 20.238%; }
-.logo--arpm { left: 52.220%; top: 55.556%; width: 14.638%; height: 28.175%; }
-.logo--fcbas { left: 70.066%; top: 64.286%; width: 14.638%; height: 10.317%; }
+.logo--platforma { left: 15.296%; top: 70%; width: 14.145%; transform: translateY(-50%); }
+.logo--mosprom { left: 32.483%; top: 70%; width: 16.694%; transform: translateY(-50%); }
+.logo--arpm { left: 52.220%; top: 70%; width: 14.638%; transform: translateY(-50%); }
+.logo--fcbas { left: 70.066%; top: 70%; width: 14.638%; transform: translateY(-50%); }
 
 /* ===== Футер =====
    Полотно чертежа задаёт высоту подвала 1064px (2714-3778), но всё измеренное
    содержимое (заголовки/иконки/юр.строка) укладывается в 2714-3042 — 328px.
    1064 оставляло бы ~700px пустой серой заливки без единого элемента внутри,
    что похоже на артефакт извлечения bbox из PDF, а не осознанный отступ дизайна.
-   Высота подвала здесь = контент + симметричный отступ снизу (см. report.md). */
+   Высота подвала здесь = контент + симметричный отступ снизу → 1272/421. */
 .site-footer {
   position: relative;
   width: 100%;
-  aspect-ratio: 1272 / 1064;
+  aspect-ratio: 1272 / 421;
   background: var(--footer-grey);
   border-radius: 3.1447cqw 3.1447cqw 0 0;
   margin-top: 4.7170cqw;
@@ -445,12 +461,13 @@ img { display: block; max-width: 100%; height: auto; }
   position: absolute;
   margin: 0;
   color: #FFFFFF;
-  font-weight: 300;
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
   font-size: 5.1651cqw;
 }
 
-.site-footer__block--contacts .footer-title { left: 16.981%; top: 8.74%; white-space: nowrap; }
-.site-footer__block--hours .footer-title { left: 54.166%; top: 8.55%; white-space: nowrap; }
+.site-footer__block--contacts .footer-title { left: 16.981%; top: 22.090%; white-space: nowrap; }
+.site-footer__block--hours .footer-title { left: 54.166%; top: 21.615%; white-space: nowrap; }
 
 .footer-row {
   position: absolute;
@@ -462,10 +479,10 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 1.3600cqw;
 }
 
-.site-footer__block--contacts .footer-row:nth-of-type(1) { left: 17.610%; top: 15.23%; }
-.site-footer__block--contacts .footer-row:nth-of-type(2) { left: 17.610%; top: 20.86%; }
-.site-footer__block--hours .footer-row:nth-of-type(1) { left: 54.558%; top: 15.60%; }
-.site-footer__block--hours .footer-row:nth-of-type(2) { left: 54.558%; top: 20.86%; }
+.site-footer__block--contacts .footer-row:nth-of-type(1) { left: 17.610%; top: 40.380%; }
+.site-footer__block--contacts .footer-row:nth-of-type(2) { left: 17.610%; top: 53.682%; }
+.site-footer__block--hours .footer-row:nth-of-type(1) { left: 54.558%; top: 39.430%; }
+.site-footer__block--hours .footer-row:nth-of-type(2) { left: 54.558%; top: 52.732%; }
 
 .footer-icon { width: 1.6509cqw; height: 1.6509cqw; flex: none; }
 .footer-icon--clock { width: 2.2013cqw; height: 2.2013cqw; }
@@ -473,7 +490,7 @@ img { display: block; max-width: 100%; height: auto; }
 .footer-legal {
   position: absolute;
   left: 37.421%;
-  top: 29.32%;
+  top: 74.109%;
   width: 26.887%;
   margin: 0;
   text-align: center;
@@ -580,38 +597,28 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .faq__card {
-  overflow: hidden;
   cursor: default;
-  transform: translate3d(0, 0, 0) scale(1);
   box-shadow: 0 0.4cqw 1.2cqw rgba(0, 0, 30, 0.18);
-  transition:
-    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .faq__card:hover,
-.faq__card:focus-within,
-.faq__card.reveal.is-visible:hover,
-.faq__card.reveal.is-visible:focus-within {
-  transform: translate3d(0, -0.85cqw, 0) scale(1.02);
+.faq__card:focus-within {
   box-shadow:
     0 0.25cqw 0.5cqw rgba(0, 0, 40, 0.12),
-    0 1.1cqw 2cqw rgba(0, 10, 60, 0.28),
-    0 2.4cqw 4.5cqw rgba(0, 0, 40, 0.38);
+    0 1.1cqw 2cqw rgba(0, 10, 60, 0.28);
   z-index: 3;
 }
 
+/* Только opacity — transform ломал logo translateY(-50%) и FAQ hover */
 .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
   transition-delay: var(--d, 0ms);
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -632,15 +639,12 @@ img { display: block; max-width: 100%; height: auto; }
   .ah-hero__btn:hover,
   .ah-hero__btn:focus-visible,
   .ac-pill:hover,
-  .ac-pill:focus-visible,
-  .faq__card:hover,
-  .faq__card:focus-within {
+  .ac-pill:focus-visible {
     transform: none;
   }
 
   .reveal {
     opacity: 1 !important;
-    transform: none !important;
     transition: none !important;
   }
 }
