@@ -549,10 +549,11 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 274px;
+  width: 290px;
   height: 53px;
   box-sizing: border-box;
   padding: 0 30px;
+  white-space: nowrap;
   border-radius: var(--radius-pill);
   font-family: var(--font-text);
   font-size: 16px;
