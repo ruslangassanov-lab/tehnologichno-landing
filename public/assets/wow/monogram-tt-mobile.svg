@@ -1,8 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 720" fill="none" aria-hidden="true">
-  <!-- !8<<5B@8G=K5 :>=F5=B@8G5A:85 : @02=K9 stroke 8 H03, =>6:8 4> =870 -->
-  <g stroke="#ffffff" stroke-width="32" stroke-linecap="butt" stroke-linejoin="round" fill="none">
-    <path d="M0 56 H196 A88 88 0 0 1 284 144 V720"/>
-    <path d="M0 120 H132 A88 88 0 0 1 220 208 V720"/>
-    <path d="M0 184 H68 A88 88 0 0 1 156 272 V720"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1639 1093" fill="none" aria-hidden="true">
+  <!-- Mobile TT: use raster hero-tt-mobile.png (from docs/assets/anton/hero-tt.webp). -->
+  <image href="hero-tt-mobile.png" width="1639" height="1093" preserveAspectRatio="xMidYMid meet"/>
 </svg>
