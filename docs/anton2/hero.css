@@ -407,16 +407,17 @@ html, body.ah{
    separate navy FAQ fill. Geometry: @4453 within block @4243. ===== */
 .faq .cta-block{
   position:absolute;
-  left:-6.21%;
+  /* Full-bleed past .ah-canvas (same pattern as .faq::before) */
+  left:calc(50% - 50vw);
   top:11.253%;
-  width:112.42%;
+  width:100vw;
   margin:0;
   padding:1.25786cqw 0 1.7cqw;
   height:15.488%;
   min-height:0;
   box-sizing:border-box;
   background:linear-gradient(180deg,#03237C 0%,#0640E2 100%);
-  border-radius:4.95283cqw;
+  border-radius:0;
   text-align:center;
   z-index:2;
 }
