@@ -40,60 +40,73 @@
   .ac-sec .ac-item{transition:none;}
 }
 
-/* ===== anton2 (Second version / PDF 2026) overrides ===== */
-
-/* Competencies section becomes 3 cards on dark background (matches PDF). */
+/* ===== anton2 — Figma Page 6 competencies =====
+   Frame 14 2544 → site 1272 (÷2); cqw = figmaPx / 25.44
+   Cards Group 29: x=251/952/1653, 630×679, gap=71, radius=63.33
+   Viewport = exactly 3 cards (2032) at left 251 — overflow:hidden clips card 4+
+*/
 .ac-sec{
-  background:#000057 !important;
+  background:transparent !important;
   border-radius:0 !important;
-  overflow:hidden;
+  overflow:visible;
   height:auto;
-  padding:3.2cqw 2.3cqw 2.6cqw;
+  margin-left:0;
+  width:100%;
+  margin-top:6.0cqw;
+  padding:0 0 2.6cqw;
 }
 
-/* Subtle concentric-circles decoration (left/right) behind cards. */
-.ac-sec::before{
-  content:'';
-  position:absolute;
-  inset:-15%;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 18% 55%, rgba(9,71,241,0.20) 0 18%, rgba(9,71,241,0.00) 19%),
-    radial-gradient(circle at 18% 55%, rgba(255,255,255,0.08) 0 32%, rgba(255,255,255,0.00) 33%),
-    radial-gradient(circle at 82% 55%, rgba(9,71,241,0.20) 0 18%, rgba(9,71,241,0.00) 19%),
-    radial-gradient(circle at 82% 55%, rgba(255,255,255,0.08) 0 32%, rgba(255,255,255,0.00) 33%);
+/* Hard clip window: padding-based overflow fails because clip edge = padding edge */
+.ac-viewport{
+  position:relative;
+  width:79.87421cqw; /* 2032/25.44 */
+  margin-left:9.86635cqw; /* 251/25.44 */
+  margin-right:auto;
+  margin-top:0; /* must stay 0 — negative mt collapsed with .ac-title mb and ate the gap */
+  overflow:hidden;
 }
+
+/* Figma Ellipse 5–8 are subtle 12% #000057 stroke rings — not soft blue glow
+   blobs. Soft radial-glow ::before removed so page bg stays a unified gradient. */
 
 .ac-sec span, .ac-sec h2, .ac-sec p{
-  /* Default blueprint styles relied on absolute positioning; anton2 uses regular flow. */
   position:static !important;
   display:block;
   white-space:normal;
 }
 
-.ac-title{
+.ac-sec .ac-title{
   width:100%;
   text-align:center;
-  margin:0 0 2.2cqw;
+  /* Figma 134:110 bottom (1283+108=1391) → Group 29 1433 = 42 figma px
+     → site ÷2 = 21px = 42/25.44 cqw */
+  margin:0 0 1.65094cqw;
   left:auto !important;
   top:auto !important;
-  font-size:3.7cqw;
+  font-size:3.75699cqw; /* 95.597/25.44 */
+  line-height:4.24528cqw; /* Figma text frame h 108/25.44 — keeps gap from frame bottom */
   color:#fff !important;
 }
 
 .ac-cards{
   margin-top:0;
   display:flex;
-  gap:2.3cqw;
-  justify-content:center;
+  flex-wrap:nowrap;
+  gap:2.79088cqw;
+  justify-content:flex-start;
+  transform:translateX(0);
+  transition:transform 350ms ease;
+  will-change:transform;
 }
 
 .ac-card{
-  width:31.3%;
+  width:24.76415cqw;
+  flex:0 0 24.76415cqw;
+  min-height:26.69025cqw;
   background:#fff;
   border:none;
-  border-radius:2.0cqw;
-  padding:2.1cqw 1.9cqw 1.6cqw;
+  border-radius:2.48939cqw;
+  padding:5.35cqw 1.93cqw 1.6cqw;
   box-sizing:border-box;
   cursor:default;
   transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
@@ -105,6 +118,7 @@
 }
 
 .ac-card.is-hot,
+.ac-card.is-active,
 .ac-card:hover,
 .ac-card:focus-within{
   transform: translateY(-6px);
@@ -114,6 +128,7 @@
 
 /* Ensure hover still wins against html.js reveal's `transform: none`. */
 .ac-card.reveal.is-visible.is-hot,
+.ac-card.reveal.is-visible.is-active,
 .ac-card.reveal.is-visible:hover,
 .ac-card.reveal.is-visible:focus-within{
   transform: translateY(-6px);
@@ -125,99 +140,138 @@
   margin:0 0 1.4cqw;
   font-family:'FuturaBookC',sans-serif;
   font-weight:400;
-  font-size:1.22cqw;
+  font-size:1.96541cqw;
   line-height:1.15;
-  color:#0a2a6d;
+  color:#00008a;
 }
 
 .ac-card__desc{
   margin:0;
   font-family:'FuturaBookC',sans-serif;
-  font-size:0.74cqw;
+  font-size:1.11871cqw;
   line-height:1.35;
-  color:#0a2a6d;
+  color:#00008a;
 }
 
 /* Underlined word "ссылке" inside competency body. */
 .ac-link{
-  color:#0a2a6d;
+  color:#00008a;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
 }
 
-/* Carousel arrows under the 3 cards (decorative, no JS wiring). */
+/* Carousel arrows — Figma Arrow 2/3 exported SVGs (ARROW_LINES → filled)
+   Abs: Arrow3 @1229 (39+head→41), Arrow2 @1275; gap 5; cards→arrows y=47 */
 .ac-carousel{
-  margin-top:2.0cqw;
+  margin-top:1.84748cqw;
   display:flex;
   justify-content:center;
-  gap:2.6cqw;
+  align-items:center;
+  gap:0.19654cqw; /* 5/25.44 between exported 41px boxes */
   position:relative;
   z-index:1;
-}
-.ac-carousel__arrow{
-  width:2.8cqw;
-  height:1.8cqw;
-  padding:0;
-  border:none;
-  background:transparent;
-  cursor:default;
-  position:relative;
-}
-.ac-carousel__arrow::before{
-  content:'';
-  position:absolute;
-  top:50%;
-  left:0;
-  right:0;
-  height:1px;
-  background:#fff;
-  transform:translateY(-50%);
-}
-.ac-carousel__arrow--left::after,
-.ac-carousel__arrow--right::after{
-  content:'';
-  position:absolute;
-  top:50%;
-  width:0;
-  height:0;
-  border-top:0.28cqw solid transparent;
-  border-bottom:0.28cqw solid transparent;
-  transform:translateY(-50%);
-}
-.ac-carousel__arrow--left::after{
-  left:0.15cqw;
-  border-right:0.38cqw solid #fff;
-}
-.ac-carousel__arrow--right::after{
-  right:0.15cqw;
-  border-left:0.38cqw solid #fff;
+  width:fit-content;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-/* JS hover expects these classes; keep them blue and allow multi-line titles. */
+.ac-carousel__arrow{
+  flex:0 0 auto;
+  width:auto;
+  height:auto;
+  padding:0.55cqw 0.2cqw;
+  margin:0;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  position:relative;
+  z-index:1;
+  color:#fff;
+  display:block;
+  line-height:0;
+}
+
+.ac-carousel__arrow:focus-visible{
+  outline:2px solid #fff;
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.ac-carousel__arrow:hover:not(:disabled){
+  opacity:0.85;
+}
+
+.ac-carousel__arrow:disabled{
+  opacity:0.28; /* Figma Arrow 3 stroke opacity */
+  cursor:default;
+}
+
+.ac-carousel__arrow svg{
+  display:block;
+  width:1.61164cqw; /* 41/25.44 — Figma export viewBox */
+  height:0.90409cqw; /* 23/25.44 */
+  overflow:visible;
+}
+
 .ac-L1,
 .ac-L2a,
 .ac-L2b,
-.ac-R1{
+.ac-L3a,
+.ac-L3b,
+.ac-L4a,
+.ac-L4b,
+.ac-L5a,
+.ac-L5b,
+.ac-R1,
+.ac-R2a,
+.ac-R2b{
   position:static !important;
   display:block;
-  color:#0a2a6d !important;
-  font-size:1.25cqw !important;
+  color:#00008a !important;
+  font-size:1.96541cqw !important;
   line-height:1.15 !important;
   white-space:normal;
 }
 
-/* CTA button is outside .ac-sec (in anton2 markup), but the blueprint CSS made it absolute.
-   Force it back into normal flow for our strip. */
+/* CTA button is outside .ac-sec — Page 6 white outline pill (Figma 134:187) */
 .cta-block .ac-pill,
-.cta-block .ac-pillarrow{
-  position:static !important;
+.cta-block .ac-pillarrow,
+.cta-block .ac-ctapilltext{
   left:auto !important;
   top:auto !important;
 }
 
+.cta-block .ac-pill{
+  width:11.64701cqw !important;
+  height:3.19969cqw !important;
+  padding:0 0.7214cqw 0 1.1085cqw !important;
+  display:flex !important;
+  align-items:center;
+  justify-content:space-between;
+  gap:0.573cqw;
+  border:0.11570cqw solid #fff !important;
+  background:transparent !important;
+  box-sizing:border-box;
+  border-radius:1.61164cqw !important;
+}
+
+.cta-block .ac-ctapilltext{
+  position:static !important;
+  margin:0;
+  flex:0 1 auto;
+}
+
+.cta-block .ac-pillarrow{
+  position:static !important;
+  width:2.28774cqw !important;
+  height:2.28774cqw !important;
+  display:block;
+  flex:0 0 auto;
+  object-fit:contain;
+}
+
 .cta-block{
-  /* Place strip after about card consistently with PDF portrait flow. */
   margin-top:2.0cqw;
 }
 

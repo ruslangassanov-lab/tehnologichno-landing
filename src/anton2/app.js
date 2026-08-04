@@ -65,6 +65,7 @@
       '.ac-title',
       '.ac-card',
       '.about-block',
+      '.about-bullet',
       '.cta-block',
       '.ac-ctatitle',
       '.ac-pill',
@@ -101,6 +102,7 @@
   stagger(document.querySelectorAll('.faq__card'));
   stagger(document.querySelectorAll('.logo'));
   stagger(document.querySelectorAll('.ac-card'), 45, 400);
+  stagger(document.querySelectorAll('.about-bullet'), 70, 320);
 
   /* Double rAF: ensure .reveal (opacity:0) is painted before is-visible,
      so titles actually transition instead of appearing already visible. */
@@ -118,4 +120,81 @@
   }, { rootMargin: '0px 0px -6% 0px', threshold: 0.12 });
 
   targets.forEach(function (el) { io.observe(el); });
+
+  /* Competencies carousel (ac-carousel):
+     moves the whole .ac-cards track + highlights visible cards */
+  (function setupCompetencyCarousel() {
+    var section = document.getElementById('competencies');
+    if (!section) return;
+
+    var carousel = section.querySelector('.ac-carousel');
+    var track = section.querySelector('.ac-cards');
+    if (!carousel || !track) return;
+
+    var leftBtn = carousel.querySelector('.ac-carousel__arrow--left');
+    var rightBtn = carousel.querySelector('.ac-carousel__arrow--right');
+    if (!leftBtn || !rightBtn) return;
+
+    var cards = Array.prototype.slice.call(track.querySelectorAll('.ac-card'));
+    if (cards.length < 2) return;
+
+    var visibleCount = 3;
+    var maxIndex = Math.max(0, cards.length - visibleCount);
+    var index = 0;
+
+    var step = 0;
+    var baseOffset = 0; // aligns the visible window (3 cards) like in the PDF
+
+    var updateActive = function () {
+      cards.forEach(function (c, i) {
+        c.classList.toggle('is-active', i >= index && i < index + visibleCount);
+      });
+    };
+
+    var measure = function () {
+      // Reset so offsetLeft measurements are stable.
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(0px)';
+
+      var card1Offset = cards.length > 1 ? cards[1].offsetLeft : 0;
+      var card0Offset = cards[0].offsetLeft;
+
+      step = card1Offset - card0Offset;
+      // .ac-viewport (overflow:hidden, width=3 cards @ x=251) clips the window.
+      baseOffset = 0;
+
+      // Clamp index if content/width changed.
+      maxIndex = Math.max(0, cards.length - visibleCount);
+      index = Math.min(index, maxIndex);
+    };
+
+    var apply = function () {
+      var x = baseOffset - index * step;
+      var transition = reduce ? 'none' : 'transform 420ms cubic-bezier(.22,.61,.36,1)';
+      track.style.transition = transition;
+      track.style.transform = 'translateX(' + x + 'px)';
+      updateActive();
+
+      leftBtn.disabled = index <= 0;
+      rightBtn.disabled = index >= maxIndex;
+    };
+
+    carousel.classList.add('is-active');
+    measure();
+    apply();
+
+    leftBtn.addEventListener('click', function () {
+      index = Math.max(0, index - 1);
+      apply();
+    });
+    rightBtn.addEventListener('click', function () {
+      index = Math.min(maxIndex, index + 1);
+      apply();
+    });
+
+    window.addEventListener('resize', function () {
+      measure();
+      apply();
+    });
+  })();
 })();

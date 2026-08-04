@@ -60,7 +60,9 @@
     <section class="ac-sec" id="competencies">
     <h2 class="ac-title">Компетенции</h2>
 
+    <div class="ac-viewport">
     <div class="ac-cards">
+      <!-- Cards (carousel track). Visible window is controlled by JS -->
       <article class="ac-card ac-card--1">
         <h3 class="ac-card__title">
           <span class="ac-L1">Компьютерное зрение<br>в промышленности</span>
@@ -89,41 +91,123 @@
           Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
         </p>
       </article>
+
+      <article class="ac-card ac-card--4">
+        <h3 class="ac-card__title">
+          <span class="ac-L1">Промышленный дизайн</span>
+        </h3>
+        <p class="ac-card__desc">
+          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+        </p>
+      </article>
+
+      <article class="ac-card ac-card--5">
+        <h3 class="ac-card__title">
+          <span class="ac-L2a">Аддитивное производство</span>
+          <span class="ac-L2b">и обратный инжиниринг</span>
+        </h3>
+        <p class="ac-card__desc">
+          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+        </p>
+      </article>
+
+      <article class="ac-card ac-card--6">
+        <h3 class="ac-card__title">
+          <span class="ac-L3a">Программирование логистических</span>
+          <span class="ac-L3b">роботов</span>
+        </h3>
+        <p class="ac-card__desc">
+          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+        </p>
+      </article>
+
+      <article class="ac-card ac-card--7">
+        <h3 class="ac-card__title">
+          <span class="ac-L4a">Роботизация промышленного</span>
+          <span class="ac-L4b">предприятия</span>
+        </h3>
+        <p class="ac-card__desc">
+          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+        </p>
+      </article>
+
+      <article class="ac-card ac-card--8">
+        <h3 class="ac-card__title">
+          <span class="ac-L5a">Машинное обучение</span>
+          <span class="ac-L5b">и большие данные</span>
+        </h3>
+        <p class="ac-card__desc">
+          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+        </p>
+      </article>
+
+      <article class="ac-card ac-card--9">
+        <h3 class="ac-card__title">
+          <span class="ac-R1">Техническое обслуживание БАС</span>
+        </h3>
+        <p class="ac-card__desc">
+          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+        </p>
+      </article>
+
+      <article class="ac-card ac-card--10">
+        <h3 class="ac-card__title">
+          <span class="ac-R2a">Проектирование логистических</span>
+          <span class="ac-R2b">цепочек на предприятии</span>
+        </h3>
+        <p class="ac-card__desc">
+          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+        </p>
+      </article>
+    </div>
     </div>
 
-    <div class="ac-carousel" aria-hidden="false">
-      <button class="ac-carousel__arrow ac-carousel__arrow--left" type="button" aria-label="Предыдущая компетенция"></button>
-      <button class="ac-carousel__arrow ac-carousel__arrow--right" type="button" aria-label="Следующая компетенция"></button>
+    <div class="ac-carousel" role="group" aria-label="Навигация по компетенциям">
+      <!-- Exact Figma export: Arrow 3 (left) + Arrow 2 (right), ARROW_LINES → filled paths -->
+      <button class="ac-carousel__arrow ac-carousel__arrow--left" type="button" aria-label="Предыдущая компетенция">
+        <svg width="41" height="23" viewBox="0 0 41 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M0.439339 12.1066C-0.146446 11.5208 -0.146446 10.571 0.439339 9.98524L9.98528 0.439297C10.5711 -0.14649 11.5208 -0.14649 12.1066 0.439297C12.6924 1.02508 12.6924 1.97483 12.1066 2.56062L3.62132 11.0459L12.1066 19.5312C12.6924 20.117 12.6924 21.0667 12.1066 21.6525C11.5208 22.2383 10.5711 22.2383 9.98528 21.6525L0.439339 12.1066ZM40.5 11.0459V12.5459H1.5V11.0459V9.5459H40.5V11.0459Z" fill="currentColor"/>
+        </svg>
+      </button>
+      <button class="ac-carousel__arrow ac-carousel__arrow--right" type="button" aria-label="Следующая компетенция">
+        <svg width="41" height="23" viewBox="0 0 41 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M40.0607 12.1066C40.6464 11.5208 40.6464 10.571 40.0607 9.98524L30.5147 0.439297C29.9289 -0.14649 28.9792 -0.14649 28.3934 0.439297C27.8076 1.02508 27.8076 1.97483 28.3934 2.56062L36.8787 11.0459L28.3934 19.5312C27.8076 20.117 27.8076 21.0667 28.3934 21.6525C28.9792 22.2383 29.9289 22.2383 30.5147 21.6525L40.0607 12.1066ZM0 11.0459V12.5459H39V11.0459V9.5459H0V11.0459Z" fill="currentColor"/>
+        </svg>
+      </button>
     </div>
   </section>
 
   <section class="about-block" id="about">
-    <h2 class="about-block__title">
-      <span class="about-block__dot" aria-hidden="true"></span>
-      О чемпионате
-    </h2>
+    <h2 class="about-block__title">О чемпионате</h2>
     <p class="about-block__text">
       Международный открытый отборочный чемпионат высокотехнологичных профессий «ТехноЛогично» — практико-ориентированная площадка для выявления сильнейших специалистов и апробации передовых производственных решений.
     </p>
-
-    <div class="about-block__band" aria-hidden="true"></div>
-
+    <!-- Rectangle 27 / 28 — horizontal stroke bands between intro and «К участию» -->
+    <div class="about-block__bands" aria-hidden="true">
+      <span class="about-block__band about-block__band--thick"></span>
+      <span class="about-block__band about-block__band--thin"></span>
+    </div>
     <p class="about-block__subtext">
       К участию приглашаются специалисты промышленных предприятий Центрального федерального округа и представители иностранных государств.
     </p>
 
-    <div class="about-bullets" aria-label="Ключевые принципы">
-      <div class="about-bullet">
-        <img class="about-bullet__icon" src="../assets/anton/arrow-btn.webp" alt="" aria-hidden="true">
-        <p class="about-bullet__text">Объединяем промышленность, экспертное сообщество и систему подготовки кадров.</p>
-      </div>
-      <div class="about-bullet">
-        <img class="about-bullet__icon" src="../assets/anton/arrow-btn.webp" alt="" aria-hidden="true">
-        <p class="about-bullet__text">Способствуем обмену лучшими практиками, актуализации профессиональных стандартов и образовательных программ.</p>
-      </div>
-      <div class="about-bullet">
-        <img class="about-bullet__icon" src="../assets/anton/arrow-btn.webp" alt="" aria-hidden="true">
-        <p class="about-bullet__text">Повышаем престиж инженерных и рабочих специальностей, а также популяризируем высокотехнологичные профессии.</p>
+    <div class="about-bullets-wrap">
+      <span class="about-block__my" aria-hidden="true">МЫ</span>
+      <div class="about-bullets" aria-label="Ключевые принципы">
+        <div class="about-bullet">
+          <img class="about-bullet__icon" src="../assets/anton/arrow-about.svg" alt="" width="32" height="32" aria-hidden="true">
+          <p class="about-bullet__text">Объединяем промышленность, экспертное сообщество и систему подготовки кадров.</p>
+        </div>
+        <div class="about-bullet__line" aria-hidden="true"></div>
+        <div class="about-bullet">
+          <img class="about-bullet__icon" src="../assets/anton/arrow-about.svg" alt="" width="32" height="32" aria-hidden="true">
+          <p class="about-bullet__text">Способствуем обмену лучшими практиками, актуализации профессиональных стандартов и образовательных программ.</p>
+        </div>
+        <div class="about-bullet__line" aria-hidden="true"></div>
+        <div class="about-bullet">
+          <img class="about-bullet__icon" src="../assets/anton/arrow-about.svg" alt="" width="32" height="32" aria-hidden="true">
+          <p class="about-bullet__text">Повышаем престиж инженерных и рабочих специальностей, а также популяризируем высокотехнологичные профессии.</p>
+        </div>
       </div>
     </div>
 
@@ -132,15 +216,14 @@
     </p>
   </section>
 
-  <section class="cta-block" id="apply">
-    <h2 class="ac-ctatitle cta-block__title">Оставьте заявку прямо сейчас</h2>
-    <a class="ac-pill cta-block__button" href="#apply">
-      <span class="ac-ctapilltext">Оставить заявку</span>
-      <img class="ac-pillarrow" src="../assets/anton/arrow-pill.webp" alt="">
-    </a>
-  </section>
-
-    <section id="faq" class="faq">
+  <section id="faq" class="faq">
+    <div class="cta-block" id="apply">
+      <h2 class="ac-ctatitle cta-block__title">Оставьте заявку прямо сейчас</h2>
+      <a class="ac-pill cta-block__button" href="#apply">
+        <span class="ac-ctapilltext">Оставить заявку</span>
+        <img class="ac-pillarrow" src="../assets/anton/arrow-pill.webp" alt="">
+      </a>
+    </div>
       <h2 class="section-title faq__title">Вопрос-ответ</h2>
       <div class="faq__cards">
         <article class="faq__card">

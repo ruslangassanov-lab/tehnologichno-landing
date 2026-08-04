@@ -18,13 +18,23 @@
   --ah-grey:#707070;
 }
 
-/* ONE full-bleed page gradient only — no .ah-canvas / short underlay.
-   Canvas is a transparent layout shell (max 1272); white cards sit on this. */
+/* Page 6 Frame 14 fill = white; Rectangle 26 = GRADIENT_LINEAR 180deg
+   stops #000057@0 → #2F2FD7@0.55 → #000057@0.995; height 4750/2544 of canvas.
+   «3 блок» Rect 23 (#000057) sits UNDER Rect 26 for y=4243→4750, then continues
+   alone to y=6109 — so page paint is: gradient (верхнее) + navy underlay through
+   FAQ, then Frame 14 white. No radial glows / image overlays / concentric blobs. */
 html, body.ah{
-  background-color:#000057;
-  background-image:linear-gradient(180deg,#0303AF 0, #000057 calc(1272px * 1.084906));
+  --ah-grad-h: min(2375px, calc(100vw * 4750 / 2544));
+  background-color:#fff;
+  background-image:
+    linear-gradient(180deg,#000057 0%,#2F2FD7 55%,#000057 99.52%),
+    linear-gradient(#000057,#000057);
   background-repeat:no-repeat;
-  background-size:100% auto;
+  /* Gradient on top for 4750; navy underlay through 3 блок end (6109) / 4 блок (6265) */
+  background-size:
+    100% var(--ah-grad-h),
+    100% calc(var(--ah-grad-h) * 6265 / 4750);
+  background-position:center top, center top;
   min-width:100%;
   min-height:100%;
 }
@@ -35,32 +45,32 @@ html, body.ah{
   background:none;
 }
 
-/* ================= ШАПКА ================= */
-.ah-header{position:relative;height:5.03145cqw;}
-.ah-header__logo{position:absolute;left:5.73899cqw;top:1.25786cqw;
-  width:3.09591cqw;height:2.05346cqw;display:block;}
-.ah-header__word{position:absolute;left:9.00157cqw;top:1.98541cqw;
-  font-family:'GoodHeadPro',sans-serif;font-size:0.79009cqw;line-height:1;
+/* ================= ШАПКА (Figma Frame 9 @191,111) ================= */
+.ah-header{position:relative;height:10.456cqw;}
+.ah-header__logo{position:absolute;left:7.50786cqw;top:4.33648cqw;
+  width:3.09355cqw;height:2.05189cqw;display:block;}
+.ah-header__word{position:absolute;left:10.76258cqw;top:4.90566cqw;
+  font-family:'GoodHeadPro',sans-serif;font-size:0.78892cqw;line-height:1;
   color:#fff;white-space:nowrap;}
 .ah-nav a{position:absolute;font-family:'FuturaBookC',sans-serif;
   font-size:0.78616cqw;line-height:1;color:#fff;white-space:nowrap;text-decoration:none;}
-.ah-nav .n1{left:38.04874cqw;top:1.98973cqw;}
-.ah-nav .n2{left:48.58648cqw;top:2.01514cqw;}
-.ah-nav .n3{left:58.72012cqw;top:2.02005cqw;}
+.ah-nav .n1{left:37.17374cqw;top:4.90959cqw;}
+.ah-nav .n2{left:47.65330cqw;top:4.90959cqw;}
+.ah-nav .n3{left:57.92846cqw;top:4.90959cqw;}
 
-.ah-pill{position:absolute;left:86.21226cqw;top:1.28774cqw;
-  width:7.27201cqw;height:2.00472cqw;border:0.0786cqw solid #fff;border-radius:999px;
-  box-sizing:border-box;text-decoration:none;display:block;}
-.ah-pill__t{position:absolute;left:0.57862cqw;top:0.58628cqw;
-  font-family:'FuturaBookC',sans-serif;font-size:0.64701cqw;line-height:1;
+.ah-pill{position:absolute;left:84.76022cqw;top:4.36321cqw;
+  width:7.27201cqw;height:2.00079cqw;border:0.07225cqw solid #fff;border-radius:1.00629cqw;
+  box-sizing:border-box;text-decoration:none;display:block;background:transparent;}
+.ah-pill__t{position:absolute;left:0.64858cqw;top:0.60535cqw;
+  font-family:'FuturaBookC',sans-serif;font-size:0.64858cqw;line-height:1;
   color:#fff;white-space:nowrap;}
-.ah-pill__a{position:absolute;left:5.40409cqw;top:0.26179cqw;
-  width:1.43474cqw;height:1.43474cqw;display:block;}
+.ah-pill__a{position:absolute;left:5.39230cqw;top:0.25157cqw;
+  width:1.42689cqw;height:1.42689cqw;display:block;}
 
-/* ================= HERO-КАРТОЧКА (inset, скругления как в презе) ================= */
-.ah-hero{position:relative;margin-left:2.19182cqw;
-  width:95.67610cqw;height:46.54088cqw;
-  background:#fff;border-radius:3.40409cqw;overflow:hidden;}
+/* ================= HERO-КАРТОЧКА (Figma 134:196 @116,266) ================= */
+.ah-hero{position:relative;margin-left:4.55975cqw;margin-top:0;
+  width:90.95912cqw;height:33.05818cqw;
+  background:#fff;border-radius:3.21737cqw;overflow:hidden;}
 
 .ah-hero__tt{position:absolute;left:52.72170cqw;top:6.05346cqw;
   width:42.95440cqw;height:28.66352cqw;display:block;}
@@ -92,288 +102,427 @@ html, body.ah{
 .ah-hero__btn-a{position:absolute;left:12.03459cqw;top:0.39308cqw;
   width:2.23113cqw;height:2.23113cqw;display:block;}
 
-/* ===== anton2 (Second version / PDF 2026) overrides ===== */
-/* Header must be visible (PDF shows it on the top navy chrome). */
+/* ===== anton2 — Figma Page 6 (Frame 14 @2544 → canvas 1272, ÷2) ===== */
 .ah-header{display:block;}
 
-/* Rework hero card content */
-.ah-hero{
-  background:#fff;
-  height:auto;
-  min-height:28cqw;
-  padding:0;
-}
-
-.ah-hero__card{
-  position:relative;
+/* Nested wrappers collapse so absolute children anchor to .ah-hero */
+.ah-hero__card,
+.ah-hero__card-left,
+.ah-hero__card-right{
+  position:static;
+  display:block;
   inset:auto;
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  padding:3.2cqw 3.2cqw 3.4cqw 6.8cqw;
-  gap:2cqw;
-}
-
-.ah-hero__card-left{
-  display:flex;
-  flex-direction:column;
-  gap:0.95cqw;
-  padding-top:1.6cqw;
+  padding:0;
+  margin:0;
+  gap:0;
 }
 
 .ah-hero__brand{
+  position:absolute;
+  left:7.93826cqw;
+  top:3.81289cqw;
+  margin:0;
   font-family:'GoodHeadPro',sans-serif;
-  font-size:4.6cqw;
   font-weight:400;
+  font-size:7.46538cqw;
   line-height:1;
-  color:var(--ah-navy);
+  color:#000057;
+  white-space:nowrap;
 }
 
-/* Subtitle inside the hero card (accent word "чемпионат" in blue). */
 .ah-hero__subtitle{
+  position:absolute;
+  left:9.05769cqw;
+  top:11.84547cqw;
   margin:0;
+  width:49.53091cqw;
   font-family:'FuturaBookC',sans-serif;
-  font-size:1.52cqw;
-  line-height:1.15;
+  font-size:1.57306cqw;
+  line-height:1.25;
   color:#000;
-  max-width:29.5cqw;
+  white-space:normal;
+  max-width:none;
 }
 .ah-hero__subtitle-accent{
-  color:var(--ah-blue);
+  color:#0946F1;
   font-weight:400;
 }
 
-/* Small uppercase grey tagline under the subtitle. */
 .ah-hero__tagline{
+  position:absolute;
+  left:9.09362cqw;
+  top:14.32611cqw;
+  margin:0;
+  width:31.17682cqw;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:0.87677cqw;
+  line-height:1.25;
+  color:#000;
+  opacity:0.45;
+  text-transform:uppercase;
+  white-space:normal;
+  max-width:none;
+}
+
+/* CTA pill: 482×103.1 @347,866 → relative to card.
+   Flex insets: L 35.29 / R 10.81 / ellipse 73.66 (÷25.44) — text+arrow
+   vertically centered (Figma absolute tops were optically off). */
+.ah-hero__btn{
+  display:flex !important;
+  align-items:center;
+  justify-content:space-between;
+  gap:0.5cqw;
+  position:absolute;
+  left:9.08019cqw;
+  top:23.58490cqw;
+  width:18.94654cqw;
+  height:4.05300cqw;
+  padding:0 0.42515cqw 0 1.38713cqw;
+  box-sizing:border-box;
+  background:#0947F1;
+  border-radius:2.03999cqw;
+  text-decoration:none;
+}
+.ah-hero__btn-t{
+  position:static;
+  left:auto;
+  top:auto;
   margin:0;
   font-family:'FuturaBookC',sans-serif;
-  font-size:0.82cqw;
-  line-height:1.25;
-  color:var(--ah-grey);
-  text-transform:uppercase;
-  max-width:34.5cqw;
-}
-
-.ah-hero__mini-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:0.8cqw;
-  height:2.95cqw;
-  padding:0 1.4cqw;
-  border-radius:999px;
-  background:var(--ah-blue);
-  text-decoration:none;
-  white-space:nowrap;
-  font-family:'FuturaBookC',sans-serif;
-  font-size:0.95cqw;
+  font-size:1.26961cqw;
+  line-height:1;
   color:#fff;
+  white-space:nowrap;
+  flex:0 1 auto;
+}
+.ah-hero__btn-a{
+  position:static;
+  left:auto;
+  top:auto;
+  width:2.89546cqw;
+  height:2.89546cqw;
+  display:block;
+  flex:0 0 auto;
+  object-fit:contain;
 }
 
-.ah-hero__mini-btn-a{
-  width:1.85cqw;
-  height:1.85cqw;
-}
-
-.ah-hero__card-right{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  padding-top:2.1cqw;
-}
-
+/* Date + year: FuturaDemiC */
 .ah-hero__date{
-  font-family:'FuturaBookC',sans-serif;
-  font-size:1.35cqw;
-  color:var(--ah-navy);
-  text-align:right;
-  line-height:1.2;
-  margin-bottom:0.6cqw;
+  position:absolute;
+  left:57.31132cqw;
+  top:15.99843cqw;
+  margin:0;
+  font-family:'FuturaDemiC',sans-serif;
+  font-weight:400;
+  font-size:2.60513cqw;
+  line-height:1;
+  color:#000057;
+  text-align:left;
   white-space:nowrap;
 }
 
 .ah-hero__year{
-  font-family:'GoodHeadPro',sans-serif;
+  position:absolute;
+  left:57.32883cqw;
+  top:19.57275cqw;
+  margin:0;
+  font-family:'FuturaDemiC',sans-serif;
   font-weight:400;
-  font-size:9.2cqw;
-  color:var(--ah-navy);
-  line-height:0.9;
+  font-size:12.43682cqw;
+  line-height:0.78;
+  color:#000057;
+  white-space:nowrap;
 }
 
-/* Hero old elements hidden (but keep for other builds) */
 .ah-hero__tt,
 .ah-hero__h1,
 .ah-hero__sub,
 .ah-hero__descr,
-.ah-hero__btn{display:none;}
+.ah-hero__mini-btn{display:none;}
 
-/* ===== anton2 "about" card (bullet list) ===== */
+/* ===== About (Figma Page 6 «О чемпионате» 134:166)
+   Frame 14 2544 → canvas 1272 (÷2); cqw = figmaPx / 25.44 ===== */
 .about-block{
-  width:95.7cqw;
-  margin-left:2.20126cqw;
-  margin-top:2.0cqw;
+  width:100%;
+  margin-left:0;
+  margin-top:7.5cqw;
   background:transparent;
+  position:relative;
+  overflow:visible;
 }
 
+/* 134:167 — FuturaBookC 95.6, white, centered; no decorative circle */
 .about-block__title{
   text-align:center;
   margin:0;
   font-family:'FuturaBookC',sans-serif;
   font-weight:400;
   color:#fff;
-  font-size:2.8cqw;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:1.0cqw;
+  font-size:3.75699cqw;
+  line-height:1;
+  display:block;
 }
 
-.about-block__dot{
-  width:1.1cqw;
-  height:1.1cqw;
-  border:0.15cqw solid #fff;
-  border-radius:50%;
-  display:inline-block;
-}
-
+/* 134:168 — 40px / 1692 wide */
 .about-block__text{
-  margin:1.2cqw auto 0;
-  width:82cqw;
+  margin:1.76887cqw auto 0;
+  width:66.50943cqw;
   font-family:'FuturaBookC',sans-serif;
-  font-size:1.0cqw;
+  font-size:1.57233cqw;
   color:#fff;
   text-align:center;
-  line-height:1.5;
-}
-
-/* Dark horizontal band between intro and secondary invite paragraph. */
-.about-block__band{
-  width:95.7cqw;
-  height:1.65cqw;
-  margin:1.55cqw auto 0;
-  background:linear-gradient(180deg,#0a31a8 0%,#062a8e 100%);
-}
-
-.about-block__subtext{
-  margin:2.2cqw auto 0;
-  width:82cqw;
-  font-family:'FuturaBookC',sans-serif;
-  font-size:0.95cqw;
-  color:#dbe3ff;
-  text-align:center;
-  line-height:1.45;
-}
-
-.about-bullets{
-  margin:1.6cqw auto 0;
-  width:95.7cqw;
-  background:#fff;
-  border-radius:3.3cqw;
-  padding:2.2cqw 3.0cqw 2.0cqw;
-  box-sizing:border-box;
-}
-
-.about-bullet{
-  position:relative;
-  display:flex;
-  align-items:flex-start;
-  gap:1.7cqw;
-  padding:1.2cqw 0;
-}
-
-.about-bullet::before{
-  content:'';
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:0.35cqw;
-  background:#1437a7;
-}
-
-.about-bullet:last-child::before{display:none;}
-
-.about-bullet__icon{
-  width:1.15cqw;
-  height:1.15cqw;
-  margin-top:0.15cqw;
-}
-
-.about-bullet__text{
-  margin:0;
-  font-family:'FuturaBookC',sans-serif;
-  font-size:0.95cqw;
-  color:#0a2a6d;
   line-height:1.35;
 }
 
-/* ===== anton2 CTA strip ===== */
-.cta-block{
-  width:95.7cqw;
-  margin-left:2.20126cqw;
-  margin-top:2.2cqw;
-  padding:2.2cqw 0 2.1cqw;
-  background:linear-gradient(180deg,#1b57ff 0%,#0b45c8 100%);
+/* Rectangle 27/28 (134:193/194) — stroke bands in the intro→sub gap (368).
+   Same GRADIENT_LINEAR L→R: #4141f6 → #00008a@50.48% → #4141f6@97.6%.
+   Weights 101 / 37; path centers at y 2812 / 2911 (Frame 14). */
+.about-block__bands{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:1.17925cqw; /* 30 between stroke edges */
+  /* Full-bleed breakout past .ah-canvas max 1272 (same pattern as .faq::before) */
+  width:100vw;
+  margin:4.65802cqw 0 0; /* 118.5: intro bottom → thick top */
+  margin-left:calc(50% - 50vw);
+  position:relative;
+}
+.about-block__band{
+  display:block;
+  width:100%;
+  border:0;
   border-radius:0;
+  background:linear-gradient(90deg,#4141f6 0%,#00008a 50.48%,#4141f6 97.6%);
+}
+.about-block__band--thick{height:3.96934cqw;} /* Rect 27 strokeWeight 101 */
+.about-block__band--thin{height:1.45440cqw;}  /* Rect 28 strokeWeight 37 */
+
+/* 134:169 — 40px / 986 wide; margin after thin band bottom (81.5) */
+.about-block__subtext{
+  margin:3.20362cqw auto 0;
+  width:38.75786cqw;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:1.57233cqw;
+  color:#fff;
   text-align:center;
+  line-height:1.35;
 }
 
-.cta-block__title{
+/* Card + watermark stack (Rectangle 33 134:171 + МЫ 134:184) */
+.about-bullets-wrap{
+  position:relative;
+  z-index:0;
+  margin:9.59119cqw auto 0;
+  width:83.09748cqw; /* 2114 */
+  overflow:visible;
+}
+
+/* 134:184 «МЫ» — measured on Page 6 but layer is hidden in Figma.
+   Showing white FuturaDemiC flush to the white card merges into the
+   jagged “factory” left edge from the broken UI. Match visible Page 6:
+   clean rounded card, no watermark. Markup kept for easy re-enable. */
+.about-block__my{
+  display:none;
+}
+
+/* White card 2114×617, r=45; Frame 12 gap 61, pad ~50/100 */
+.about-bullets{
+  position:relative;
+  z-index:1;
+  margin:0;
+  width:100%;
+  min-height:24.25314cqw;
+  background:#fff;
+  border-radius:1.76887cqw;
+  padding:1.96541cqw 3.93082cqw;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2.39780cqw; /* 61 */
+}
+
+.about-bullet{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:2.59434cqw; /* 98−32 arrow→text */
+  padding:0;
+  width:auto;
+  max-width:26.49371cqw; /* 674 */
+}
+
+/* Thick navy dividers — Line 1/2 strokeWeight 14, #101082, width 1828 */
+.about-bullet__line{
+  flex:none;
+  width:71.85535cqw;
+  height:0.55031cqw;
+  margin:0;
+  padding:0;
+  border:0;
+  background:#101082;
+}
+
+/* Figma Arrow 4 instance 32×32, navy ↗ (arrow-about.svg) */
+.about-bullet__icon{
+  width:1.25786cqw;
+  height:1.25786cqw;
+  margin-top:0.70755cqw; /* 18 */
+  flex:none;
+  display:block;
+  object-fit:contain;
+}
+
+/* 30px #000057 */
+.about-bullet__text{
+  margin:0;
+  width:22.64151cqw; /* 576 */
+  font-family:'FuturaBookC',sans-serif;
+  font-size:1.17925cqw;
+  color:#000057;
+  line-height:1.35;
+  text-align:left;
+}
+
+/* 134:170 — closing Hitech line */
+.about-block__hitech{
+  position:relative;
+  z-index:1;
+  margin:8.01887cqw auto 1.25786cqw;
+  width:48.58491cqw;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:1.57233cqw;
+  color:#fff;
+  text-align:center;
+  line-height:1.35;
+}
+
+/* ===== CTA (Figma 134:185) — child of «2 блок», overlaps top of «3 блок».
+   Sits on Rectangle 26 gradient (верхнее paints above Rect 23), not on a
+   separate navy FAQ fill. Geometry: @4453 within block @4243. ===== */
+.faq .cta-block{
+  position:absolute;
+  left:-6.21%;
+  top:11.253%;
+  width:112.42%;
+  margin:0;
+  padding:1.25786cqw 0 1.7cqw;
+  height:15.488%;
+  min-height:0;
+  box-sizing:border-box;
+  background:linear-gradient(180deg,#03237C 0%,#0640E2 100%);
+  border-radius:4.95283cqw;
+  text-align:center;
+  z-index:2;
+}
+
+.faq .cta-block__title{
   margin:0;
   font-family:'FuturaBookC',sans-serif;
   font-weight:400;
-  font-size:3.1cqw;
+  font-size:3.75699cqw;
   color:#fff;
   line-height:1.1;
 }
 
-.cta-block__button{
-  margin:1.1cqw auto 0;
-  display:inline-flex;
+/* Figma 134:187 — flex insets: L 28.19 / R 18.35 / ellipse 58.18 (÷25.44) */
+.faq .cta-block__button{
+  margin:1.2cqw auto 0;
+  display:flex !important;
   align-items:center;
-  justify-content:center;
-  gap:0.9cqw;
-  border:0.12cqw solid #000057;
-  background:#000057;
-  width:auto;
-  height:2.6cqw;
-  padding:0 1.4cqw;
-  border-radius:999px;
+  justify-content:space-between;
+  gap:0.573cqw;
+  position:relative !important;
+  top:auto !important;
+  left:auto !important;
+  width:11.64701cqw !important;
+  height:3.19969cqw !important;
+  padding:0 0.7214cqw 0 1.1085cqw !important;
+  border:0.11570cqw solid #fff !important;
+  background:transparent !important;
+  border-radius:1.61164cqw !important;
+  box-sizing:border-box;
   text-decoration:none;
-  font-family:'FuturaBookC',sans-serif;
-  font-size:1.0cqw;
-  color:#fff;
-  position:relative;
-  top:auto;
-  left:auto;
 }
 
-.cta-block__button .ac-ctapilltext{
-  color:#fff;
-  font-family:'FuturaBookC',sans-serif;
-  font-size:1.0cqw;
-}
-
-.cta-block__button .ac-pillarrow{
+.faq .cta-block__button .ac-ctapilltext{
   position:static !important;
-  width:1.6cqw;
-  height:1.6cqw;
+  left:auto !important;
+  top:auto !important;
+  margin:0;
+  color:#fff;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:1.03873cqw;
+  line-height:1;
+  white-space:nowrap;
+  flex:0 1 auto;
 }
 
-.cta-block__button img{
+.faq .cta-block__button .ac-pillarrow{
+  position:static !important;
+  left:auto !important;
+  top:auto !important;
+  width:2.28774cqw !important;
+  height:2.28774cqw !important;
   display:block;
+  flex:0 0 auto;
+  object-fit:contain;
 }
 
-.cta-block__button.ac-pill{
-  position:static !important;
+.faq .cta-block__button.ac-pill{
+  position:relative !important;
 }
 
-/* Closing about sentence before CTA band (Hайтек). */
-.about-block__hitech{
-  margin:2.2cqw auto 0;
-  width:86cqw;
-  font-family:'FuturaBookC',sans-serif;
-  font-size:0.95cqw;
-  color:#dbe3ff;
-  text-align:center;
-  line-height:1.35;
+/* Hover / focus — match header .ah-pill invert (overrides transparent !important) */
+.faq .cta-block__button:hover,
+.faq .cta-block__button:focus-visible,
+.cta-block .ac-pill:hover,
+.cta-block .ac-pill:focus-visible{
+  background:#fff !important;
+  box-shadow:0 8px 22px rgba(0,0,0,0.2);
+  transform:translateY(-2px);
+}
+
+.faq .cta-block__button:hover .ac-ctapilltext,
+.faq .cta-block__button:focus-visible .ac-ctapilltext,
+.cta-block .ac-pill:hover .ac-ctapilltext,
+.cta-block .ac-pill:focus-visible .ac-ctapilltext{
+  color:#0947F1;
+}
+
+.faq .cta-block__button:hover .ac-pillarrow,
+.faq .cta-block__button:focus-visible .ac-pillarrow,
+.cta-block .ac-pill:hover .ac-pillarrow,
+.cta-block .ac-pill:focus-visible .ac-pillarrow{
+  transform:scale(1.08);
+}
+
+.faq .cta-block__button:focus-visible,
+.cta-block .ac-pill:focus-visible{
+  outline:2px solid #fff;
+  outline-offset:3px;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .faq .cta-block__button:hover,
+  .faq .cta-block__button:focus-visible,
+  .cta-block .ac-pill:hover,
+  .cta-block .ac-pill:focus-visible{
+    transform:none;
+  }
+
+  .faq .cta-block__button:hover .ac-pillarrow,
+  .faq .cta-block__button:focus-visible .ac-pillarrow,
+  .cta-block .ac-pill:hover .ac-pillarrow,
+  .cta-block .ac-pill:focus-visible .ac-pillarrow{
+    transform:none;
+  }
+}
+
+/* Reveal animation must not fight absolute CTA band layout */
+html.js .faq .cta-block:not(.is-visible),
+html.js .faq .cta-block.is-visible{
+  transform:none;
 }

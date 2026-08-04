@@ -332,20 +332,46 @@ img { display: block; max-width: 100%; height: auto; }
   padding-inline: 0.6em;
 }
 
-/* ===== FAQ =====
-   Карточки как в презе/PDF: градиент + декор (шестерёнка + волны) из faq-card-bg,
-   ответы всегда видны — это статичный блок макета, не аккордеон. */
+/* ===== FAQ — Figma Page 6 «3 блок» 2544×1866 =====
+   Rect 23 (#000057, r=132) is UNDER Rectangle 26 for the top overlap
+   (4243→4750). Visible paint in the CTA band is the page gradient (body.ah).
+   Section stays canvas-wide for content alignment; navy slab (::before) full-bleeds
+   to body.ah / viewport width (Figma Rect 23 = full Frame 14), then rounds into
+   white organizers. Top of section stays transparent so верхнее/Rect 26 owns CTA. */
 .faq {
   position: relative;
-  aspect-ratio: 1272 / 507;
-  margin-top: 8.3333cqw;
+  width: 100%;
+  margin-inline: 0;
+  margin-top: 0;
+  background: transparent;
+  aspect-ratio: 2544 / 1866;
   overflow: visible;
+  isolation: isolate;
+}
+
+/* Rect 23 continuation below gradient terminus / CTA band.
+   (4750-4243)/1866 ≈ 27.17% — matches CTA bottom (~26.74%).
+   Full-bleed breakout: canvas is max 1272 centered in a wider body — without
+   100vw the bottom radii leave white body/organizers corners beside the curve. */
+.faq::before {
+  content: '';
+  position: absolute;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  right: auto;
+  top: calc(100% * (4750 - 4243) / 1866);
+  bottom: 0;
+  background: #000057;
+  /* r=132 on Frame 14 width 2544 — scale to viewport, not canvas */
+  border-radius: 0 0 calc(100vw * 132 / 2544) calc(100vw * 132 / 2544);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .faq__title {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 36.227%;
   width: 100%;
   text-align: center;
   color: var(--white);
@@ -356,21 +382,21 @@ img { display: block; max-width: 100%; height: auto; }
 
 .faq__cards {
   position: absolute;
-  top: 22.879%;
+  top: 45.879%;
   left: 0;
   width: 100%;
-  height: 77.121%;
+  height: 43.14%;
   overflow: visible;
 }
 
 .faq__card {
   position: absolute;
   top: 0;
-  width: 24.764%;
+  width: 24.780%;
   height: 100%;
-  border-radius: 1.8868cqw;
+  border-radius: 2.48939cqw;
   overflow: hidden;
-  background-color: var(--grad-2);
+  background-color: #0946F1;
   background-image: url('../assets/faq-card-bg.png');
   background-repeat: no-repeat;
   background-position: center;
@@ -378,8 +404,8 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .faq__card:nth-child(1) { left: 10.063%; }
-.faq__card:nth-child(2) { left: 37.657%; }
-.faq__card:nth-child(3) { left: 65.252%; }
+.faq__card:nth-child(2) { left: 37.633%; }
+.faq__card:nth-child(3) { left: 65.216%; }
 
 /* Шестерёнка уже в faq-card-bg — SVG-дубль скрываем */
 .faq__star {
@@ -388,26 +414,26 @@ img { display: block; max-width: 100%; height: auto; }
 
 .faq__card h3 {
   position: absolute;
-  left: 7.937%;
-  top: 22%;
-  width: 79.365%;
+  left: 7.79%;
+  top: 20.83%;
+  width: 84%;
   margin: 0;
   color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
   font-size: 2.3899cqw;
   font-weight: 400;
-  line-height: 1.0;
+  line-height: 1.15;
 }
 
 .faq__card p {
   position: absolute;
-  left: 7.937%;
-  top: 55.499%;
-  width: 79.365%;
+  left: 7.79%;
+  top: 55.23%;
+  width: 84%;
   margin: 0;
   color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
-  font-size: 1.1164cqw;
+  font-size: 1.1187cqw;
   line-height: 1.25;
 }
 
@@ -426,15 +452,13 @@ img { display: block; max-width: 100%; height: auto; }
    зафиксированное как допустимое отклонение решение, границы карточки подобраны
    по содержимому с симметричным полем 40px сверху/снизу вокруг измеренных точек
    (64px не влезали в реальный зазор чертежа между секциями — см. report.md). */
-.logos-section { margin-inline: 0; background: #fff; }
+.logos-section { margin-inline: 0; background: #fff; padding-inline: 5.503cqw; }
 
 .logos-section--organizers {
-  margin-top: 0;
-  padding-top: 5.5cqw;
+  margin-top: 6.132cqw;
 }
 .logos-section--partners {
-  margin-top: 0;
-  padding-bottom: 2cqw;
+  margin-top: 2.5157cqw;
 }
 
 .logos-section .card--logos {
@@ -486,10 +510,10 @@ img { display: block; max-width: 100%; height: auto; }
    иначе transform/reveal на коллапсированном блоке сбивает % top в кучу. */
 .site-footer {
   position: relative;
-  margin-inline: 2.2013cqw;
+  margin-inline: 0;
   margin-top: 4.7170cqw;
-  background: var(--footer-grey); /* #B6B6B6 */
-  border-radius: 3.1447cqw 3.1447cqw 0 0;
+  background: #b6b6b6;
+  border-radius: 5.18868cqw 5.18868cqw 0 0;
   overflow: hidden;
   color: var(--white);
 }
@@ -518,7 +542,7 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
   font-weight: 400;
-  font-size: 5.1651cqw;
+  font-size: 3.93082cqw;
   line-height: 1;
 }
 
@@ -533,7 +557,7 @@ img { display: block; max-width: 100%; height: auto; }
   margin: 0;
   color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
-  font-size: 1.3600cqw;
+  font-size: 1.06132cqw;
   line-height: 1.2;
 }
 
