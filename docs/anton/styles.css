@@ -635,16 +635,17 @@ img { display: block; max-width: 100%; height: auto; }
   outline-offset: 3px;
 }
 
+/* Hover = presentation polish from PDF build (src/anton):
+   rest 0.4cqw/1.2cqw; lift -0.85cqw (~11px @1272) + scale 1.02;
+   3-layer shadow; 0.45s cubic-bezier — not the invented -7px soft pass. */
 .faq__card {
   cursor: default;
   will-change: transform, box-shadow;
-  transform: translate3d(0, 0, 0);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 40, 0.08),
-    0 4px 12px rgba(0, 0, 40, 0.10);
+  transform: translate3d(0, 0, 0) scale(1);
+  box-shadow: 0 0.4cqw 1.2cqw rgba(0, 0, 30, 0.18);
   transition:
-    transform 200ms ease,
-    box-shadow 200ms ease;
+    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 /* Specificity must beat .faq__card.reveal:not(.reveal--fade).is-visible
@@ -653,10 +654,11 @@ img { display: block; max-width: 100%; height: auto; }
 .faq__card:focus-within,
 .faq__card.reveal:not(.reveal--fade).is-visible:hover,
 .faq__card.reveal:not(.reveal--fade).is-visible:focus-within {
-  transform: translate3d(0, -7px, 0);
+  transform: translate3d(0, -0.85cqw, 0) scale(1.02);
   box-shadow:
-    0 4px 10px rgba(0, 0, 40, 0.12),
-    0 12px 28px rgba(0, 10, 60, 0.18);
+    0 0.25cqw 0.5cqw rgba(0, 0, 40, 0.12),
+    0 1.1cqw 2cqw rgba(0, 10, 60, 0.28),
+    0 2.4cqw 4.5cqw rgba(0, 0, 40, 0.38);
   z-index: 3;
 }
 
@@ -684,7 +686,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .faq__card.reveal:not(.reveal--fade).is-visible {
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .reveal.reveal--fade,

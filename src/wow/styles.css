@@ -1773,25 +1773,41 @@ button {
 @media (max-width: 767px) {
   .header {
     height: 70px;
-    padding: 0 16px;
+    padding:
+      0 max(20px, env(safe-area-inset-right, 0px))
+      0 max(20px, env(safe-area-inset-left, 0px));
     justify-content: space-between;
+    gap: 12px;
   }
 
   .header__logo {
-    gap: 8px;
+    gap: 10px;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .header__monogram {
+    flex-shrink: 0;
+    width: 28px;
+    height: 19px;
   }
 
   .header__wordmark {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.15;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
   }
 
   .header__actions {
     gap: 10px;
+    flex-shrink: 0;
   }
 
   .header__cta {
     padding: 8px 14px;
     font-size: 13px;
+    white-space: nowrap;
     background-color: var(--brand-blue-600);
     border-color: var(--brand-blue-600);
     color: var(--neutral-white);
