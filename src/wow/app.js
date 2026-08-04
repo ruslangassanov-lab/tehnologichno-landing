@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Цифры чемпионата — count-up при появлении в зоне
   setupStatsCount();
 
-  // Mobile timeline: sequential orange light-up 01→04
+  // Mobile timeline: chase light-up 01→04; only 04 stays lit
   setupTimelineLightUp();
 });
 
@@ -200,7 +200,7 @@ function setupButtonInteractions() {
 }
 
 /* ============================================================================
-   TIMELINE LIGHT-UP — mobile scroll: 01→02→03→04 orange; 04 stays lit
+   TIMELINE LIGHT-UP — mobile scroll: 01→02→03 flash then off; 04 stays lit
    ============================================================================ */
 
 function setupTimelineLightUp() {
@@ -213,23 +213,28 @@ function setupTimelineLightUp() {
   const mobileMq = window.matchMedia('(max-width: 767px)');
   const reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
   const STEP_MS = 480;
+  const lastIndex = steps.length - 1;
 
-  const lightAll = () => {
-    steps.forEach((step) => step.classList.add('is-lit'));
+  const lightOnly = (activeIndex) => {
+    steps.forEach((step, i) => {
+      step.classList.toggle('is-lit', i === activeIndex);
+    });
   };
 
   const runSequence = () => {
     if (section.dataset.timelineLit === '1') return;
     section.dataset.timelineLit = '1';
 
+    // Reduced motion: skip chase, leave only final step (04 / «Старт») lit
     if (reduceMq.matches) {
-      lightAll();
+      lightOnly(lastIndex);
       return;
     }
 
+    // Chase: light N, extinguish previous; only 04 remains orange
     steps.forEach((step, i) => {
       window.setTimeout(() => {
-        step.classList.add('is-lit');
+        lightOnly(i);
       }, i * STEP_MS);
     });
   };
