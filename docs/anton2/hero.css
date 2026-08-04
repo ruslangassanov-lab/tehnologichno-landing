@@ -1,0 +1,330 @@
+/* ============================================================
+   HERO ANTON — попиксельная реализация PDF-макета заказчика.
+   Все координаты — обмеры из PDF (холст 1272px), переведённые в
+   cqw: 1cqw = 1% ширины .canvas, поэтому пропорции держатся на любой ширине.
+   Шрифты: Good Head Pro News (H1/лого), FuturaBookC (текст) — от заказчика.
+   ============================================================ */
+
+@font-face{font-family:'GoodHeadPro';font-weight:400;font-style:normal;font-display:block;
+  src:url('../assets/fonts/goodheadpro-news.woff2') format('woff2');}
+@font-face{font-family:'FuturaBookC';font-weight:400;font-style:normal;font-display:block;
+  src:url('../assets/fonts/futurabookc.woff2') format('woff2');}
+@font-face{font-family:'FuturaDemiC';font-weight:400;font-style:normal;font-display:block;
+  src:url('../assets/fonts/futurademic.woff2') format('woff2');}
+
+:root{
+  --ah-navy:#000057;
+  --ah-blue:#0947F1;
+  --ah-grey:#707070;
+}
+
+/* ONE full-bleed page gradient only — no .ah-canvas / short underlay.
+   Canvas is a transparent layout shell (max 1272); white cards sit on this. */
+html, body.ah{
+  background-color:#000057;
+  background-image:linear-gradient(180deg,#0303AF 0, #000057 calc(1272px * 1.084906));
+  background-repeat:no-repeat;
+  background-size:100% auto;
+  min-width:100%;
+  min-height:100%;
+}
+.ah-canvas, .ah-canvas *{text-rendering:geometricPrecision;font-kerning:normal;}
+.ah-canvas{
+  container-type:inline-size;
+  width:100%;max-width:1272px;margin-inline:auto;position:relative;
+  background:none;
+}
+
+/* ================= ШАПКА ================= */
+.ah-header{position:relative;height:5.03145cqw;}
+.ah-header__logo{position:absolute;left:5.73899cqw;top:1.25786cqw;
+  width:3.09591cqw;height:2.05346cqw;display:block;}
+.ah-header__word{position:absolute;left:9.00157cqw;top:1.98541cqw;
+  font-family:'GoodHeadPro',sans-serif;font-size:0.79009cqw;line-height:1;
+  color:#fff;white-space:nowrap;}
+.ah-nav a{position:absolute;font-family:'FuturaBookC',sans-serif;
+  font-size:0.78616cqw;line-height:1;color:#fff;white-space:nowrap;text-decoration:none;}
+.ah-nav .n1{left:38.04874cqw;top:1.98973cqw;}
+.ah-nav .n2{left:48.58648cqw;top:2.01514cqw;}
+.ah-nav .n3{left:58.72012cqw;top:2.02005cqw;}
+
+.ah-pill{position:absolute;left:86.21226cqw;top:1.28774cqw;
+  width:7.27201cqw;height:2.00472cqw;border:0.0786cqw solid #fff;border-radius:999px;
+  box-sizing:border-box;text-decoration:none;display:block;}
+.ah-pill__t{position:absolute;left:0.57862cqw;top:0.58628cqw;
+  font-family:'FuturaBookC',sans-serif;font-size:0.64701cqw;line-height:1;
+  color:#fff;white-space:nowrap;}
+.ah-pill__a{position:absolute;left:5.40409cqw;top:0.26179cqw;
+  width:1.43474cqw;height:1.43474cqw;display:block;}
+
+/* ================= HERO-КАРТОЧКА (inset, скругления как в презе) ================= */
+.ah-hero{position:relative;margin-left:2.19182cqw;
+  width:95.67610cqw;height:46.54088cqw;
+  background:#fff;border-radius:3.40409cqw;overflow:hidden;}
+
+.ah-hero__tt{position:absolute;left:52.72170cqw;top:6.05346cqw;
+  width:42.95440cqw;height:28.66352cqw;display:block;}
+
+.ah-hero__h1{position:absolute;left:6.76179cqw;top:10.69385cqw;margin:0;
+  font-family:'GoodHeadPro',sans-serif;font-weight:400;font-size:5.76179cqw;line-height:1;
+  color:var(--ah-navy);white-space:nowrap;}
+
+.ah-hero__sub{position:absolute;left:0;top:0;margin:0;
+  font-family:'FuturaBookC',sans-serif;font-size:2.22956cqw;line-height:1;
+  color:#000;white-space:nowrap;}
+.ah-hero__sub .l1,.ah-hero__sub .l2{position:absolute;display:block;white-space:nowrap;}
+.ah-hero__sub .l1{left:7.61478cqw;top:16.25527cqw;}
+.ah-hero__sub .l2{left:7.63581cqw;top:18.80028cqw;}
+
+.ah-hero__descr{position:absolute;left:0;top:0;margin:0;
+  font-family:'FuturaBookC',sans-serif;font-size:0.90330cqw;line-height:1;
+  color:var(--ah-grey);white-space:nowrap;}
+.ah-hero__descr .l1,.ah-hero__descr .l2{position:absolute;display:block;white-space:nowrap;}
+.ah-hero__descr .l1{left:7.64387cqw;top:25.09356cqw;}
+.ah-hero__descr .l2{left:7.63365cqw;top:26.13089cqw;}
+
+.ah-hero__btn{position:absolute;left:7.63522cqw;top:29.95283cqw;
+  width:14.58333cqw;height:3.11478cqw;background:var(--ah-blue);
+  border-radius:999px;display:block;text-decoration:none;}
+.ah-hero__btn-t{position:absolute;left:1.06053cqw;top:1.00237cqw;
+  font-family:'FuturaBookC',sans-serif;font-size:0.97642cqw;line-height:1;
+  color:#fff;white-space:nowrap;}
+.ah-hero__btn-a{position:absolute;left:12.03459cqw;top:0.39308cqw;
+  width:2.23113cqw;height:2.23113cqw;display:block;}
+
+/* ===== anton2 (Second version / PDF 2026) overrides ===== */
+.ah-header{display:none !important;}
+
+/* Rework hero card content */
+.ah-hero{
+  background:#fff;
+}
+
+.ah-hero__card{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  padding:1.7cqw 3.2cqw 1.7cqw 6.8cqw;
+}
+
+.ah-hero__card-left{
+  display:flex;
+  flex-direction:column;
+  gap:1.4cqw;
+  padding-top:1.6cqw;
+}
+
+.ah-hero__brand{
+  font-family:'GoodHeadPro',sans-serif;
+  font-size:4.6cqw;
+  font-weight:400;
+  line-height:1;
+  color:var(--ah-navy);
+}
+
+.ah-hero__mini-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:0.8cqw;
+  height:2.95cqw;
+  padding:0 1.4cqw;
+  border-radius:999px;
+  background:var(--ah-blue);
+  text-decoration:none;
+  white-space:nowrap;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:0.95cqw;
+  color:#fff;
+}
+
+.ah-hero__mini-btn-a{
+  width:1.85cqw;
+  height:1.85cqw;
+}
+
+.ah-hero__card-right{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  padding-top:2.1cqw;
+}
+
+.ah-hero__date{
+  font-family:'FuturaBookC',sans-serif;
+  font-size:1.0cqw;
+  color:#000;
+  text-align:right;
+  line-height:1.2;
+  margin-bottom:0.6cqw;
+  white-space:nowrap;
+}
+
+.ah-hero__year{
+  font-family:'FuturaBookC',sans-serif;
+  font-weight:600;
+  font-size:7.1cqw;
+  color:var(--ah-navy);
+  line-height:1;
+}
+
+/* Hero old elements hidden (but keep for other builds) */
+.ah-hero__tt,
+.ah-hero__h1,
+.ah-hero__sub,
+.ah-hero__descr,
+.ah-hero__btn{display:none;}
+
+/* ===== anton2 "about" card (bullet list) ===== */
+.about-block{
+  width:95.7cqw;
+  margin-left:2.20126cqw;
+  margin-top:2.0cqw;
+  background:transparent;
+}
+
+.about-block__title{
+  text-align:center;
+  margin:0;
+  font-family:'FuturaBookC',sans-serif;
+  font-weight:400;
+  color:#fff;
+  font-size:2.8cqw;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1.0cqw;
+}
+
+.about-block__dot{
+  width:1.1cqw;
+  height:1.1cqw;
+  border:0.15cqw solid #fff;
+  border-radius:50%;
+  display:inline-block;
+}
+
+.about-block__text{
+  margin:1.2cqw auto 0;
+  width:82cqw;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:1.0cqw;
+  color:#dbe3ff;
+  text-align:center;
+  line-height:1.5;
+}
+
+.about-block__subtext{
+  margin:2.2cqw auto 0;
+  width:82cqw;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:0.95cqw;
+  color:#dbe3ff;
+  text-align:center;
+  line-height:1.45;
+}
+
+.about-bullets{
+  margin:1.6cqw auto 0;
+  width:95.7cqw;
+  background:#fff;
+  border-radius:3.3cqw;
+  padding:2.2cqw 3.0cqw 2.0cqw;
+  box-sizing:border-box;
+}
+
+.about-bullet{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  gap:1.7cqw;
+  padding:1.2cqw 0;
+}
+
+.about-bullet::before{
+  content:'';
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:0.35cqw;
+  background:#1437a7;
+}
+
+.about-bullet:last-child::before{display:none;}
+
+.about-bullet__icon{
+  width:1.15cqw;
+  height:1.15cqw;
+  margin-top:0.15cqw;
+}
+
+.about-bullet__text{
+  margin:0;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:0.95cqw;
+  color:#0a2a6d;
+  line-height:1.35;
+}
+
+/* ===== anton2 CTA strip ===== */
+.cta-block{
+  width:95.7cqw;
+  margin-left:2.20126cqw;
+  margin-top:2.2cqw;
+  padding:2.2cqw 0 2.1cqw;
+  background:linear-gradient(180deg,#1b57ff 0%,#0b45c8 100%);
+  border-radius:0;
+  text-align:center;
+}
+
+.cta-block__title{
+  margin:0;
+  font-family:'FuturaBookC',sans-serif;
+  font-weight:400;
+  font-size:2.7cqw;
+  color:#fff;
+  line-height:1.1;
+}
+
+.cta-block__button{
+  margin:1.1cqw auto 0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.9cqw;
+  border:0.12cqw solid rgba(255,255,255,.9);
+  background:transparent;
+  width:auto;
+  height:2.6cqw;
+  padding:0 1.4cqw;
+  border-radius:999px;
+  text-decoration:none;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:1.0cqw;
+  color:#fff;
+  position:relative;
+  top:auto;
+  left:auto;
+}
+
+.cta-block__button .ac-ctapilltext{
+  color:#fff;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:1.0cqw;
+}
+
+.cta-block__button .ac-pillarrow{
+  position:static !important;
+  width:1.6cqw;
+  height:1.6cqw;
+}
+
+.cta-block__button img{
+  display:block;
+}
+
+.cta-block__button.ac-pill{
+  position:static !important;
+}

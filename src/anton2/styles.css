@@ -1,0 +1,828 @@
+/*
+  Геометрия воспроизведена по src/shared/anton-blueprint.md — абсолютные координаты
+  чертежа (canvas 1272px) переведены в проценты внутри каждой карточки и в cqw
+  (container query width, 1cqw = 1% ширины .canvas) для кеглей/отступов, поэтому
+  расположение элементов остаётся тем же на любой ширине экрана — это и есть
+  "адаптация по той же системе", а не отдельный редизайн для мобильных.
+*/
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-800.woff2') format('woff2');
+}
+
+:root {
+  /* Page chrome top blue; navy remains for text / gradient end */
+  --bg-chrome: #0303AF;
+  --bg-canvas: #000057;
+  --text-navy: #000057;
+  --text-black: #000000;
+  --white: #FFFFFF;
+  --accent-blue: #0947F1;
+  --grad-1: #0303AC;
+  --grad-2: #063FDF;
+  --footer-grey: #B6B6B6;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 100%;
+  overflow-x: hidden;
+  /* Flat chrome only as fallback; body.ah (hero.css) owns the page gradient.
+     Never paint a second short underlay on .canvas / .ah-canvas. */
+  background-color: var(--bg-canvas);
+}
+
+.canvas,
+.ah-canvas {
+  background: none;
+}
+
+body {
+  font-family: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.4;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+/* Единственный источник cqw-масштаба: 1cqw = 1% ширины .canvas.
+   На экранах >=1272px canvas стоит на максимуме (1272px) и дальше не растёт —
+   "базовая ширина макета 1272, пропорции держать". На узких экранах canvas
+   сжимается до 100vw, и вместе с ним пропорционально все кегли/координаты.
+   Пробовали дать кеглям нижний порог (clamp) на 390/360px, где чистое сжатие
+   даёт ~4px текст — но вся геометрия здесь построена на абсолютном % позицио-
+   нировании, рассчитанном именно на кегль, растущий/сжимающийся в ту же
+   пропорцию, что и бокс; кегль-пол ломает это и текст залезает на соседние
+   блоки, что уже редизайн вёрстки, а не адаптация. Оставлено как чистое линей-
+   ное масштабирование — см. "Рекомендации прорабу" в report.md про читаемость
+   на узких экранах, это несогласуемо без пересборки мобильной раскладки. */
+.canvas {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 1272px;
+  margin-inline: auto;
+  position: relative;
+}
+
+.section-title {
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ===== Шапка ===== */
+.site-header {
+  position: relative;
+  aspect-ratio: 1272 / 64;
+  display: flex;
+  align-items: center;
+  padding-inline: 2.2013cqw;
+}
+
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.629cqw;
+}
+
+.site-header__brand img {
+  height: 1.8868cqw;
+  width: auto;
+}
+
+.site-header__wordmark {
+  font-size: 1.022cqw;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.site-header__nav { margin-inline: auto; }
+
+.site-header__nav ul {
+  display: flex;
+  gap: 2.2cqw;
+}
+
+.site-header__nav a {
+  font-size: 0.7862cqw;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.btn--header {
+  position: absolute;
+  left: 86.164%;
+  top: 23.4375%;
+  width: 7.390%;
+  height: 42.1875%;
+  background: var(--white);
+  color: var(--text-navy);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6525cqw;
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* ===== Hero ===== */
+.hero { margin-top: 0; }
+
+.card {
+  background: var(--white);
+  position: relative;
+}
+
+.card--hero {
+  aspect-ratio: 1216 / 591;
+  border-radius: 3.1447cqw;
+  margin-inline: 2.2013cqw;
+}
+
+.hero__graphic-box {
+  position: absolute;
+  left: 55.099%;
+  top: 13.028%;
+  width: 45.395%;
+  height: 61.591%;
+}
+
+.hero__graphic {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+}
+
+.hero__title {
+  position: absolute;
+  left: 7.072%;
+  top: 24.365%;
+  width: 38.076%;
+  margin: 0;
+  color: var(--text-navy);
+  font-size: 5.7625cqw;
+  font-weight: 600;
+  line-height: 1.0;
+}
+
+.hero__subtitle {
+  position: absolute;
+  left: 7.977%;
+  top: 35.194%;
+  width: 48%;
+  margin: 0;
+  color: var(--text-black);
+  font-size: 2.2327cqw;
+  line-height: 1.15;
+}
+
+.hero__descriptor {
+  position: absolute;
+  left: 7.977%;
+  top: 53.807%;
+  width: 47.286%;
+  margin: 0;
+  color: var(--text-black);
+  font-size: 0.9040cqw;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+
+.btn--hero {
+  position: absolute;
+  left: 7.977%;
+  top: 64.467%;
+  width: 15.296%;
+  height: 6.768%;
+  min-height: 28px;
+  background: var(--accent-blue);
+  color: var(--white);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.9748cqw;
+  font-weight: 600;
+  padding-inline: 0.6em;
+}
+
+/* ===== Компетенции ===== */
+.competencies { margin-top: 2.5157cqw; }
+
+.card--competencies {
+  aspect-ratio: 1216 / 671;
+  border-radius: 3.1447cqw;
+  margin-inline: 2.2013cqw;
+  overflow: hidden;
+}
+
+.competencies__title {
+  position: absolute;
+  left: 0;
+  top: 13.263%;
+  width: 100%;
+  text-align: center;
+  color: var(--text-navy);
+  font-size: 3.7579cqw;
+}
+
+.competencies__list {
+  position: absolute;
+  top: 28.1%;
+  width: 16%;
+  display: grid;
+  grid-auto-rows: 4.324cqw;
+  align-content: start;
+}
+
+.competencies__list li { align-self: start; }
+
+.competencies__list--a { left: 21.217%; }
+.competencies__list--b { left: 61.678%; }
+
+.competencies__list li {
+  color: var(--text-black);
+  font-size: 1.1242cqw;
+  line-height: 1.15;
+}
+
+.cta-band {
+  position: absolute;
+  left: 0;
+  top: 78.539%;
+  width: 100%;
+  height: 21.461%;
+  background: linear-gradient(180deg, var(--grad-1), var(--grad-2));
+  border-radius: 3.1447cqw;
+}
+
+.cta-band__title {
+  position: absolute;
+  left: 15%;
+  top: 15.972%;
+  width: 70%;
+  margin: 0;
+  color: var(--white);
+  text-align: center;
+  line-height: 1.1;
+  font-size: 3.7579cqw;
+}
+
+.btn--cta-band {
+  position: absolute;
+  left: 43.75%;
+  top: 58.333%;
+  width: 12.418%;
+  height: 30.556%;
+  min-height: 26px;
+  border: 1.5px solid var(--white);
+  border-radius: 999px;
+  color: var(--white);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.0377cqw;
+  font-weight: 600;
+  white-space: nowrap;
+  padding-inline: 0.6em;
+}
+
+/* ===== FAQ =====
+   Карточки как в презе/PDF: градиент + декор (шестерёнка + волны) из faq-card-bg,
+   ответы всегда видны — это статичный блок макета, не аккордеон. */
+.faq {
+  position: relative;
+  aspect-ratio: 1272 / 507;
+  margin-top: 8.3333cqw;
+  overflow: visible;
+}
+
+.faq__title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
+  font-size: 3.9308cqw;
+}
+
+.faq__cards {
+  position: absolute;
+  top: 22.879%;
+  left: 0;
+  width: 100%;
+  height: 77.121%;
+  overflow: visible;
+}
+
+.faq__card {
+  position: absolute;
+  top: 0;
+  width: 24.764%;
+  height: 100%;
+  border-radius: 1.8868cqw;
+  overflow: hidden;
+  background-color: var(--grad-2);
+  background-image: url('../assets/faq-card-bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+.faq__card:nth-child(1) { left: 10.063%; }
+.faq__card:nth-child(2) { left: 37.657%; }
+.faq__card:nth-child(3) { left: 65.252%; }
+
+/* Шестерёнка уже в faq-card-bg — SVG-дубль скрываем */
+.faq__star {
+  display: none;
+}
+
+.faq__card h3 {
+  position: absolute;
+  left: 7.937%;
+  top: 22%;
+  width: 79.365%;
+  margin: 0;
+  color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-size: 2.3899cqw;
+  font-weight: 400;
+  line-height: 1.0;
+}
+
+.faq__card p {
+  position: absolute;
+  left: 7.937%;
+  top: 55.499%;
+  width: 79.365%;
+  margin: 0;
+  color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-size: 1.1164cqw;
+  line-height: 1.25;
+}
+
+/* ===== Организаторы / Партнёры =====
+   В чертеже нет отдельной белой подложки для этих секций (координаты есть только
+   у заголовков и логотипов), но заливка текста/части логотипов — тёмно-навy
+   #000057, на тёмном полотне это было бы невидимо (тот же дефект, что и с лого
+   партнёров, см. discrepancies_for_ruslan в content.json). Белая карточка —
+   зафиксированное как допустимое отклонение решение, границы карточки подобраны
+   по содержимому с симметричным полем 40px сверху/снизу вокруг измеренных точек
+   (64px не влезали в реальный зазор чертежа между секциями — см. report.md). */
+.logos-section { margin-inline: 2.2013cqw; }
+
+.logos-section--organizers { margin-top: 9.5126cqw; }
+.logos-section--partners { margin-top: 2.5157cqw; }
+
+.card--logos {
+  border-radius: 3.1447cqw;
+}
+
+.logos-section--organizers .card--logos { aspect-ratio: 1216 / 278; }
+.logos-section--partners .card--logos { aspect-ratio: 1216 / 252; }
+
+.logos__title {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--text-navy);
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
+  font-size: 3.9308cqw;
+  white-space: nowrap;
+}
+
+.logos-section--organizers .logos__title { top: 14.388%; }
+.logos-section--partners .logos__title { top: 15.873%; }
+
+/* Логотипы: только width + общая вертикаль (translateY(-50%)), без height-% —
+   иначе PNG 1214×~500 сжимаются в «полоски» (как mosprom 203×51). */
+.card--logos .logo {
+  position: absolute;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.logo--depinvest { left: 15.132%; top: 64%; width: 26.069%; transform: translateY(-50%); }
+.logo--kmz { left: 59.786%; top: 64%; width: 24.918%; transform: translateY(-50%); }
+
+.logo--platforma { left: 15.296%; top: 70%; width: 14.145%; transform: translateY(-50%); }
+.logo--mosprom { left: 32.483%; top: 70%; width: 16.694%; transform: translateY(-50%); }
+.logo--arpm { left: 52.220%; top: 70%; width: 14.638%; transform: translateY(-50%); }
+.logo--fcbas { left: 70.066%; top: 70%; width: 14.638%; transform: translateY(-50%); }
+
+/* ===== Футер (PDF): серая плита #B6B6B6, белый текст/иконки;
+   ширина как у .card (margin-inline 2.2013cqw). Блоки inset:0 —
+   иначе transform/reveal на коллапсированном блоке сбивает % top в кучу. */
+.site-footer {
+  position: relative;
+  margin-inline: 2.2013cqw;
+  margin-top: 4.7170cqw;
+  background: var(--footer-grey); /* #B6B6B6 */
+  border-radius: 3.1447cqw 3.1447cqw 0 0;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.site-footer__inner {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: 1216 / 421; /* card content width (1272 − 2×28) */
+  min-height: 0;
+}
+
+.site-footer__block {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.site-footer__block a,
+.site-footer__block .footer-row {
+  pointer-events: auto;
+}
+
+.footer-title {
+  position: absolute;
+  margin: 0;
+  color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
+  font-size: 5.1651cqw;
+  line-height: 1;
+}
+
+.site-footer__block--contacts .footer-title { left: 16.981%; top: 22.090%; white-space: nowrap; }
+.site-footer__block--hours .footer-title { left: 54.166%; top: 21.615%; white-space: nowrap; }
+
+.footer-row {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  margin: 0;
+  color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-size: 1.3600cqw;
+  line-height: 1.2;
+}
+
+.footer-row a { color: inherit; }
+
+.site-footer__block--contacts .footer-row:nth-of-type(1) { left: 17.610%; top: 40.380%; }
+.site-footer__block--contacts .footer-row:nth-of-type(2) { left: 17.610%; top: 53.682%; }
+.site-footer__block--hours .footer-row:nth-of-type(1) { left: 54.558%; top: 39.430%; }
+.site-footer__block--hours .footer-row:nth-of-type(2) { left: 54.558%; top: 52.732%; }
+
+.footer-icon {
+  width: 2.9088cqw;   /* 37/1272 — PDF icon box */
+  height: 2.9088cqw;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--white);
+}
+.footer-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.footer-icon--clock {
+  width: 3.3019cqw;   /* 42/1272 */
+  height: 3.3019cqw;
+}
+
+.footer-legal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 74.109%;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-size: 1.2579cqw;
+  white-space: nowrap;
+}
+
+/* ===== Progressive polish (ah-* build): nav / buttons / FAQ / reveal ===== */
+.ah-nav a {
+  overflow: visible;
+}
+
+.ah-nav-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+}
+
+.ah-nav-line.is-on {
+  transform: scaleX(1);
+}
+
+.ah-pill,
+.ah-hero__btn,
+.ac-pill {
+  cursor: pointer;
+  transition:
+    background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.ah-pill__t,
+.ah-hero__btn-t,
+.ac-ctapilltext {
+  transition: color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.ah-pill__a,
+.ah-hero__btn-a,
+.ac-pillarrow {
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transform-origin: center center;
+}
+
+.ah-pill:hover,
+.ah-pill:focus-visible {
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.ah-pill:hover .ah-pill__t,
+.ah-pill:focus-visible .ah-pill__t {
+  color: #000057;
+}
+
+.ah-pill:hover .ah-pill__a,
+.ah-pill:focus-visible .ah-pill__a {
+  transform: scale(1.08);
+}
+
+.ah-hero__btn:hover,
+.ah-hero__btn:focus-visible {
+  background: #0639d4;
+  box-shadow: 0 10px 28px rgba(8, 70, 240, 0.4);
+  transform: translateY(-2px);
+}
+
+.ah-hero__btn:hover .ah-hero__btn-a,
+.ah-hero__btn:focus-visible .ah-hero__btn-a {
+  transform: scale(1.08);
+}
+
+.ac-pill:hover,
+.ac-pill:focus-visible {
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.ac-pill:hover .ac-ctapilltext,
+.ac-pill:focus-visible .ac-ctapilltext {
+  color: #0947F1;
+}
+
+.ac-sec:has(.ac-pill:hover) .ac-pillarrow,
+.ac-sec:has(.ac-pill:focus-visible) .ac-pillarrow {
+  transform: scale(1.08);
+}
+
+.ah-pill:focus-visible,
+.ah-hero__btn:focus-visible,
+.ac-pill:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* FAQ hover: slight lift only (no scale — warps card art).
+   Rest + hover live here; reveal must not lock transform after is-visible. */
+.faq__card {
+  cursor: default;
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 40, 0.08),
+    0 4px 12px rgba(0, 0, 40, 0.10);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Появление при скролле: opacity + лёгкий translateY.
+   html.js — скрываем ключевые блоки с первого кадра (до app.js),
+   иначе titles мелькают, а is-visible ставится без transition.
+   Логотипы — только fade, transform не трогаем (translateY(-50%)). */
+html.js .faq__title:not(.is-visible),
+html.js .logos__title:not(.is-visible),
+html.js .faq__card:not(.is-visible),
+html.js .ac-title:not(.is-visible),
+html.js .ac-ctatitle:not(.is-visible),
+html.js .ac-item:not(.is-visible),
+html.js .ac-pill:not(.is-visible),
+html.js .ah-hero:not(.is-visible),
+html.js .ac-sec:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+html.js .card--logos .logo:not(.is-visible),
+html.js .ac-pillarrow:not(.is-visible) {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+html.js .reveal {
+  opacity: 0;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+html.js .reveal:not(.reveal--fade) {
+  transform: translateY(22px);
+}
+
+html.js .reveal.is-visible,
+html.js .faq__title.is-visible,
+html.js .logos__title.is-visible,
+html.js .faq__card.is-visible,
+html.js .ac-title.is-visible,
+html.js .ac-ctatitle.is-visible,
+html.js .ac-item.is-visible,
+html.js .ac-pill.is-visible,
+html.js .ah-hero.is-visible,
+html.js .ac-sec.is-visible,
+html.js .card--logos .logo.is-visible,
+html.js .ac-pillarrow.is-visible {
+  opacity: 1;
+}
+
+html.js .reveal:not(.reveal--fade):not(.faq__card).is-visible,
+html.js .faq__title.is-visible,
+html.js .logos__title.is-visible,
+html.js .ac-title.is-visible,
+html.js .ac-ctatitle.is-visible,
+html.js .ac-item.is-visible,
+html.js .ac-pill.is-visible,
+html.js .ah-hero.is-visible,
+html.js .ac-sec.is-visible {
+  transform: none;
+}
+
+/* FAQ rest after reveal: must beat html.js .reveal:not(.reveal--fade)
+   { translateY(22px) }, but must NOT include :hover so hover can lift. */
+html.js .faq__card.reveal.is-visible {
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 200ms ease,
+    box-shadow 200ms ease;
+  transition-delay: 0ms;
+}
+
+html.js .reveal.reveal--fade,
+html.js .logo.reveal {
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+/* Desktop: html.js .faq__card.reveal.is-visible:hover beats any leftover
+   reveal transform (also works without reveal lock — belt and suspenders). */
+@media (hover: hover) and (pointer: fine) {
+  .faq__card:hover,
+  .faq__card:focus-within,
+  html.js .faq__card.reveal.is-visible:hover,
+  html.js .faq__card.reveal.is-visible:focus-within {
+    transform: translate3d(0, -8px, 0);
+    box-shadow:
+      0 4px 10px rgba(0, 0, 40, 0.12),
+      0 12px 28px rgba(0, 10, 60, 0.18);
+    z-index: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ah-nav-line,
+  .ah-pill,
+  .ah-hero__btn,
+  .ac-pill,
+  .ah-pill__a,
+  .ah-hero__btn-a,
+  .ac-pillarrow,
+  .ah-pill__t,
+  .ah-hero__btn-t,
+  .ac-ctapilltext,
+  .faq__card {
+    transition: none;
+  }
+
+  .ah-hero__btn:hover,
+  .ah-hero__btn:focus-visible,
+  .ac-pill:hover,
+  .ac-pill:focus-visible,
+  .faq__card:hover,
+  .faq__card:focus-within,
+  html.js .faq__card.reveal.is-visible:hover,
+  html.js .faq__card.reveal.is-visible:focus-within {
+    transform: none;
+  }
+
+  .faq__card {
+    will-change: auto;
+  }
+
+  html.js .reveal,
+  html.js .faq__title,
+  html.js .logos__title,
+  html.js .faq__card,
+  html.js .ac-title,
+  html.js .ac-ctatitle,
+  html.js .ac-item,
+  html.js .ac-pill,
+  html.js .ah-hero,
+  html.js .ac-sec,
+  html.js .card--logos .logo,
+  html.js .ac-pillarrow {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Сохраняем центрирование логотипов даже при reduced-motion override */
+  html.js .logo.reveal,
+  html.js .card--logos .logo {
+    transform: translateY(-50%) !important;
+  }
+}
+

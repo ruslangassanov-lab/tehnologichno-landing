@@ -1,0 +1,135 @@
+/* ===== БЛОК «КОМПЕТЕНЦИИ» + КОНВЕРСИОННАЯ ПОЛОСА — inset карточка PDF ===== */
+.ac-sec{position:relative;margin-left:2.20126cqw;width:95.59748cqw;height:52.79088cqw;
+  border-radius:4.95283cqw;overflow:hidden;background:#fff;margin-top:2.43711cqw;}
+.ac-band{position:absolute;left:0;top:41.47013cqw;width:100%;height:11.32075cqw;
+  background:linear-gradient(180deg,#042B99 0%,#0640E2 100%);}
+.ac-sec span,.ac-sec h2,.ac-sec p{position:absolute;margin:0;white-space:nowrap;display:block;
+  font-family:'FuturaBookC',sans-serif;font-weight:400;line-height:1;}
+.ac-title{left:37.70597cqw;top:6.71148cqw;font-size:3.75786cqw;color:#000057;}
+.ac-L1{left:20.32233cqw;top:14.82940cqw;font-size:1.12814cqw;color:#000000;}
+.ac-L2a{left:20.33176cqw;top:17.88522cqw;font-size:1.12814cqw;color:#000000;}
+.ac-L2b{left:20.32233cqw;top:19.13365cqw;font-size:1.12814cqw;color:#000000;}
+.ac-L3a{left:20.32233cqw;top:22.21934cqw;font-size:1.12814cqw;color:#000000;}
+.ac-L3b{left:20.32233cqw;top:23.45755cqw;font-size:1.12814cqw;color:#000000;}
+.ac-L4a{left:20.32233cqw;top:26.52358cqw;font-size:1.12814cqw;color:#000000;}
+.ac-L4b{left:20.32233cqw;top:27.80031cqw;font-size:1.12814cqw;color:#000000;}
+.ac-L5a{left:20.33255cqw;top:30.84748cqw;font-size:1.12814cqw;color:#000000;}
+.ac-L5b{left:20.32233cqw;top:32.10535cqw;font-size:1.12814cqw;color:#000000;}
+.ac-R1{left:58.99135cqw;top:14.80975cqw;font-size:1.12814cqw;color:#000000;}
+.ac-R2a{left:59.00157cqw;top:17.89544cqw;font-size:1.12814cqw;color:#000000;}
+.ac-R2b{left:59.00157cqw;top:19.15330cqw;font-size:1.12814cqw;color:#000000;}
+.ac-R3a{left:59.00157cqw;top:22.21934cqw;font-size:1.12814cqw;color:#000000;}
+.ac-R3b{left:59.00157cqw;top:23.47720cqw;font-size:1.12814cqw;color:#000000;}
+.ac-R4a{left:58.99135cqw;top:26.55346cqw;font-size:1.12814cqw;color:#000000;}
+.ac-R4b{left:58.99135cqw;top:27.80031cqw;font-size:1.12814cqw;color:#000000;}
+.ac-R5a{left:59.00157cqw;top:30.86714cqw;font-size:1.12814cqw;color:#000000;}
+.ac-R5b{left:59.00157cqw;top:32.12500cqw;font-size:1.12814cqw;color:#000000;}
+.ac-ctatitle{left:24.19418cqw;top:43.03223cqw;font-size:3.75786cqw;color:#FFFFFF;}
+.ac-ctapilltext{left:1.10063cqw;top:1.03223cqw;font-size:1.03774cqw;color:#FFFFFF;}
+.ac-pill{position:absolute;left:41.98113cqw;top:48.18239cqw;width:11.63522cqw;height:3.19340cqw;
+  border:0.10849cqw solid #fff;border-radius:999px;box-sizing:border-box;display:block;}
+.ac-pillarrow{position:absolute;left:50.61950cqw;top:48.58569cqw;width:2.27987cqw;height:2.27987cqw;display:block;}
+
+/* Hover по компетенции (группы строк, вешает app.js) — без сдвига геометрии */
+.ac-sec .ac-item{
+  cursor:default;
+  transition:color .25s cubic-bezier(.22,.61,.36,1);
+}
+.ac-sec .ac-item.is-hot{color:#0947F1;}
+@media (prefers-reduced-motion:reduce){
+  .ac-sec .ac-item{transition:none;}
+}
+
+/* ===== anton2 (Second version / PDF 2026) overrides ===== */
+
+/* Competencies section becomes 3 cards on dark background (matches PDF). */
+.ac-sec{
+  background:transparent !important;
+  border-radius:0 !important;
+  overflow:visible;
+  height:auto;
+  padding-bottom:0;
+}
+
+.ac-sec span, .ac-sec h2, .ac-sec p{
+  /* Default blueprint styles relied on absolute positioning; anton2 uses regular flow. */
+  position:static !important;
+  display:block;
+  white-space:normal;
+}
+
+.ac-title{
+  width:100%;
+  text-align:center;
+  margin:1.8cqw 0 0;
+  left:auto !important;
+  top:auto !important;
+  font-size:3.7cqw;
+}
+
+.ac-cards{
+  margin-top:2.0cqw;
+  display:flex;
+  gap:2.0cqw;
+  justify-content:space-between;
+}
+
+.ac-card{
+  width:31.3%;
+  background:#fff;
+  border:none;
+  border-radius:2.0cqw;
+  padding:2.1cqw 1.9cqw 1.6cqw;
+  box-sizing:border-box;
+}
+
+.ac-card__title{
+  margin:0 0 1.4cqw;
+  font-family:'FuturaBookC',sans-serif;
+  font-weight:400;
+  font-size:1.22cqw;
+  line-height:1.15;
+  color:#0a2a6d;
+}
+
+.ac-card__desc{
+  margin:0;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:0.74cqw;
+  line-height:1.35;
+  color:#0a2a6d;
+}
+
+/* JS hover expects these classes; keep them blue and allow multi-line titles. */
+.ac-L1,
+.ac-L2a,
+.ac-L2b,
+.ac-R1{
+  position:static !important;
+  display:block;
+  color:#0a2a6d !important;
+  font-size:1.25cqw !important;
+  line-height:1.15 !important;
+  white-space:normal;
+}
+
+/* CTA button is outside .ac-sec (in anton2 markup), but the blueprint CSS made it absolute.
+   Force it back into normal flow for our strip. */
+.cta-block .ac-pill,
+.cta-block .ac-pillarrow{
+  position:static !important;
+  left:auto !important;
+  top:auto !important;
+}
+
+.cta-block{
+  /* Place strip after about card consistently with PDF portrait flow. */
+  margin-top:2.0cqw;
+}
+
+/* anton2: ensure competencies background is visible even if IntersectionObserver
+   doesn't toggle .is-visible in QuickLook renders. */
+html.js .ac-sec:not(.is-visible){
+  opacity:1 !important;
+  transform:none !important;
+}
