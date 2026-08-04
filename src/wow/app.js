@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Цифры чемпионата — count-up при появлении в зоне
   setupStatsCount();
+
+  // Mobile timeline: sequential orange light-up 01→04
+  setupTimelineLightUp();
 });
 
 /* ============================================================================
@@ -176,10 +179,12 @@ function setupAnchorLinks() {
    ============================================================================ */
 
 function setupButtonInteractions() {
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!canHover) return;
+
   const buttons = document.querySelectorAll('button');
 
   buttons.forEach(button => {
-    // Add hover ripple effect (optional)
     button.addEventListener('mouseenter', () => {
       button.style.transform = 'scale(1.02)';
     });
@@ -188,10 +193,72 @@ function setupButtonInteractions() {
       button.style.transform = 'scale(1)';
     });
 
-    // Respect prefers-reduced-motion
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       button.style.transition = 'none';
     }
+  });
+}
+
+/* ============================================================================
+   TIMELINE LIGHT-UP — mobile scroll: 01→02→03→04 orange; 04 stays lit
+   ============================================================================ */
+
+function setupTimelineLightUp() {
+  const section = document.getElementById('timeline');
+  if (!section) return;
+
+  const steps = Array.from(section.querySelectorAll('.timeline__step'));
+  if (!steps.length) return;
+
+  const mobileMq = window.matchMedia('(max-width: 767px)');
+  const reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const STEP_MS = 480;
+
+  const lightAll = () => {
+    steps.forEach((step) => step.classList.add('is-lit'));
+  };
+
+  const runSequence = () => {
+    if (section.dataset.timelineLit === '1') return;
+    section.dataset.timelineLit = '1';
+
+    if (reduceMq.matches) {
+      lightAll();
+      return;
+    }
+
+    steps.forEach((step, i) => {
+      window.setTimeout(() => {
+        step.classList.add('is-lit');
+      }, i * STEP_MS);
+    });
+  };
+
+  const startIfMobile = () => {
+    if (!mobileMq.matches) return;
+    if (section.dataset.timelineLit === '1') return;
+
+    if (!('IntersectionObserver' in window)) {
+      runSequence();
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          runSequence();
+          io.disconnect();
+        });
+      },
+      { threshold: 0.28, rootMargin: '0px 0px -12% 0px' }
+    );
+    io.observe(section);
+  };
+
+  startIfMobile();
+  mobileMq.addEventListener('change', (e) => {
+    if (e.matches) startIfMobile();
   });
 }
 

@@ -18,8 +18,14 @@
   --ah-grey:#707070;
 }
 
-/* body navy на весь экран; .ah-canvas = 1272 по центру — боковые поля тёмно-синие */
-body.ah{background:#000057;}
+/* Full-bleed site chrome: same gradient as .ah-canvas so wide viewports
+   have no dark side gutters. Canvas stays max-width 1272 — layout unchanged. */
+html, body.ah{
+  background-color:#000057;
+  background-image:linear-gradient(180deg,#0303AF 0, #000057 calc(1272px * 1.084906));
+  background-repeat:no-repeat;
+  min-width:100%;
+}
 .ah-canvas, .ah-canvas *{text-rendering:geometricPrecision;font-kerning:normal;}
 .ah-canvas{
   container-type:inline-size;

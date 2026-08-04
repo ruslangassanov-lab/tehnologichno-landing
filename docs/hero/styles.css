@@ -788,18 +788,20 @@ button {
   color: var(--neutral-white);
 }
 
-/* Единый hover: оранжевая обводка + номер */
-.competencies__card:hover,
-.competencies__card:focus-visible {
-  background-color: var(--brand-navy-700);
-  border-color: var(--accent-signal-500);
-  outline: none;
-  transform: translateY(-2px);
-}
+/* Desktop-only hover (no sticky touch states on mobile) */
+@media (hover: hover) and (pointer: fine) {
+  .competencies__card:hover,
+  .competencies__card:focus-visible {
+    background-color: var(--brand-navy-700);
+    border-color: var(--accent-signal-500);
+    outline: none;
+    transform: translateY(-2px);
+  }
 
-.competencies__card:hover .competencies__number,
-.competencies__card:focus-visible .competencies__number {
-  color: var(--accent-signal-500);
+  .competencies__card:hover .competencies__number,
+  .competencies__card:focus-visible .competencies__number {
+    color: var(--accent-signal-500);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -871,11 +873,6 @@ button {
   transition: transform 0.22s ease;
 }
 
-.timeline__step:hover,
-.timeline__step:focus-within {
-  transform: translateY(-4px);
-}
-
 .timeline__circle {
   width: 64px;
   height: 64px;
@@ -891,13 +888,6 @@ button {
   transition: background-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
 }
 
-.timeline__step:hover .timeline__circle,
-.timeline__step:focus-within .timeline__circle {
-  background-color: var(--accent-signal-500);
-  transform: scale(1.08);
-  box-shadow: 0 10px 28px rgba(255, 107, 44, 0.35);
-}
-
 .timeline__step-title {
   font-family: var(--font-text);
   font-size: 19px;
@@ -906,8 +896,32 @@ button {
   transition: color 0.22s ease;
 }
 
-.timeline__step:hover .timeline__step-title,
-.timeline__step:focus-within .timeline__step-title {
+@media (hover: hover) and (pointer: fine) {
+  .timeline__step:hover,
+  .timeline__step:focus-within {
+    transform: translateY(-4px);
+  }
+
+  .timeline__step:hover .timeline__circle,
+  .timeline__step:focus-within .timeline__circle {
+    background-color: var(--accent-signal-500);
+    transform: scale(1.08);
+    box-shadow: 0 10px 28px rgba(255, 107, 44, 0.35);
+  }
+
+  .timeline__step:hover .timeline__step-title,
+  .timeline__step:focus-within .timeline__step-title {
+    color: var(--accent-signal-500);
+  }
+}
+
+/* Scroll light-up (mobile): same orange as former hover */
+.timeline__step.is-lit .timeline__circle {
+  background-color: var(--accent-signal-500);
+  box-shadow: 0 10px 28px rgba(255, 107, 44, 0.35);
+}
+
+.timeline__step.is-lit .timeline__step-title {
   color: var(--accent-signal-500);
 }
 
@@ -945,11 +959,6 @@ button {
   transition: background-color 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.cta-band:hover,
-.cta-band:focus-within {
-  background-color: #ff8148;
-}
-
 .cta-band__content {
   position: relative;
   z-index: 2;
@@ -971,11 +980,6 @@ button {
   transition: opacity 0.35s ease;
 }
 
-.cta-band:hover .cta-band__overline,
-.cta-band:focus-within .cta-band__overline {
-  opacity: 1;
-}
-
 .cta-band__title {
   font-family: var(--font-display);
   font-size: 64px;
@@ -986,11 +990,6 @@ button {
   width: 511px;
   margin: 0;
   transition: letter-spacing 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-.cta-band:hover .cta-band__title,
-.cta-band:focus-within .cta-band__title {
-  letter-spacing: -1.2px;
 }
 
 .cta-band__construct {
@@ -1053,24 +1052,41 @@ button {
   transform-origin: center top;
 }
 
-.cta-band:hover .cta-band__bar,
-.cta-band:focus-within .cta-band__bar,
-.cta-band__construct:hover .cta-band__bar,
-.cta-band__construct:focus-visible .cta-band__bar {
-  background-color: var(--brand-blue-600);
-}
+@media (hover: hover) and (pointer: fine) {
+  .cta-band:hover,
+  .cta-band:focus-within {
+    background-color: #ff8148;
+  }
 
-.cta-band:hover .cta-band__stem,
-.cta-band:focus-within .cta-band__stem,
-.cta-band__construct:hover .cta-band__stem,
-.cta-band__construct:focus-visible .cta-band__stem {
-  background-color: var(--brand-blue-600);
-  transform: scaleY(1.04);
-}
+  .cta-band:hover .cta-band__overline,
+  .cta-band:focus-within .cta-band__overline {
+    opacity: 1;
+  }
 
-.cta-band:hover .cta-band__label,
-.cta-band:focus-within .cta-band__label {
-  letter-spacing: 0.04em;
+  .cta-band:hover .cta-band__title,
+  .cta-band:focus-within .cta-band__title {
+    letter-spacing: -1.2px;
+  }
+
+  .cta-band:hover .cta-band__bar,
+  .cta-band:focus-within .cta-band__bar,
+  .cta-band__construct:hover .cta-band__bar,
+  .cta-band__construct:focus-visible .cta-band__bar {
+    background-color: var(--brand-blue-600);
+  }
+
+  .cta-band:hover .cta-band__stem,
+  .cta-band:focus-within .cta-band__stem,
+  .cta-band__construct:hover .cta-band__stem,
+  .cta-band__construct:focus-visible .cta-band__stem {
+    background-color: var(--brand-blue-600);
+    transform: scaleY(1.04);
+  }
+
+  .cta-band:hover .cta-band__label,
+  .cta-band:focus-within .cta-band__label {
+    letter-spacing: 0.04em;
+  }
 }
 
 .cta-band__construct:focus-visible {
@@ -1187,9 +1203,11 @@ button {
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.faq__toggle:hover {
-  transform: scale(1.1);
-  color: var(--accent-signal-500);
+@media (hover: hover) and (pointer: fine) {
+  .faq__toggle:hover {
+    transform: scale(1.1);
+    color: var(--accent-signal-500);
+  }
 }
 
 .faq__toggle[aria-expanded="true"] {
@@ -1262,10 +1280,12 @@ button {
     border-top-color 0.22s ease;
 }
 
-.partners__card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 22px 44px -22px rgba(0, 0, 30, 0.45);
-  border-top-color: var(--accent-signal-500);
+@media (hover: hover) and (pointer: fine) {
+  .partners__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 22px 44px -22px rgba(0, 0, 30, 0.45);
+    border-top-color: var(--accent-signal-500);
+  }
 }
 
 .partners__logo {
@@ -1980,18 +2000,21 @@ button {
     border-bottom: 1px solid rgba(74, 85, 120, 0.4);
   }
 
-  /* Blue fill is hover/focus only — not a static default on 01 */
+  /* Mobile: no sticky hover/focus fill on competency rows */
   .competencies__card:hover,
   .competencies__card:focus-visible {
-    background-color: var(--brand-blue-600);
-    border-radius: var(--radius-16);
+    background-color: transparent;
+    border-radius: 0;
     border-color: transparent;
     transform: none;
     outline: none;
   }
 
   .competencies__card:hover .competencies__number,
-  .competencies__card:focus-visible .competencies__number,
+  .competencies__card:focus-visible .competencies__number {
+    color: var(--brand-blue-600);
+  }
+
   .competencies__card:hover .competencies__text,
   .competencies__card:focus-visible .competencies__text {
     color: var(--neutral-white);
@@ -2079,6 +2102,17 @@ button {
     font-weight: 800;
     flex-shrink: 0;
     background-color: var(--brand-blue-600);
+    transition: background-color 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .timeline__step.is-lit .timeline__circle {
+    background-color: var(--accent-signal-500);
+    box-shadow: 0 8px 22px rgba(255, 107, 44, 0.35);
+    transform: none;
+  }
+
+  .timeline__step.is-lit .timeline__step-title {
+    color: var(--accent-signal-500);
   }
 
   .timeline__step-title {
