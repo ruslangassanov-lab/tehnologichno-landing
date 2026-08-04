@@ -93,26 +93,31 @@ html, body.ah{
   width:2.23113cqw;height:2.23113cqw;display:block;}
 
 /* ===== anton2 (Second version / PDF 2026) overrides ===== */
-.ah-header{display:none !important;}
+/* Header must be visible (PDF shows it on the top navy chrome). */
+.ah-header{display:block;}
 
 /* Rework hero card content */
 .ah-hero{
   background:#fff;
+  height:auto;
+  min-height:28cqw;
+  padding:0;
 }
 
 .ah-hero__card{
-  position:absolute;
-  inset:0;
+  position:relative;
+  inset:auto;
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
-  padding:1.7cqw 3.2cqw 1.7cqw 6.8cqw;
+  padding:3.2cqw 3.2cqw 3.4cqw 6.8cqw;
+  gap:2cqw;
 }
 
 .ah-hero__card-left{
   display:flex;
   flex-direction:column;
-  gap:1.4cqw;
+  gap:0.95cqw;
   padding-top:1.6cqw;
 }
 
@@ -122,6 +127,31 @@ html, body.ah{
   font-weight:400;
   line-height:1;
   color:var(--ah-navy);
+}
+
+/* Subtitle inside the hero card (accent word "чемпионат" in blue). */
+.ah-hero__subtitle{
+  margin:0;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:1.52cqw;
+  line-height:1.15;
+  color:#000;
+  max-width:29.5cqw;
+}
+.ah-hero__subtitle-accent{
+  color:var(--ah-blue);
+  font-weight:400;
+}
+
+/* Small uppercase grey tagline under the subtitle. */
+.ah-hero__tagline{
+  margin:0;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:0.82cqw;
+  line-height:1.25;
+  color:var(--ah-grey);
+  text-transform:uppercase;
+  max-width:34.5cqw;
 }
 
 .ah-hero__mini-btn{
@@ -153,8 +183,8 @@ html, body.ah{
 
 .ah-hero__date{
   font-family:'FuturaBookC',sans-serif;
-  font-size:1.0cqw;
-  color:#000;
+  font-size:1.35cqw;
+  color:var(--ah-navy);
   text-align:right;
   line-height:1.2;
   margin-bottom:0.6cqw;
@@ -162,11 +192,11 @@ html, body.ah{
 }
 
 .ah-hero__year{
-  font-family:'FuturaBookC',sans-serif;
-  font-weight:600;
-  font-size:7.1cqw;
+  font-family:'GoodHeadPro',sans-serif;
+  font-weight:400;
+  font-size:9.2cqw;
   color:var(--ah-navy);
-  line-height:1;
+  line-height:0.9;
 }
 
 /* Hero old elements hidden (but keep for other builds) */
@@ -210,9 +240,17 @@ html, body.ah{
   width:82cqw;
   font-family:'FuturaBookC',sans-serif;
   font-size:1.0cqw;
-  color:#dbe3ff;
+  color:#fff;
   text-align:center;
   line-height:1.5;
+}
+
+/* Dark horizontal band between intro and secondary invite paragraph. */
+.about-block__band{
+  width:95.7cqw;
+  height:1.65cqw;
+  margin:1.55cqw auto 0;
+  background:linear-gradient(180deg,#0a31a8 0%,#062a8e 100%);
 }
 
 .about-block__subtext{
@@ -283,7 +321,7 @@ html, body.ah{
   margin:0;
   font-family:'FuturaBookC',sans-serif;
   font-weight:400;
-  font-size:2.7cqw;
+  font-size:3.1cqw;
   color:#fff;
   line-height:1.1;
 }
@@ -294,8 +332,8 @@ html, body.ah{
   align-items:center;
   justify-content:center;
   gap:0.9cqw;
-  border:0.12cqw solid rgba(255,255,255,.9);
-  background:transparent;
+  border:0.12cqw solid #000057;
+  background:#000057;
   width:auto;
   height:2.6cqw;
   padding:0 1.4cqw;
@@ -327,4 +365,15 @@ html, body.ah{
 
 .cta-block__button.ac-pill{
   position:static !important;
+}
+
+/* Closing about sentence before CTA band (Hайтек). */
+.about-block__hitech{
+  margin:2.2cqw auto 0;
+  width:86cqw;
+  font-family:'FuturaBookC',sans-serif;
+  font-size:0.95cqw;
+  color:#dbe3ff;
+  text-align:center;
+  line-height:1.35;
 }

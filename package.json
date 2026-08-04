@@ -4,9 +4,10 @@
   "private": true,
   "description": "GitHub Pages: docs/ — Anton + WOW (hero)",
   "scripts": {
-    "sync": "cp src/wow/index.html src/wow/styles.css src/wow/app.js docs/hero/ && cp src/anton/index.html src/anton/styles.css src/anton/app.js src/anton/hero.css src/anton/comp.css docs/anton/ && cp src/switcher.js src/switcher.css docs/",
+    "sync": "cp src/wow/index.html src/wow/styles.css src/wow/app.js docs/hero/ && cp src/anton/index.html src/anton/styles.css src/anton/app.js src/anton/hero.css src/anton/comp.css docs/anton/ && cp src/anton2/index.html src/anton2/styles.css src/anton2/app.js src/anton2/hero.css src/anton2/comp.css docs/anton2/ && cp src/switcher.js src/switcher.css docs/",
     "sync:hero": "cp src/wow/index.html src/wow/styles.css src/wow/app.js docs/hero/",
     "sync:anton": "cp src/anton/index.html src/anton/styles.css src/anton/app.js src/anton/hero.css src/anton/comp.css docs/anton/",
+    "sync:anton2": "cp src/anton2/index.html src/anton2/styles.css src/anton2/app.js src/anton2/hero.css src/anton2/comp.css docs/anton2/",
     "sync:switcher": "cp src/switcher.js src/switcher.css docs/"
   }
 }

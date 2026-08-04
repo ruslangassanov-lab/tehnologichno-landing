@@ -44,11 +44,24 @@
 
 /* Competencies section becomes 3 cards on dark background (matches PDF). */
 .ac-sec{
-  background:transparent !important;
+  background:#000057 !important;
   border-radius:0 !important;
-  overflow:visible;
+  overflow:hidden;
   height:auto;
-  padding-bottom:0;
+  padding:3.2cqw 2.3cqw 2.6cqw;
+}
+
+/* Subtle concentric-circles decoration (left/right) behind cards. */
+.ac-sec::before{
+  content:'';
+  position:absolute;
+  inset:-15%;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 55%, rgba(9,71,241,0.20) 0 18%, rgba(9,71,241,0.00) 19%),
+    radial-gradient(circle at 18% 55%, rgba(255,255,255,0.08) 0 32%, rgba(255,255,255,0.00) 33%),
+    radial-gradient(circle at 82% 55%, rgba(9,71,241,0.20) 0 18%, rgba(9,71,241,0.00) 19%),
+    radial-gradient(circle at 82% 55%, rgba(255,255,255,0.08) 0 32%, rgba(255,255,255,0.00) 33%);
 }
 
 .ac-sec span, .ac-sec h2, .ac-sec p{
@@ -61,17 +74,18 @@
 .ac-title{
   width:100%;
   text-align:center;
-  margin:1.8cqw 0 0;
+  margin:0 0 2.2cqw;
   left:auto !important;
   top:auto !important;
   font-size:3.7cqw;
+  color:#fff !important;
 }
 
 .ac-cards{
-  margin-top:2.0cqw;
+  margin-top:0;
   display:flex;
-  gap:2.0cqw;
-  justify-content:space-between;
+  gap:2.3cqw;
+  justify-content:center;
 }
 
 .ac-card{
@@ -81,6 +95,30 @@
   border-radius:2.0cqw;
   padding:2.1cqw 1.9cqw 1.6cqw;
   box-sizing:border-box;
+  cursor:default;
+  transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
+}
+
+.ac-card:focus-visible{
+  outline:2px solid #fff;
+  outline-offset:3px;
+}
+
+.ac-card.is-hot,
+.ac-card:hover,
+.ac-card:focus-within{
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0, 0, 40, 0.18);
+  filter: saturate(1.03);
+}
+
+/* Ensure hover still wins against html.js reveal's `transform: none`. */
+.ac-card.reveal.is-visible.is-hot,
+.ac-card.reveal.is-visible:hover,
+.ac-card.reveal.is-visible:focus-within{
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0, 0, 40, 0.18);
+  filter: saturate(1.03);
 }
 
 .ac-card__title{
@@ -98,6 +136,62 @@
   font-size:0.74cqw;
   line-height:1.35;
   color:#0a2a6d;
+}
+
+/* Underlined word "ссылке" inside competency body. */
+.ac-link{
+  color:#0a2a6d;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+/* Carousel arrows under the 3 cards (decorative, no JS wiring). */
+.ac-carousel{
+  margin-top:2.0cqw;
+  display:flex;
+  justify-content:center;
+  gap:2.6cqw;
+  position:relative;
+  z-index:1;
+}
+.ac-carousel__arrow{
+  width:2.8cqw;
+  height:1.8cqw;
+  padding:0;
+  border:none;
+  background:transparent;
+  cursor:default;
+  position:relative;
+}
+.ac-carousel__arrow::before{
+  content:'';
+  position:absolute;
+  top:50%;
+  left:0;
+  right:0;
+  height:1px;
+  background:#fff;
+  transform:translateY(-50%);
+}
+.ac-carousel__arrow--left::after,
+.ac-carousel__arrow--right::after{
+  content:'';
+  position:absolute;
+  top:50%;
+  width:0;
+  height:0;
+  border-top:0.28cqw solid transparent;
+  border-bottom:0.28cqw solid transparent;
+  transform:translateY(-50%);
+}
+.ac-carousel__arrow--left::after{
+  left:0.15cqw;
+  border-right:0.38cqw solid #fff;
+}
+.ac-carousel__arrow--right::after{
+  right:0.15cqw;
+  border-left:0.38cqw solid #fff;
 }
 
 /* JS hover expects these classes; keep them blue and allow multi-line titles. */

@@ -411,6 +411,13 @@ img { display: block; max-width: 100%; height: auto; }
   line-height: 1.25;
 }
 
+.faq__card .ac-link {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
 /* ===== Организаторы / Партнёры =====
    В чертеже нет отдельной белой подложки для этих секций (координаты есть только
    у заголовков и логотипов), но заливка текста/части логотипов — тёмно-навy
@@ -419,10 +426,20 @@ img { display: block; max-width: 100%; height: auto; }
    зафиксированное как допустимое отклонение решение, границы карточки подобраны
    по содержимому с симметричным полем 40px сверху/снизу вокруг измеренных точек
    (64px не влезали в реальный зазор чертежа между секциями — см. report.md). */
-.logos-section { margin-inline: 2.2013cqw; }
+.logos-section { margin-inline: 0; background: #fff; }
 
-.logos-section--organizers { margin-top: 9.5126cqw; }
-.logos-section--partners { margin-top: 2.5157cqw; }
+.logos-section--organizers {
+  margin-top: 0;
+  padding-top: 5.5cqw;
+}
+.logos-section--partners {
+  margin-top: 0;
+  padding-bottom: 2cqw;
+}
+
+.logos-section .card--logos {
+  margin-inline: 2.2013cqw;
+}
 
 .card--logos {
   border-radius: 3.1447cqw;
@@ -635,6 +652,31 @@ img { display: block; max-width: 100%; height: auto; }
   transform: scale(1.08);
 }
 
+.ah-hero__mini-btn {
+  cursor: pointer;
+  transition:
+    background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.ah-hero__mini-btn-a {
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transform-origin: center center;
+}
+
+.ah-hero__mini-btn:hover,
+.ah-hero__mini-btn:focus-visible {
+  background: #0639d4;
+  box-shadow: 0 10px 28px rgba(8, 70, 240, 0.4);
+  transform: translateY(-2px);
+}
+
+.ah-hero__mini-btn:hover .ah-hero__mini-btn-a,
+.ah-hero__mini-btn:focus-visible .ah-hero__mini-btn-a {
+  transform: scale(1.08);
+}
+
 .ac-pill:hover,
 .ac-pill:focus-visible {
   background: #fff;
@@ -648,7 +690,9 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .ac-sec:has(.ac-pill:hover) .ac-pillarrow,
-.ac-sec:has(.ac-pill:focus-visible) .ac-pillarrow {
+.ac-sec:has(.ac-pill:focus-visible) .ac-pillarrow,
+.cta-block:has(.ac-pill:hover) .ac-pillarrow,
+.cta-block:has(.ac-pill:focus-visible) .ac-pillarrow {
   transform: scale(1.08);
 }
 
@@ -682,7 +726,9 @@ html.js .logos__title:not(.is-visible),
 html.js .faq__card:not(.is-visible),
 html.js .ac-title:not(.is-visible),
 html.js .ac-ctatitle:not(.is-visible),
-html.js .ac-item:not(.is-visible),
+html.js .ac-card:not(.is-visible),
+html.js .about-block:not(.is-visible),
+html.js .cta-block:not(.is-visible),
 html.js .ac-pill:not(.is-visible),
 html.js .ah-hero:not(.is-visible),
 html.js .ac-sec:not(.is-visible) {
@@ -719,7 +765,9 @@ html.js .logos__title.is-visible,
 html.js .faq__card.is-visible,
 html.js .ac-title.is-visible,
 html.js .ac-ctatitle.is-visible,
-html.js .ac-item.is-visible,
+html.js .ac-card.is-visible,
+html.js .about-block.is-visible,
+html.js .cta-block.is-visible,
 html.js .ac-pill.is-visible,
 html.js .ah-hero.is-visible,
 html.js .ac-sec.is-visible,
@@ -733,7 +781,9 @@ html.js .faq__title.is-visible,
 html.js .logos__title.is-visible,
 html.js .ac-title.is-visible,
 html.js .ac-ctatitle.is-visible,
-html.js .ac-item.is-visible,
+html.js .ac-card.is-visible,
+html.js .about-block.is-visible,
+html.js .cta-block.is-visible,
 html.js .ac-pill.is-visible,
 html.js .ah-hero.is-visible,
 html.js .ac-sec.is-visible {
@@ -808,7 +858,9 @@ html.js .logo.reveal {
   html.js .faq__card,
   html.js .ac-title,
   html.js .ac-ctatitle,
-  html.js .ac-item,
+  html.js .ac-card,
+  html.js .about-block,
+  html.js .cta-block,
   html.js .ac-pill,
   html.js .ah-hero,
   html.js .ac-sec,

@@ -32,46 +32,26 @@
     });
   })();
 
-  /* Competencies: hover/focus highlights a whole competence (1–2 lines) */
+  /* Competencies: hover/focus highlights a whole competence card */
   (function setupCompetenciesHover() {
-    var sec = document.querySelector('.ac-sec');
-    if (!sec) return;
+    var cards = document.querySelectorAll('.ac-sec .ac-card');
+    if (!cards.length) return;
 
-    var groups = [
-      ['.ac-L1'],
-      ['.ac-L2a', '.ac-L2b'],
-      ['.ac-L3a', '.ac-L3b'],
-      ['.ac-L4a', '.ac-L4b'],
-      ['.ac-L5a', '.ac-L5b'],
-      ['.ac-R1'],
-      ['.ac-R2a', '.ac-R2b'],
-      ['.ac-R3a', '.ac-R3b'],
-      ['.ac-R4a', '.ac-R4b'],
-      ['.ac-R5a', '.ac-R5b']
-    ];
+    var setOn = function (card) {
+      cards.forEach(function (c) { c.classList.remove('is-hot'); });
+      card.classList.add('is-hot');
+    };
 
-    groups.forEach(function (sels) {
-      var nodes = sels.map(function (s) { return sec.querySelector(s); }).filter(Boolean);
-      if (!nodes.length) return;
+    var setOff = function (card) {
+      card.classList.remove('is-hot');
+    };
 
-      nodes.forEach(function (el) {
-        el.classList.add('ac-item');
-        el.setAttribute('tabindex', '0');
-      });
-
-      var setOn = function () {
-        nodes.forEach(function (el) { el.classList.add('is-hot'); });
-      };
-      var setOff = function () {
-        nodes.forEach(function (el) { el.classList.remove('is-hot'); });
-      };
-
-      nodes.forEach(function (el) {
-        el.addEventListener('mouseenter', setOn);
-        el.addEventListener('mouseleave', setOff);
-        el.addEventListener('focus', setOn);
-        el.addEventListener('blur', setOff);
-      });
+    cards.forEach(function (card) {
+      card.setAttribute('tabindex', '0');
+      card.addEventListener('mouseenter', function () { setOn(card); });
+      card.addEventListener('mouseleave', function () { setOff(card); });
+      card.addEventListener('focus', function () { setOn(card); });
+      card.addEventListener('blur', function () { setOff(card); });
     });
   })();
 
@@ -79,10 +59,13 @@
      collapses layout into a heap until is-visible. Paint footer final. */
   var targets = document.querySelectorAll(
     [
+      '.ah-header',
       '.ah-hero',
       '.ac-sec',
       '.ac-title',
-      '.ac-item',
+      '.ac-card',
+      '.about-block',
+      '.cta-block',
       '.ac-ctatitle',
       '.ac-pill',
       '.ac-pillarrow',
@@ -117,7 +100,7 @@
 
   stagger(document.querySelectorAll('.faq__card'));
   stagger(document.querySelectorAll('.logo'));
-  stagger(document.querySelectorAll('.ac-item'), 45, 400);
+  stagger(document.querySelectorAll('.ac-card'), 45, 400);
 
   /* Double rAF: ensure .reveal (opacity:0) is painted before is-visible,
      so titles actually transition instead of appearing already visible. */
