@@ -903,7 +903,8 @@ button {
   transition: color 0.22s ease;
 }
 
-@media (hover: hover) and (pointer: fine) {
+/* Desktop only — mobile uses scroll is-lit chase, never hover/focus-within */
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
   .timeline__step:hover,
   .timeline__step:focus-within {
     transform: translateY(-4px);
@@ -2105,6 +2106,24 @@ button {
     align-items: start;
     text-align: left;
     margin-left: 0;
+  }
+
+  /* Kill sticky hover/tap styles on mobile — only .is-lit from scroll */
+  .timeline__step:hover,
+  .timeline__step:focus-within {
+    transform: none;
+  }
+
+  .timeline__step:hover .timeline__circle,
+  .timeline__step:focus-within .timeline__circle {
+    background-color: var(--brand-blue-600);
+    transform: none;
+    box-shadow: none;
+  }
+
+  .timeline__step:hover .timeline__step-title,
+  .timeline__step:focus-within .timeline__step-title {
+    color: var(--neutral-white);
   }
 
   .timeline__circle {
