@@ -11,38 +11,40 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-400.woff2') format('woff2');
+  src: url('../assets/fonts/inter-400.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
   font-weight: 500;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-500.woff2') format('woff2');
+  src: url('../assets/fonts/inter-500.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
   font-weight: 600;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-600.woff2') format('woff2');
+  src: url('../assets/fonts/inter-600.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-700.woff2') format('woff2');
+  src: url('../assets/fonts/inter-700.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
   font-weight: 800;
   font-style: normal;
   font-display: swap;
-  src: url('../../public/assets/fonts/inter-800.woff2') format('woff2');
+  src: url('../assets/fonts/inter-800.woff2') format('woff2');
 }
 
 :root {
+  /* Page chrome top blue; navy remains for text / gradient end */
+  --bg-chrome: #0303AF;
   --bg-canvas: #000057;
   --text-navy: #000057;
   --text-black: #000000;
@@ -59,12 +61,20 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
+  min-width: 100%;
   overflow-x: hidden;
+  /* Flat chrome only as fallback; body.ah (hero.css) owns the page gradient.
+     Never paint a second short underlay on .canvas / .ah-canvas. */
+  background-color: var(--bg-canvas);
+}
+
+.canvas,
+.ah-canvas {
+  background: none;
 }
 
 body {
-  background: var(--bg-canvas);
-  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   line-height: 1.4;
 }
 
@@ -91,7 +101,11 @@ img { display: block; max-width: 100%; height: auto; }
   position: relative;
 }
 
-.section-title { font-weight: 700; margin: 0; }
+.section-title {
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
 
 /* ===== Шапка ===== */
 .site-header {
@@ -102,9 +116,23 @@ img { display: block; max-width: 100%; height: auto; }
   padding-inline: 2.2013cqw;
 }
 
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.629cqw;
+}
+
 .site-header__brand img {
-  height: 3.6cqw;
+  height: 1.8868cqw;
   width: auto;
+}
+
+.site-header__wordmark {
+  font-size: 1.022cqw;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .site-header__nav { margin-inline: auto; }
@@ -115,38 +143,9 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .site-header__nav a {
-  position: relative;
-  display: inline-block;
   font-size: 0.7862cqw;
   color: var(--white);
   white-space: nowrap;
-}
-
-.site-header__nav-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.2em;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
-  pointer-events: none;
-}
-
-.site-header__nav-line.is-on {
-  transform: scaleX(1);
-}
-
-.btn {
-  cursor: pointer;
-  transition:
-    background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
-    color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
-    border-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .btn--header {
@@ -165,20 +164,6 @@ img { display: block; max-width: 100%; height: auto; }
   font-weight: 600;
   white-space: nowrap;
   text-align: center;
-}
-
-.btn--header:hover,
-.btn--header:focus-visible {
-  background: var(--white);
-  color: var(--text-navy);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-}
-
-.btn--header:hover::after,
-.btn--header:focus-visible::after {
-  background: var(--accent-blue);
-  color: var(--white);
-  transform: translateY(-50%) scale(1.08);
 }
 
 /* ===== Hero ===== */
@@ -218,8 +203,8 @@ img { display: block; max-width: 100%; height: auto; }
   margin: 0;
   color: var(--text-navy);
   font-size: 5.7625cqw;
-  font-weight: 800;
-  line-height: 1.05;
+  font-weight: 600;
+  line-height: 1.0;
 }
 
 .hero__subtitle {
@@ -264,19 +249,6 @@ img { display: block; max-width: 100%; height: auto; }
   padding-inline: 0.6em;
 }
 
-.btn--hero:hover,
-.btn--hero:focus-visible {
-  background: #0639d4;
-  box-shadow: 0 10px 28px rgba(8, 70, 240, 0.4);
-  transform: translateY(-2px);
-}
-
-.btn--hero:hover::after,
-.btn--hero:focus-visible::after {
-  transform: translateY(-50%) scale(1.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
 /* ===== Компетенции ===== */
 .competencies { margin-top: 2.5157cqw; }
 
@@ -300,11 +272,13 @@ img { display: block; max-width: 100%; height: auto; }
 .competencies__list {
   position: absolute;
   top: 28.1%;
-  width: 36%;
-  display: flex;
-  flex-direction: column;
-  gap: 4.286cqw;
+  width: 16%;
+  display: grid;
+  grid-auto-rows: 4.324cqw;
+  align-content: start;
 }
+
+.competencies__list li { align-self: start; }
 
 .competencies__list--a { left: 21.217%; }
 .competencies__list--b { left: 61.678%; }
@@ -322,6 +296,7 @@ img { display: block; max-width: 100%; height: auto; }
   width: 100%;
   height: 21.461%;
   background: linear-gradient(180deg, var(--grad-1), var(--grad-2));
+  border-radius: 3.1447cqw;
 }
 
 .cta-band__title {
@@ -357,30 +332,9 @@ img { display: block; max-width: 100%; height: auto; }
   padding-inline: 0.6em;
 }
 
-.btn--cta-band:hover,
-.btn--cta-band:focus-visible {
-  background: var(--white);
-  color: var(--accent-blue);
-  border-color: var(--white);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
-}
-
-.btn--cta-band:hover::after,
-.btn--cta-band:focus-visible::after {
-  background: var(--accent-blue);
-  color: var(--white);
-  transform: translateY(-50%) scale(1.08);
-}
-
-.btn--header:focus-visible,
-.btn--hero:focus-visible,
-.btn--cta-band:focus-visible {
-  outline: 2px solid var(--white);
-  outline-offset: 3px;
-}
-
-/* ===== FAQ ===== */
+/* ===== FAQ =====
+   Карточки как в презе/PDF: градиент + декор (шестерёнка + волны) из faq-card-bg,
+   ответы всегда видны — это статичный блок макета, не аккордеон. */
 .faq {
   position: relative;
   aspect-ratio: 1272 / 507;
@@ -395,6 +349,8 @@ img { display: block; max-width: 100%; height: auto; }
   width: 100%;
   text-align: center;
   color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
   font-size: 3.9308cqw;
 }
 
@@ -412,42 +368,22 @@ img { display: block; max-width: 100%; height: auto; }
   top: 0;
   width: 24.764%;
   height: 100%;
-  background: linear-gradient(180deg, var(--grad-1), var(--grad-2));
   border-radius: 1.8868cqw;
   overflow: hidden;
-  cursor: default;
-  transform: translate3d(0, 0, 0);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 40, 0.08),
-    0 4px 12px rgba(0, 0, 40, 0.10);
-  transition:
-    transform 200ms ease,
-    box-shadow 200ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .faq__card:hover,
-  .faq__card:focus-within,
-  .faq__card.reveal.is-visible:hover,
-  .faq__card.reveal.is-visible:focus-within {
-    transform: translate3d(0, -8px, 0);
-    box-shadow:
-      0 4px 10px rgba(0, 0, 40, 0.12),
-      0 12px 28px rgba(0, 10, 60, 0.18);
-    z-index: 3;
-  }
+  background-color: var(--grad-2);
+  background-image: url('../assets/faq-card-bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
 }
 
 .faq__card:nth-child(1) { left: 10.063%; }
 .faq__card:nth-child(2) { left: 37.657%; }
 .faq__card:nth-child(3) { left: 65.252%; }
 
+/* Шестерёнка уже в faq-card-bg — SVG-дубль скрываем */
 .faq__star {
-  position: absolute;
-  left: 4.127%;
-  top: 6.138%;
-  width: 6.984%;
-  height: 5.627%;
+  display: none;
 }
 
 .faq__card h3 {
@@ -457,7 +393,9 @@ img { display: block; max-width: 100%; height: auto; }
   width: 79.365%;
   margin: 0;
   color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
   font-size: 2.3899cqw;
+  font-weight: 400;
   line-height: 1.0;
 }
 
@@ -468,6 +406,7 @@ img { display: block; max-width: 100%; height: auto; }
   width: 79.365%;
   margin: 0;
   color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
   font-size: 1.1164cqw;
   line-height: 1.25;
 }
@@ -494,44 +433,76 @@ img { display: block; max-width: 100%; height: auto; }
 
 .logos__title {
   position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
   color: var(--text-navy);
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
   font-size: 3.9308cqw;
+  white-space: nowrap;
 }
 
-.logos-section--organizers .logos__title { left: 37.582%; top: 14.388%; width: 24.589%; white-space: nowrap; }
-.logos-section--partners .logos__title { left: 24.507%; top: 15.873%; width: 50.987%; white-space: nowrap; }
+.logos-section--organizers .logos__title { top: 14.388%; }
+.logos-section--partners .logos__title { top: 15.873%; }
 
-.logo { position: absolute; width: auto; height: auto; object-fit: contain; }
+/* Логотипы: только width + общая вертикаль (translateY(-50%)), без height-% —
+   иначе PNG 1214×~500 сжимаются в «полоски» (как mosprom 203×51). */
+.card--logos .logo {
+  position: absolute;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center center;
+}
 
-.logo--depinvest { left: 15.132%; top: 49.640%; width: 26.069%; height: 28.058%; }
-.logo--kmz { left: 59.786%; top: 42.446%; width: 24.918%; height: 43.165%; }
+.logo--depinvest { left: 15.132%; top: 64%; width: 26.069%; transform: translateY(-50%); }
+.logo--kmz { left: 59.786%; top: 64%; width: 24.918%; transform: translateY(-50%); }
 
-.logo--platforma { left: 15.296%; top: 55.556%; width: 14.145%; height: 28.571%; }
-.logo--mosprom { left: 32.483%; top: 53.968%; width: 16.694%; height: 20.238%; }
-.logo--arpm { left: 52.220%; top: 55.556%; width: 14.638%; height: 28.175%; }
-.logo--fcbas { left: 70.066%; top: 64.286%; width: 14.638%; height: 10.317%; }
+.logo--platforma { left: 15.296%; top: 70%; width: 14.145%; transform: translateY(-50%); }
+.logo--mosprom { left: 32.483%; top: 70%; width: 16.694%; transform: translateY(-50%); }
+.logo--arpm { left: 52.220%; top: 70%; width: 14.638%; transform: translateY(-50%); }
+.logo--fcbas { left: 70.066%; top: 70%; width: 14.638%; transform: translateY(-50%); }
 
-/* ===== Футер =====
-   Полотно чертежа задаёт высоту подвала 1064px (2714-3778), но всё измеренное
-   содержимое (заголовки/иконки/юр.строка) укладывается в 2714-3042 — 328px.
-   1064 оставляло бы ~700px пустой серой заливки без единого элемента внутри,
-   что похоже на артефакт извлечения bbox из PDF, а не осознанный отступ дизайна.
-   Высота подвала здесь = контент + симметричный отступ снизу (см. report.md). */
+/* ===== Футер (PDF): серая плита #B6B6B6, белый текст/иконки;
+   ширина как у .card (margin-inline 2.2013cqw). Блоки inset:0 —
+   иначе transform/reveal на коллапсированном блоке сбивает % top в кучу. */
 .site-footer {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1272 / 421;
-  background: var(--footer-grey);
-  border-radius: 3.1447cqw 3.1447cqw 0 0;
+  margin-inline: 2.2013cqw;
   margin-top: 4.7170cqw;
+  background: var(--footer-grey); /* #B6B6B6 */
+  border-radius: 3.1447cqw 3.1447cqw 0 0;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.site-footer__inner {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: 1216 / 421; /* card content width (1272 − 2×28) */
+  min-height: 0;
+}
+
+.site-footer__block {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.site-footer__block a,
+.site-footer__block .footer-row {
+  pointer-events: auto;
 }
 
 .footer-title {
   position: absolute;
   margin: 0;
-  color: var(--text-navy);
-  font-weight: 700;
+  color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
   font-size: 5.1651cqw;
+  line-height: 1;
 }
 
 .site-footer__block--contacts .footer-title { left: 16.981%; top: 22.090%; white-space: nowrap; }
@@ -541,99 +512,237 @@ img { display: block; max-width: 100%; height: auto; }
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 0.6em;
+  gap: 0.55em;
   margin: 0;
-  color: var(--text-black);
+  color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
   font-size: 1.3600cqw;
+  line-height: 1.2;
 }
+
+.footer-row a { color: inherit; }
 
 .site-footer__block--contacts .footer-row:nth-of-type(1) { left: 17.610%; top: 40.380%; }
 .site-footer__block--contacts .footer-row:nth-of-type(2) { left: 17.610%; top: 53.682%; }
 .site-footer__block--hours .footer-row:nth-of-type(1) { left: 54.558%; top: 39.430%; }
 .site-footer__block--hours .footer-row:nth-of-type(2) { left: 54.558%; top: 52.732%; }
 
-.footer-icon { width: 1.6509cqw; height: 1.6509cqw; flex: none; }
-.footer-icon--clock { width: 2.2013cqw; height: 2.2013cqw; }
+.footer-icon {
+  width: 2.9088cqw;   /* 37/1272 — PDF icon box */
+  height: 2.9088cqw;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--white);
+}
+.footer-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.footer-icon--clock {
+  width: 3.3019cqw;   /* 42/1272 */
+  height: 3.3019cqw;
+}
 
 .footer-legal {
   position: absolute;
-  left: 37.421%;
+  left: 0;
+  right: 0;
   top: 74.109%;
-  width: 26.887%;
+  width: 100%;
   margin: 0;
   text-align: center;
-  color: var(--text-black);
-  font-size: 0.9434cqw;
+  color: var(--white);
+  font-family: 'FuturaBookC', sans-serif;
+  font-size: 1.2579cqw;
+  white-space: nowrap;
 }
 
-/* === PDF EXACT OVERRIDES — supplied source 2544×6164, scale 1:2 === */
-body{background:#fff;font-family:'Inter',Arial,sans-serif}
-.canvas{position:relative;width:100%;max-width:1272px;aspect-ratio:1272/3082;margin:0 auto;overflow:hidden;background:linear-gradient(to bottom,#000057 0 67.180727%,#fff 67.180727% 88.043478%,#b6b6b6 88.043478% 100%)}
-main{position:absolute;inset:0}
-.site-header{position:absolute;left:0;top:0;width:100%;height:2.076574%;padding:0}
-.site-header__brand{position:absolute;left:5.738994%;top:25%;width:8.333333%;height:42.1875%}
-.site-header__brand img{width:100%;height:100%;object-fit:contain}
-.site-header__nav{position:absolute;inset:0;margin:0}
-.site-header__nav ul{position:absolute;inset:0;display:block}
-.site-header__nav li{position:absolute;top:33.375%}
-.site-header__nav li:nth-child(1){left:38.034591%}.site-header__nav li:nth-child(2){left:48.592767%}.site-header__nav li:nth-child(3){left:58.72956%}
-.site-header__nav ul{gap:0}.site-header__nav a{font-size:.786164cqw}
-.btn--header{left:86.139937%;top:24.21875%;width:7.421384%;height:42.5%;border:1px solid #fff;background:transparent;color:#fff;padding-left:.7cqw;justify-content:flex-start;font-weight:400}
-.btn--header::after,.btn--hero::after,.btn--cta-band::after{content:'↗';position:absolute;right:.32cqw;top:50%;transform:translateY(-50%);width:1.58cqw;height:1.58cqw;border-radius:50%;background:#fff;color:#063fdf;display:grid;place-items:center;font-size:1.1cqw;line-height:1;transition:transform .3s cubic-bezier(.22,.61,.36,1),background-color .3s cubic-bezier(.22,.61,.36,1),color .3s cubic-bezier(.22,.61,.36,1),box-shadow .3s cubic-bezier(.22,.61,.36,1)}
-.hero{position:absolute;left:0;top:2.076574%;width:100%;height:19.17586%;margin:0}
-.card--hero{position:absolute;left:2.201258%;top:0;width:95.597484%;height:100%;margin:0;aspect-ratio:auto;border-radius:3.144654cqw}
-.hero__title{font-weight:400}
-.hero__descriptor{color:#777;font-weight:400}
-.btn--hero{min-height:0;font-weight:400;justify-content:flex-start;padding-left:1.05cqw}
-.competencies{position:absolute;left:0;top:22.29072%;width:100%;height:21.771577%;margin:0}
-.card--competencies{position:absolute;left:2.201258%;top:0;width:95.597484%;height:100%;margin:0;aspect-ratio:auto}
-.competencies__title{font-weight:400}
-.cta-band__title{font-weight:400}
-.btn--cta-band{min-height:0;font-weight:400;justify-content:flex-start;padding-left:1.25cqw}
-.faq{position:absolute;left:0;top:46.950033%;width:100%;height:20.23037%;margin:0;aspect-ratio:auto}
-.faq__title{top:0;font-weight:400}
-.faq__cards{top:21.331195%;height:62.710505%}
-.faq__card h3{font-weight:400}
-.logos-section{position:absolute;left:0;width:100%;margin:0;background:transparent}
-.logos-section--organizers{top:68.640493%;height:6.976%;margin:0}
-.logos-section--partners{top:78.698897%;height:7.463%;margin:0}
-.card--logos,.logos-section--organizers .card--logos,.logos-section--partners .card--logos{position:absolute;inset:0;background:transparent;border-radius:0;aspect-ratio:auto}
-.logos__title{font-weight:400}
-.logos-section--organizers .logos__title{left:38.146226%;top:0}
-.logos-section--partners .logos__title{left:31.139937%;top:0}
-.logo--depinvest{left:16.666667%;top:43.953488%;width:24.921384%;height:36.27907%}
-.logo--kmz{left:59.355346%;top:43.953488%;width:23.820755%;height:55.813953%}
-.logo--platforma{left:16.823899%;top:48.913043%;width:13.522013%;height:31.304348%}
-.logo--mosprom{left:33.254717%;top:48.913043%;width:15.959119%;height:22.173913%}
-.logo--arpm{left:52.122642%;top:48.913043%;width:13.993711%;height:30.869565%}
-.logo--fcbas{left:69.18239%;top:48.913043%;width:13.993711%;height:11.304348%}
-.site-footer{position:absolute;left:0;top:88.043478%;width:100%;height:11.956522%;margin:0;aspect-ratio:auto;border-radius:3.144654cqw 3.144654cqw 0 0;background:#b6b6b6}
-.footer-title{font-weight:400}
-.site-footer__block--contacts .footer-title{left:16.981132%;top:19.348711%}
-.site-footer__block--hours .footer-title{left:54.166667%;top:19.348711%}
-.site-footer__block--contacts .footer-row:nth-of-type(1){left:16.981132%;top:44.097693%}
-.site-footer__block--contacts .footer-row:nth-of-type(2){left:16.981132%;top:59.158752%}
-.site-footer__block--hours .footer-row:nth-of-type(1){left:54.166667%;top:44.097693%}
-.site-footer__block--hours .footer-row:nth-of-type(2){left:54.166667%;top:59.158752%}
-.footer-row{color:#fff}.footer-icon{filter:brightness(0) invert(1)}
-.footer-legal{left:37.421384%;top:83.364993%;color:#fff}
+/* ===== Progressive polish (ah-* build): nav / buttons / FAQ / reveal ===== */
+.ah-nav a {
+  overflow: visible;
+}
 
-/* ===== Progressive polish: scroll reveal + reduced motion ===== */
-.reveal {
+.ah-nav-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+}
+
+.ah-nav-line.is-on {
+  transform: scaleX(1);
+}
+
+.ah-pill,
+.ah-hero__btn,
+.ac-pill {
+  cursor: pointer;
+  transition:
+    background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.ah-pill__t,
+.ah-hero__btn-t,
+.ac-ctapilltext {
+  transition: color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.ah-pill__a,
+.ah-hero__btn-a,
+.ac-pillarrow {
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transform-origin: center center;
+}
+
+.ah-pill:hover,
+.ah-pill:focus-visible {
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.ah-pill:hover .ah-pill__t,
+.ah-pill:focus-visible .ah-pill__t {
+  color: #000057;
+}
+
+.ah-pill:hover .ah-pill__a,
+.ah-pill:focus-visible .ah-pill__a {
+  transform: scale(1.08);
+}
+
+.ah-hero__btn:hover,
+.ah-hero__btn:focus-visible {
+  background: #0639d4;
+  box-shadow: 0 10px 28px rgba(8, 70, 240, 0.4);
+  transform: translateY(-2px);
+}
+
+.ah-hero__btn:hover .ah-hero__btn-a,
+.ah-hero__btn:focus-visible .ah-hero__btn-a {
+  transform: scale(1.08);
+}
+
+.ac-pill:hover,
+.ac-pill:focus-visible {
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.ac-pill:hover .ac-ctapilltext,
+.ac-pill:focus-visible .ac-ctapilltext {
+  color: #0947F1;
+}
+
+.ac-sec:has(.ac-pill:hover) .ac-pillarrow,
+.ac-sec:has(.ac-pill:focus-visible) .ac-pillarrow {
+  transform: scale(1.08);
+}
+
+.ah-pill:focus-visible,
+.ah-hero__btn:focus-visible,
+.ac-pill:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* FAQ hover: slight lift only (no scale — warps card art).
+   Rest + hover live here; reveal must not lock transform after is-visible. */
+.faq__card {
+  cursor: default;
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 40, 0.08),
+    0 4px 12px rgba(0, 0, 40, 0.10);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Появление при скролле: opacity + лёгкий translateY.
+   html.js — скрываем ключевые блоки с первого кадра (до app.js),
+   иначе titles мелькают, а is-visible ставится без transition.
+   Логотипы — только fade, transform не трогаем (translateY(-50%)). */
+html.js .faq__title:not(.is-visible),
+html.js .logos__title:not(.is-visible),
+html.js .faq__card:not(.is-visible),
+html.js .ac-title:not(.is-visible),
+html.js .ac-ctatitle:not(.is-visible),
+html.js .ac-item:not(.is-visible),
+html.js .ac-pill:not(.is-visible),
+html.js .ah-hero:not(.is-visible),
+html.js .ac-sec:not(.is-visible) {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
     transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
   transition-delay: var(--d, 0ms);
 }
 
-.reveal.is-visible {
+html.js .card--logos .logo:not(.is-visible),
+html.js .ac-pillarrow:not(.is-visible) {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+html.js .reveal {
+  opacity: 0;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+html.js .reveal:not(.reveal--fade) {
+  transform: translateY(22px);
+}
+
+html.js .reveal.is-visible,
+html.js .faq__title.is-visible,
+html.js .logos__title.is-visible,
+html.js .faq__card.is-visible,
+html.js .ac-title.is-visible,
+html.js .ac-ctatitle.is-visible,
+html.js .ac-item.is-visible,
+html.js .ac-pill.is-visible,
+html.js .ah-hero.is-visible,
+html.js .ac-sec.is-visible,
+html.js .card--logos .logo.is-visible,
+html.js .ac-pillarrow.is-visible {
   opacity: 1;
+}
+
+html.js .reveal:not(.reveal--fade):not(.faq__card).is-visible,
+html.js .faq__title.is-visible,
+html.js .logos__title.is-visible,
+html.js .ac-title.is-visible,
+html.js .ac-ctatitle.is-visible,
+html.js .ac-item.is-visible,
+html.js .ac-pill.is-visible,
+html.js .ah-hero.is-visible,
+html.js .ac-sec.is-visible {
   transform: none;
 }
 
-/* FAQ: rest after reveal must not block :hover lift. */
-.faq__card.reveal.is-visible {
+/* FAQ rest after reveal: must beat html.js .reveal:not(.reveal--fade)
+   { translateY(22px) }, but must NOT include :hover so hover can lift. */
+html.js .faq__card.reveal.is-visible {
   transform: translate3d(0, 0, 0);
   transition:
     opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
@@ -642,30 +751,78 @@ main{position:absolute;inset:0}
   transition-delay: 0ms;
 }
 
+html.js .reveal.reveal--fade,
+html.js .logo.reveal {
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+/* Desktop: html.js .faq__card.reveal.is-visible:hover beats any leftover
+   reveal transform (also works without reveal lock — belt and suspenders). */
+@media (hover: hover) and (pointer: fine) {
+  .faq__card:hover,
+  .faq__card:focus-within,
+  html.js .faq__card.reveal.is-visible:hover,
+  html.js .faq__card.reveal.is-visible:focus-within {
+    transform: translate3d(0, -8px, 0);
+    box-shadow:
+      0 4px 10px rgba(0, 0, 40, 0.12),
+      0 12px 28px rgba(0, 10, 60, 0.18);
+    z-index: 3;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .site-header__nav-line,
-  .btn,
-  .btn--header::after,
-  .btn--hero::after,
-  .btn--cta-band::after,
+  .ah-nav-line,
+  .ah-pill,
+  .ah-hero__btn,
+  .ac-pill,
+  .ah-pill__a,
+  .ah-hero__btn-a,
+  .ac-pillarrow,
+  .ah-pill__t,
+  .ah-hero__btn-t,
+  .ac-ctapilltext,
   .faq__card {
     transition: none;
   }
 
-  .btn--hero:hover,
-  .btn--hero:focus-visible,
-  .btn--cta-band:hover,
-  .btn--cta-band:focus-visible,
+  .ah-hero__btn:hover,
+  .ah-hero__btn:focus-visible,
+  .ac-pill:hover,
+  .ac-pill:focus-visible,
   .faq__card:hover,
   .faq__card:focus-within,
-  .faq__card.reveal.is-visible:hover,
-  .faq__card.reveal.is-visible:focus-within {
+  html.js .faq__card.reveal.is-visible:hover,
+  html.js .faq__card.reveal.is-visible:focus-within {
     transform: none;
   }
 
-  .reveal {
+  .faq__card {
+    will-change: auto;
+  }
+
+  html.js .reveal,
+  html.js .faq__title,
+  html.js .logos__title,
+  html.js .faq__card,
+  html.js .ac-title,
+  html.js .ac-ctatitle,
+  html.js .ac-item,
+  html.js .ac-pill,
+  html.js .ah-hero,
+  html.js .ac-sec,
+  html.js .card--logos .logo,
+  html.js .ac-pillarrow {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
+
+  /* Сохраняем центрирование логотипов даже при reduced-motion override */
+  html.js .logo.reveal,
+  html.js .card--logos .logo {
+    transform: translateY(-50%) !important;
+  }
 }
+

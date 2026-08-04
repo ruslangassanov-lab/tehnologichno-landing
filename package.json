@@ -1,18 +1,12 @@
 {
-  "name": "tehno",
+  "name": "tehnologichno-landing",
   "version": "1.0.0",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "private": true,
+  "description": "GitHub Pages: docs/ — Anton + WOW (hero)",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "@playwright/test": "^1.62.1"
+    "sync": "cp src/wow/index.html src/wow/styles.css src/wow/app.js docs/hero/ && cp src/anton/index.html src/anton/styles.css src/anton/app.js src/anton/hero.css src/anton/comp.css docs/anton/ && cp src/switcher.js src/switcher.css docs/",
+    "sync:hero": "cp src/wow/index.html src/wow/styles.css src/wow/app.js docs/hero/",
+    "sync:anton": "cp src/anton/index.html src/anton/styles.css src/anton/app.js src/anton/hero.css src/anton/comp.css docs/anton/",
+    "sync:switcher": "cp src/switcher.js src/switcher.css docs/"
   }
 }

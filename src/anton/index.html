@@ -1,66 +1,75 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>ТЕХНОЛОГИЧНО — Международный открытый чемпионат высокотехнологичных профессий</title>
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preload" href="../assets/fonts/futurabookc.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/futurademic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/goodheadpro-news.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="hero.css">
+<link rel="stylesheet" href="comp.css">
+<link rel="stylesheet" href="../switcher.css">
 </head>
-<body>
-<div class="canvas">
+<body class="ah">
+<div class="canvas ah-canvas">
 
-  <header class="site-header">
-    <a href="#about" class="site-header__brand">
-      <img src="../../public/assets/logo-header.png" alt="ТЕХНОЛОГИЧНО" width="390" height="96">
-    </a>
-    <nav class="site-header__nav" aria-label="Основная навигация">
-      <ul>
-        <li><a href="#about">О чемпионате</a></li>
-        <li><a href="#competencies">Компетенции</a></li>
-        <li><a href="#docs">Документы</a></li>
-      </ul>
+  <header class="ah-header">
+    <a href="#top"><img class="ah-header__logo" src="../assets/anton/logo-tt.webp" alt="ТехноЛогично"></a>
+    <span class="ah-header__word">ТЕХНОЛОГИЧНО</span>
+    <nav class="ah-nav" aria-label="Основная навигация">
+      <a class="n1" href="#about">О чемпионате</a>
+      <a class="n2" href="#competencies">Компетенции</a>
+      <a class="n3" href="#docs">Документы</a>
     </nav>
-    <a href="#apply" class="btn btn--header">Оставить заявку</a>
+    <a class="ah-pill" href="#apply">
+      <span class="ah-pill__t">Оставить заявку</span>
+      <img class="ah-pill__a" src="../assets/anton/arrow-pill.webp" alt="">
+    </a>
   </header>
 
-  <main>
-    <section id="about" class="hero">
-      <div class="card card--hero">
-        <div class="hero__graphic-box">
-          <img class="hero__graphic" src="../../public/assets/hero-tt.webp" alt="" width="707" height="760">
-        </div>
-        <h1 class="hero__title">ТЕХНОЛОГИЧНО</h1>
-        <p class="hero__subtitle">Международный открытый чемпионат высокотехнологичных профессий</p>
-        <p class="hero__descriptor">РАЗВИТИЕ ТЕХНОЛОГИЧЕСКОЙ КООПЕРАЦИИ И КАДРОВОГО ПОТЕНЦИАЛА ДЛЯ СОВМЕСТНОГО ПРЕОДОЛЕНИЯ ТЕХНОЛОГИЧЕСКИХ ВЫЗОВОВ</p>
-        <a href="#apply" class="btn btn--hero">Участвовать в чемпионате</a>
-      </div>
-    </section>
+  <section class="ah-hero" id="about">
+    <img class="ah-hero__tt" src="../assets/anton/hero-tt.webp" alt="">
+    <h1 class="ah-hero__h1">ТЕХНОЛОГИЧНО</h1>
+    <p class="ah-hero__sub"><span class="l1">Международный открытый чемпионат</span><span class="l2">высокотехнологичных профессий</span></p>
+    <p class="ah-hero__descr"><span class="l1">РАЗВИТИЕ ТЕХНОЛОГИЧЕСКОЙ КООПЕРАЦИИ И КАДРОВОГО ПОТЕНЦИАЛА ДЛЯ СОВМЕСТНОГО ПРЕОДОЛЕНИЯ</span><span class="l2">ТЕХНОЛОГИЧЕСКИХ ВЫЗОВОВ</span></p>
+    <a class="ah-hero__btn" href="#apply">
+      <span class="ah-hero__btn-t">Участвовать в чемпионате</span>
+      <img class="ah-hero__btn-a" src="../assets/anton/arrow-btn.webp" alt="">
+    </a>
+  </section>
 
-    <section id="competencies" class="competencies">
-      <div class="card card--competencies">
-        <h2 class="section-title competencies__title">Компетенции</h2>
-        <ul class="competencies__list competencies__list--a">
-          <li>Промышленный дизайн</li>
-          <li>Аддитивное производство и обратный инжиниринг</li>
-          <li>Программирование логистических робостов</li>
-          <li>Роботизация промышленного предприятия</li>
-          <li>Машинное обучение и большие данные</li>
-        </ul>
-        <ul class="competencies__list competencies__list--b">
-          <li>Техническое обслуживание БАС</li>
-          <li>Проектирование логистических цепочек на предприятии</li>
-          <li>Цифровые двойники технологических процессов</li>
-          <li>Электромеханик вертикального транспорта</li>
-          <li>Компьютерное зрение в промышленности</li>
-        </ul>
-
-        <div class="cta-band">
-          <h2 class="section-title cta-band__title">Оставьте заявку прямо сейчас</h2>
-          <a href="#apply" class="btn btn--cta-band">Оставить заявку</a>
-        </div>
-      </div>
-    </section>
+    <section class="ac-sec" id="competencies">
+    <h2 class="ac-title">Компетенции</h2>
+    <span class="ac-L1">Промышленный дизайн</span>
+    <span class="ac-L2a">Аддитивное производство</span>
+    <span class="ac-L2b">и обратный инжиниринг</span>
+    <span class="ac-L3a">Программирование логистических</span>
+    <span class="ac-L3b">роботов</span>
+    <span class="ac-L4a">Роботизация промышленного</span>
+    <span class="ac-L4b">предприятия</span>
+    <span class="ac-L5a">Машинное обучение</span>
+    <span class="ac-L5b">и большие данные</span>
+    <span class="ac-R1">Техническое обслуживание БАС</span>
+    <span class="ac-R2a">Проектирование логистических</span>
+    <span class="ac-R2b">цепочек на предприятии</span>
+    <span class="ac-R3a">Цифровые двойники технологических</span>
+    <span class="ac-R3b">процессов</span>
+    <span class="ac-R4a">Электромеханик вертикального</span>
+    <span class="ac-R4b">транспорта</span>
+    <span class="ac-R5a">Компьютерное зрение</span>
+    <span class="ac-R5b">в промышленности</span>
+    <div class="ac-band"></div>
+    <p class="ac-ctatitle">Оставьте заявку прямо сейчас</p>
+    <a class="ac-pill" href="#apply"><span class="ac-ctapilltext">Оставить заявку</span></a>
+    <img class="ac-pillarrow" src="../assets/anton/arrow-cta.webp" alt="">
+  </section>
 
     <section id="faq" class="faq">
       <h2 class="section-title faq__title">Вопрос-ответ</h2>
@@ -72,7 +81,7 @@
         </article>
         <article class="faq__card">
           <svg class="faq__star" viewBox="0 0 22 22" aria-hidden="true"><path d="M11 0 L13.4 8.6 L22 11 L13.4 13.4 L11 22 L8.6 13.4 L0 11 L8.6 8.6 Z" fill="#FFFFFF"/></svg>
-          <h3>Где познакомиться с положением конкурса</h3>
+          <h3>Где ознакомиться с положением конкурса</h3>
           <p>В разделе "Документы" есть все необходимые документы для ознакомления</p>
         </article>
         <article class="faq__card">
@@ -86,49 +95,59 @@
     <section id="organizers" class="logos-section logos-section--organizers">
       <div class="card card--logos">
         <h2 class="section-title logos__title">Организаторы</h2>
-        <img class="logo logo--depinvest" src="../../public/assets/logo-depinvest.png" alt="Департамент инвестиционной и промышленной политики города Москвы" width="1214" height="708">
-        <img class="logo logo--kmz" src="../../public/assets/logo-kmz.png" alt="Карачаровский механический завод" width="1214" height="708">
+        <img class="logo logo--depinvest" src="../assets/logo-depinvest.png" alt="Департамент инвестиционной и промышленной политики города Москвы" width="1214" height="708">
+        <img class="logo logo--kmz" src="../assets/logo-kmz.png" alt="Карачаровский механический завод" width="1214" height="708">
       </div>
     </section>
 
     <section id="partners" class="logos-section logos-section--partners">
       <div class="card card--logos">
         <h2 class="section-title logos__title">Партнеры мероприятия</h2>
-        <img class="logo logo--platforma" src="../../public/assets/partner-platforma.png" alt="Международная платформа развития навыков и профессий" width="1214" height="708">
-        <img class="logo logo--mosprom" src="../../public/assets/partner-mosprom.png" alt="МОСПРОМ" width="1214" height="708">
-        <img class="logo logo--arpm" src="../../public/assets/partner-arpm.png" alt="АРПМ — Агентство развития профессионального мастерства" width="970" height="568">
-        <img class="logo logo--fcbas" src="../../public/assets/partner-fcbas.png" alt="Федеральный центр беспилотных авиационных систем" width="1214" height="708">
+        <img class="logo logo--platforma" src="../assets/partner-platforma.png" alt="Международная платформа развития навыков и профессий" width="1214" height="708">
+        <img class="logo logo--mosprom" src="../assets/partner-mosprom.png" alt="МОСПРОМ" width="1214" height="708">
+        <img class="logo logo--arpm" src="../assets/partner-arpm.png" alt="АРПМ — Агентство развития профессионального мастерства" width="970" height="568">
+        <img class="logo logo--fcbas" src="../assets/partner-fcbas.png" alt="Федеральный центр беспилотных авиационных систем" width="1214" height="708">
       </div>
     </section>
-  </main>
 
   <footer class="site-footer">
-    <div class="site-footer__block site-footer__block--contacts">
-      <h2 class="footer-title">Контакты</h2>
-      <p class="footer-row">
-        <svg class="footer-icon" viewBox="0 0 21 21" aria-hidden="true"><path d="M4 2h4l2 5-2.5 1.5a11 11 0 0 0 6 6L15 12l5 2v4c0 1-1 2-2 2C10 20 1 11 1 5c0-1 1-3 3-3Z" fill="none" stroke="#000057" stroke-width="1.4"/></svg>
-        <a href="tel:+79057245963">+7 (905) 724-59-63</a>
-      </p>
-      <p class="footer-row">
-        <svg class="footer-icon" viewBox="0 0 21 21" aria-hidden="true"><rect x="1" y="4" width="19" height="13" rx="2" fill="none" stroke="#000057" stroke-width="1.4"/><path d="M2 5.5 10.5 12 19 5.5" fill="none" stroke="#000057" stroke-width="1.4"/></svg>
-        <a href="mailto:technologic@kmz.mos.ru">technologic@kmz.mos.ru</a>
-      </p>
+    <div class="site-footer__inner">
+      <div class="site-footer__block site-footer__block--contacts">
+        <h2 class="footer-title">Контакты</h2>
+        <p class="footer-row">
+          <span class="footer-icon" aria-hidden="true">
+            <svg viewBox="0 0 21 21"><path d="M4 2h4l2 5-2.5 1.5a11 11 0 0 0 6 6L15 12l5 2v4c0 1-1 2-2 2C10 20 1 11 1 5c0-1 1-3 3-3Z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+          </span>
+          <a href="tel:+79057245963">+7 (905) 724-59-63</a>
+        </p>
+        <p class="footer-row">
+          <span class="footer-icon" aria-hidden="true">
+            <svg viewBox="0 0 21 21"><rect x="1" y="4" width="19" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2 5.5 10.5 12 19 5.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+          </span>
+          <a href="mailto:technologic@kmz.mos.ru">technologic@kmz.mos.ru</a>
+        </p>
+      </div>
+      <div class="site-footer__block site-footer__block--hours">
+        <h2 class="footer-title">Время работы</h2>
+        <p class="footer-row">
+          <span class="footer-icon footer-icon--clock" aria-hidden="true">
+            <svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 7v7l5 3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          </span>
+          <span>Пн—Пт: 10:00—18:00</span>
+        </p>
+        <p class="footer-row">
+          <span class="footer-icon footer-icon--clock" aria-hidden="true">
+            <svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 7v7l5 3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          </span>
+          <span>Сб—Вс: выходные</span>
+        </p>
+      </div>
+      <p class="footer-legal">ООО «РУ КМЗ», г.Москва, Рязанский пр-кт, д. 2</p>
     </div>
-    <div class="site-footer__block site-footer__block--hours">
-      <h2 class="footer-title">Время работы</h2>
-      <p class="footer-row">
-        <svg class="footer-icon footer-icon--clock" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12" fill="none" stroke="#000057" stroke-width="1.6"/><path d="M14 7v7l5 3" fill="none" stroke="#000057" stroke-width="1.6"/></svg>
-        <span>Пн—Пт: 10:00—18:00</span>
-      </p>
-      <p class="footer-row">
-        <svg class="footer-icon footer-icon--clock" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12" fill="none" stroke="#000057" stroke-width="1.6"/><path d="M14 7v7l5 3" fill="none" stroke="#000057" stroke-width="1.6"/></svg>
-        <span>Сб—Вс: выходные</span>
-      </p>
-    </div>
-    <p class="footer-legal">ООО «РУ КМЗ», г.Москва, Рязанский пр-кт, д. 2</p>
   </footer>
 
 </div>
 <script src="app.js" defer></script>
+<script src="../switcher.js"></script>
 </body>
 </html>
