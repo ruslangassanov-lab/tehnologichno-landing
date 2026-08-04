@@ -53,6 +53,10 @@
   --grad-1: #0303AC;
   --grad-2: #063FDF;
   --footer-grey: #B6B6B6;
+  /* Content column: Figma Frame 14 = 2544 → base 1272 (÷2). On wide
+     viewports grow toward ~92vw (cap 2200) so cqw elements scale up and
+     side gutters shrink — avoids a tiny 1272 strip on 1920/2560. */
+  --ah-canvas-max: clamp(1272px, 92vw, 2200px);
 }
 
 * { box-sizing: border-box; }
@@ -83,20 +87,14 @@ ul { margin: 0; padding: 0; list-style: none; }
 img { display: block; max-width: 100%; height: auto; }
 
 /* Единственный источник cqw-масштаба: 1cqw = 1% ширины .canvas.
-   На экранах >=1272px canvas стоит на максимуме (1272px) и дальше не растёт —
-   "базовая ширина макета 1272, пропорции держать". На узких экранах canvas
-   сжимается до 100vw, и вместе с ним пропорционально все кегли/координаты.
-   Пробовали дать кеглям нижний порог (clamp) на 390/360px, где чистое сжатие
-   даёт ~4px текст — но вся геометрия здесь построена на абсолютном % позицио-
-   нировании, рассчитанном именно на кегль, растущий/сжимающийся в ту же
-   пропорцию, что и бокс; кегль-пол ломает это и текст залезает на соседние
-   блоки, что уже редизайн вёрстки, а не адаптация. Оставлено как чистое линей-
-   ное масштабирование — см. "Рекомендации прорабу" в report.md про читаемость
-   на узких экранах, это несогласуемо без пересборки мобильной раскладки. */
+   База 1272 (½ Figma 2544). На широких экранах --ah-canvas-max растёт
+   (clamp 1272…92vw…2200), cqw-элементы пропорционально увеличиваются.
+   На узких — width:100%, всё сжимается линейно. Кегль-пол (clamp) ломает
+   абсолютное %-позиционирование — не использовать. */
 .canvas {
   container-type: inline-size;
   width: 100%;
-  max-width: 1272px;
+  max-width: var(--ah-canvas-max);
   margin-inline: auto;
   position: relative;
 }
@@ -351,8 +349,9 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Rect 23 continuation below gradient terminus / CTA band.
    (4750-4243)/1866 ≈ 27.17% — matches CTA bottom (~26.74%).
-   Full-bleed breakout: canvas is max 1272 centered in a wider body — without
-   100vw the bottom radii leave white body/organizers corners beside the curve. */
+   Full-bleed breakout: canvas is centered (max --ah-canvas-max) in a wider
+   body — without 100vw the bottom radii leave white corners beside the curve.
+   html/body overflow-x:hidden clips the classic 100vw+scrollbar gutter. */
 .faq::before {
   content: '';
   position: absolute;
@@ -362,7 +361,7 @@ img { display: block; max-width: 100%; height: auto; }
   top: calc(100% * (4750 - 4243) / 1866);
   bottom: 0;
   background: #000057;
-  /* r=132 on Frame 14 width 2544 — scale to viewport, not canvas */
+  /* r=132 on Frame 14 width 2544 — scale to viewport (band is full-bleed) */
   border-radius: 0 0 calc(100vw * 132 / 2544) calc(100vw * 132 / 2544);
   z-index: -1;
   pointer-events: none;
@@ -522,7 +521,8 @@ img { display: block; max-width: 100%; height: auto; }
   position: relative;
   container-type: inline-size;
   width: 100%;
-  aspect-ratio: 1216 / 421; /* card content width (1272 − 2×28) */
+  /* Figma подвал 134:6: gray 2544×2129 clipped by page at y=7872 → visible 524 */
+  aspect-ratio: 2544 / 524;
   min-height: 0;
 }
 
@@ -542,12 +542,13 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
   font-weight: 400;
-  font-size: 3.93082cqw;
+  font-size: 3.93082cqw; /* 100/25.44 */
   line-height: 1;
 }
 
-.site-footer__block--contacts .footer-title { left: 16.981%; top: 22.090%; white-space: nowrap; }
-.site-footer__block--hours .footer-title { left: 54.166%; top: 21.615%; white-space: nowrap; }
+/* Positions ÷ visible plate 2544×524 (titles y=85, rows 217/328, address 481) */
+.site-footer__block--contacts .footer-title { left: 13.601%; top: 16.221%; white-space: nowrap; }
+.site-footer__block--hours .footer-title { left: 60.888%; top: 16.221%; white-space: nowrap; }
 
 .footer-row {
   position: absolute;
@@ -557,19 +558,19 @@ img { display: block; max-width: 100%; height: auto; }
   margin: 0;
   color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
-  font-size: 1.06132cqw;
+  font-size: 1.06132cqw; /* 27/25.44 */
   line-height: 1.2;
 }
 
 .footer-row a { color: inherit; }
 
-.site-footer__block--contacts .footer-row:nth-of-type(1) { left: 17.610%; top: 40.380%; }
-.site-footer__block--contacts .footer-row:nth-of-type(2) { left: 17.610%; top: 53.682%; }
-.site-footer__block--hours .footer-row:nth-of-type(1) { left: 54.558%; top: 39.430%; }
-.site-footer__block--hours .footer-row:nth-of-type(2) { left: 54.558%; top: 52.732%; }
+.site-footer__block--contacts .footer-row:nth-of-type(1) { left: 13.601%; top: 41.443%; }
+.site-footer__block--contacts .footer-row:nth-of-type(2) { left: 13.601%; top: 62.626%; }
+.site-footer__block--hours .footer-row:nth-of-type(1) { left: 60.888%; top: 41.443%; }
+.site-footer__block--hours .footer-row:nth-of-type(2) { left: 60.888%; top: 62.626%; }
 
 .footer-icon {
-  width: 2.9088cqw;   /* 37/1272 — PDF icon box */
+  width: 2.9088cqw;   /* 74/2 / 12.72 — Figma icon ellipse */
   height: 2.9088cqw;
   flex: none;
   display: inline-flex;
@@ -592,13 +593,13 @@ img { display: block; max-width: 100%; height: auto; }
   position: absolute;
   left: 0;
   right: 0;
-  top: 74.109%;
+  top: 91.794%;
   width: 100%;
   margin: 0;
   text-align: center;
   color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
-  font-size: 1.2579cqw;
+  font-size: 0.9402cqw; /* 23.92/25.44 */
   white-space: nowrap;
 }
 

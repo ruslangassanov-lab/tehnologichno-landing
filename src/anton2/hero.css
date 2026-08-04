@@ -22,9 +22,12 @@
    stops #000057@0 → #2F2FD7@0.55 → #000057@0.995; height 4750/2544 of canvas.
    «3 блок» Rect 23 (#000057) sits UNDER Rect 26 for y=4243→4750, then continues
    alone to y=6109 — so page paint is: gradient (верхнее) + navy underlay through
-   FAQ, then Frame 14 white. No radial glows / image overlays / concentric blobs. */
+   FAQ, then Frame 14 white. No radial glows / image overlays / concentric blobs.
+   Gradient height tracks the live canvas width (min of vw and --ah-canvas-max),
+   not a fixed 2375px — so when the column grows on 1920/2560 the bands stay
+   aligned with cqw-scaled content. */
 html, body.ah{
-  --ah-grad-h: min(2375px, calc(100vw * 4750 / 2544));
+  --ah-grad-h: calc(min(100vw, var(--ah-canvas-max)) * 4750 / 2544);
   background-color:#fff;
   background-image:
     linear-gradient(180deg,#000057 0%,#2F2FD7 55%,#000057 99.52%),
@@ -41,7 +44,7 @@ html, body.ah{
 .ah-canvas, .ah-canvas *{text-rendering:geometricPrecision;font-kerning:normal;}
 .ah-canvas{
   container-type:inline-size;
-  width:100%;max-width:1272px;margin-inline:auto;position:relative;
+  width:100%;max-width:var(--ah-canvas-max);margin-inline:auto;position:relative;
   background:none;
 }
 
@@ -282,7 +285,7 @@ html, body.ah{
   flex-direction:column;
   align-items:stretch;
   gap:1.17925cqw; /* 30 between stroke edges */
-  /* Full-bleed breakout past .ah-canvas max 1272 (same pattern as .faq::before) */
+  /* Full-bleed past .ah-canvas (same pattern as .faq::before) */
   width:100vw;
   margin:4.65802cqw 0 0; /* 118.5: intro bottom → thick top */
   margin-left:calc(50% - 50vw);
