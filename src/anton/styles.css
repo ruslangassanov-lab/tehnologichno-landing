@@ -385,6 +385,7 @@ img { display: block; max-width: 100%; height: auto; }
   position: relative;
   aspect-ratio: 1272 / 507;
   margin-top: 8.3333cqw;
+  overflow: visible;
 }
 
 .faq__title {
@@ -403,6 +404,7 @@ img { display: block; max-width: 100%; height: auto; }
   left: 0;
   width: 100%;
   height: 77.121%;
+  overflow: visible;
 }
 
 .faq__card {
@@ -414,24 +416,26 @@ img { display: block; max-width: 100%; height: auto; }
   border-radius: 1.8868cqw;
   overflow: hidden;
   cursor: default;
-  transform: translate3d(0, 0, 0) scale(1);
-  box-shadow: 0 0.4cqw 1.2cqw rgba(0, 0, 30, 0.18);
+  transform: translate3d(0, 0, 0);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 40, 0.08),
+    0 4px 12px rgba(0, 0, 40, 0.10);
   transition:
-    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
 
-/* Specificity must beat .faq__card.reveal…is-visible (scroll reveal). */
-.faq__card:hover,
-.faq__card:focus-within,
-.faq__card.reveal:not(.reveal--fade).is-visible:hover,
-.faq__card.reveal:not(.reveal--fade).is-visible:focus-within {
-  transform: translate3d(0, -0.85cqw, 0) scale(1.02);
-  box-shadow:
-    0 0.25cqw 0.5cqw rgba(0, 0, 40, 0.12),
-    0 1.1cqw 2cqw rgba(0, 10, 60, 0.28),
-    0 2.4cqw 4.5cqw rgba(0, 0, 40, 0.38);
-  z-index: 3;
+@media (hover: hover) and (pointer: fine) {
+  .faq__card:hover,
+  .faq__card:focus-within,
+  .faq__card.reveal.is-visible:hover,
+  .faq__card.reveal.is-visible:focus-within {
+    transform: translate3d(0, -8px, 0);
+    box-shadow:
+      0 4px 10px rgba(0, 0, 40, 0.12),
+      0 12px 28px rgba(0, 10, 60, 0.18);
+    z-index: 3;
+  }
 }
 
 .faq__card:nth-child(1) { left: 10.063%; }
@@ -628,6 +632,16 @@ main{position:absolute;inset:0}
   transform: none;
 }
 
+/* FAQ: rest after reveal must not block :hover lift. */
+.faq__card.reveal.is-visible {
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 200ms ease,
+    box-shadow 200ms ease;
+  transition-delay: 0ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-header__nav-line,
   .btn,
@@ -644,8 +658,8 @@ main{position:absolute;inset:0}
   .btn--cta-band:focus-visible,
   .faq__card:hover,
   .faq__card:focus-within,
-  .faq__card.reveal:not(.reveal--fade).is-visible:hover,
-  .faq__card.reveal:not(.reveal--fade).is-visible:focus-within {
+  .faq__card.reveal.is-visible:hover,
+  .faq__card.reveal.is-visible:focus-within {
     transform: none;
   }
 

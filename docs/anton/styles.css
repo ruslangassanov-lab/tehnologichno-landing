@@ -659,31 +659,18 @@ img { display: block; max-width: 100%; height: auto; }
   outline-offset: 3px;
 }
 
-/* Hover = presentation polish from PDF build (src/anton):
-   rest 0.4cqw/1.2cqw; lift -0.85cqw (~11px @1272) + scale 1.02;
-   3-layer shadow; 0.45s cubic-bezier — not the invented -7px soft pass. */
+/* FAQ hover: slight lift only (no scale — warps card art).
+   Rest + hover live here; reveal must not lock transform after is-visible. */
 .faq__card {
   cursor: default;
   will-change: transform, box-shadow;
-  transform: translate3d(0, 0, 0) scale(1);
-  box-shadow: 0 0.4cqw 1.2cqw rgba(0, 0, 30, 0.18);
-  transition:
-    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-/* Specificity must beat .faq__card.reveal:not(.reveal--fade).is-visible
-   (otherwise hover translate is overridden after scroll reveal). */
-.faq__card:hover,
-.faq__card:focus-within,
-.faq__card.reveal:not(.reveal--fade).is-visible:hover,
-.faq__card.reveal:not(.reveal--fade).is-visible:focus-within {
-  transform: translate3d(0, -0.85cqw, 0) scale(1.02);
+  transform: translate3d(0, 0, 0);
   box-shadow:
-    0 0.25cqw 0.5cqw rgba(0, 0, 40, 0.12),
-    0 1.1cqw 2cqw rgba(0, 10, 60, 0.28),
-    0 2.4cqw 4.5cqw rgba(0, 0, 40, 0.38);
-  z-index: 3;
+    0 1px 3px rgba(0, 0, 40, 0.08),
+    0 4px 12px rgba(0, 0, 40, 0.10);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
 
 /* Появление при скролле: opacity + лёгкий translateY.
@@ -741,7 +728,7 @@ html.js .ac-pillarrow.is-visible {
   opacity: 1;
 }
 
-html.js .reveal:not(.reveal--fade).is-visible,
+html.js .reveal:not(.reveal--fade):not(.faq__card).is-visible,
 html.js .faq__title.is-visible,
 html.js .logos__title.is-visible,
 html.js .ac-title.is-visible,
@@ -753,15 +740,36 @@ html.js .ac-sec.is-visible {
   transform: none;
 }
 
-html.js .faq__card.reveal:not(.reveal--fade).is-visible,
-html.js .faq__card.is-visible {
-  transform: translate3d(0, 0, 0) scale(1);
+/* FAQ rest after reveal: must beat html.js .reveal:not(.reveal--fade)
+   { translateY(22px) }, but must NOT include :hover so hover can lift. */
+html.js .faq__card.reveal.is-visible {
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 200ms ease,
+    box-shadow 200ms ease;
+  transition-delay: 0ms;
 }
 
 html.js .reveal.reveal--fade,
 html.js .logo.reveal {
   transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
   transition-delay: var(--d, 0ms);
+}
+
+/* Desktop: html.js .faq__card.reveal.is-visible:hover beats any leftover
+   reveal transform (also works without reveal lock — belt and suspenders). */
+@media (hover: hover) and (pointer: fine) {
+  .faq__card:hover,
+  .faq__card:focus-within,
+  html.js .faq__card.reveal.is-visible:hover,
+  html.js .faq__card.reveal.is-visible:focus-within {
+    transform: translate3d(0, -8px, 0);
+    box-shadow:
+      0 4px 10px rgba(0, 0, 40, 0.12),
+      0 12px 28px rgba(0, 10, 60, 0.18);
+    z-index: 3;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -785,8 +793,8 @@ html.js .logo.reveal {
   .ac-pill:focus-visible,
   .faq__card:hover,
   .faq__card:focus-within,
-  .faq__card.reveal:not(.reveal--fade).is-visible:hover,
-  .faq__card.reveal:not(.reveal--fade).is-visible:focus-within {
+  html.js .faq__card.reveal.is-visible:hover,
+  html.js .faq__card.reveal.is-visible:focus-within {
     transform: none;
   }
 
