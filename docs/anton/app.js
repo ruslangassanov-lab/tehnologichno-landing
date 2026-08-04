@@ -75,6 +75,8 @@
     });
   })();
 
+  /* Footer excluded: absolute % children + transform-as-containing-block
+     collapses layout into a heap until is-visible. Paint footer final. */
   var targets = document.querySelectorAll(
     [
       '.ah-hero',
@@ -87,9 +89,7 @@
       '.faq__title',
       '.faq__card',
       '.logos__title',
-      '.logo',
-      '.site-footer__block',
-      '.footer-legal'
+      '.logo'
     ].join(', ')
   );
 
@@ -119,14 +119,20 @@
   stagger(document.querySelectorAll('.logo'));
   stagger(document.querySelectorAll('.ac-item'), 45, 400);
 
+  /* Double rAF: ensure .reveal (opacity:0) is painted before is-visible,
+     so titles actually transition instead of appearing already visible. */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      io.unobserve(el);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          el.classList.add('is-visible');
+        });
+      });
     });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.12 });
 
   targets.forEach(function (el) { io.observe(el); });
 })();

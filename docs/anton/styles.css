@@ -63,7 +63,14 @@ html, body {
   width: 100%;
   min-width: 100%;
   overflow-x: hidden;
-  background-color: var(--bg-chrome);
+  /* Flat chrome only as fallback; body.ah (hero.css) owns the page gradient.
+     Never paint a second short underlay on .canvas / .ah-canvas. */
+  background-color: var(--bg-canvas);
+}
+
+.canvas,
+.ah-canvas {
+  background: none;
 }
 
 body {
@@ -94,7 +101,11 @@ img { display: block; max-width: 100%; height: auto; }
   position: relative;
 }
 
-.section-title { font-weight: 300; margin: 0; }
+.section-title {
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
 
 /* ===== Шапка ===== */
 .site-header {
@@ -426,6 +437,8 @@ img { display: block; max-width: 100%; height: auto; }
   width: 100%;
   text-align: center;
   color: var(--text-navy);
+  font-family: 'FuturaBookC', sans-serif;
+  font-weight: 400;
   font-size: 3.9308cqw;
   white-space: nowrap;
 }
@@ -451,27 +464,41 @@ img { display: block; max-width: 100%; height: auto; }
 .logo--arpm { left: 52.220%; top: 70%; width: 14.638%; transform: translateY(-50%); }
 .logo--fcbas { left: 70.066%; top: 70%; width: 14.638%; transform: translateY(-50%); }
 
-/* ===== Футер (PDF): серая карточка на navy, navy-заголовки, белые круги-иконки ===== */
+/* ===== Футер (PDF): серая плита #B6B6B6, белый текст/иконки;
+   ширина как у .card (margin-inline 2.2013cqw). Блоки inset:0 —
+   иначе transform/reveal на коллапсированном блоке сбивает % top в кучу. */
 .site-footer {
   position: relative;
-  width: 100%;
-  background: var(--footer-grey);
-  border-radius: 3.1447cqw 3.1447cqw 0 0;
+  margin-inline: 2.2013cqw;
   margin-top: 4.7170cqw;
+  background: var(--footer-grey); /* #B6B6B6 */
+  border-radius: 3.1447cqw 3.1447cqw 0 0;
   overflow: hidden;
+  color: var(--white);
 }
 
 .site-footer__inner {
   position: relative;
   container-type: inline-size;
   width: 100%;
-  aspect-ratio: 1272 / 421;
+  aspect-ratio: 1216 / 421; /* card content width (1272 − 2×28) */
+  min-height: 0;
+}
+
+.site-footer__block {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.site-footer__block a,
+.site-footer__block .footer-row {
+  pointer-events: auto;
 }
 
 .footer-title {
   position: absolute;
   margin: 0;
-  color: var(--text-navy);
+  color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
   font-weight: 400;
   font-size: 5.1651cqw;
@@ -487,7 +514,7 @@ img { display: block; max-width: 100%; height: auto; }
   align-items: center;
   gap: 0.55em;
   margin: 0;
-  color: var(--text-navy);
+  color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
   font-size: 1.3600cqw;
   line-height: 1.2;
@@ -507,22 +534,17 @@ img { display: block; max-width: 100%; height: auto; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: #fff;
-  color: var(--text-navy);
+  background: transparent;
+  color: var(--white);
 }
 .footer-icon svg {
-  width: 56%;
-  height: 56%;
+  width: 100%;
+  height: 100%;
   display: block;
 }
 .footer-icon--clock {
   width: 3.3019cqw;   /* 42/1272 */
   height: 3.3019cqw;
-}
-.footer-icon--clock svg {
-  width: 62%;
-  height: 62%;
 }
 
 .footer-legal {
@@ -533,7 +555,7 @@ img { display: block; max-width: 100%; height: auto; }
   width: 100%;
   margin: 0;
   text-align: center;
-  color: var(--text-navy);
+  color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
   font-size: 1.2579cqw;
   white-space: nowrap;
@@ -665,9 +687,34 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* Появление при скролле: opacity + лёгкий translateY.
-   Логотипы — только fade (.reveal--fade), transform не трогаем
-   (иначе ломается translateY(-50%) центрирование). */
-.reveal {
+   html.js — скрываем ключевые блоки с первого кадра (до app.js),
+   иначе titles мелькают, а is-visible ставится без transition.
+   Логотипы — только fade, transform не трогаем (translateY(-50%)). */
+html.js .faq__title:not(.is-visible),
+html.js .logos__title:not(.is-visible),
+html.js .faq__card:not(.is-visible),
+html.js .ac-title:not(.is-visible),
+html.js .ac-ctatitle:not(.is-visible),
+html.js .ac-item:not(.is-visible),
+html.js .ac-pill:not(.is-visible),
+html.js .ah-hero:not(.is-visible),
+html.js .ac-sec:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+html.js .card--logos .logo:not(.is-visible),
+html.js .ac-pillarrow:not(.is-visible) {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+html.js .reveal {
   opacity: 0;
   transition:
     opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
@@ -675,24 +722,44 @@ img { display: block; max-width: 100%; height: auto; }
   transition-delay: var(--d, 0ms);
 }
 
-.reveal:not(.reveal--fade) {
+html.js .reveal:not(.reveal--fade) {
   transform: translateY(22px);
 }
 
-.reveal.is-visible {
+html.js .reveal.is-visible,
+html.js .faq__title.is-visible,
+html.js .logos__title.is-visible,
+html.js .faq__card.is-visible,
+html.js .ac-title.is-visible,
+html.js .ac-ctatitle.is-visible,
+html.js .ac-item.is-visible,
+html.js .ac-pill.is-visible,
+html.js .ah-hero.is-visible,
+html.js .ac-sec.is-visible,
+html.js .card--logos .logo.is-visible,
+html.js .ac-pillarrow.is-visible {
   opacity: 1;
 }
 
-.reveal:not(.reveal--fade).is-visible {
+html.js .reveal:not(.reveal--fade).is-visible,
+html.js .faq__title.is-visible,
+html.js .logos__title.is-visible,
+html.js .ac-title.is-visible,
+html.js .ac-ctatitle.is-visible,
+html.js .ac-item.is-visible,
+html.js .ac-pill.is-visible,
+html.js .ah-hero.is-visible,
+html.js .ac-sec.is-visible {
   transform: none;
 }
 
-.faq__card.reveal:not(.reveal--fade).is-visible {
+html.js .faq__card.reveal:not(.reveal--fade).is-visible,
+html.js .faq__card.is-visible {
   transform: translate3d(0, 0, 0) scale(1);
 }
 
-.reveal.reveal--fade,
-.logo.reveal {
+html.js .reveal.reveal--fade,
+html.js .logo.reveal {
   transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
   transition-delay: var(--d, 0ms);
 }
@@ -727,14 +794,26 @@ img { display: block; max-width: 100%; height: auto; }
     will-change: auto;
   }
 
-  .reveal {
+  html.js .reveal,
+  html.js .faq__title,
+  html.js .logos__title,
+  html.js .faq__card,
+  html.js .ac-title,
+  html.js .ac-ctatitle,
+  html.js .ac-item,
+  html.js .ac-pill,
+  html.js .ah-hero,
+  html.js .ac-sec,
+  html.js .card--logos .logo,
+  html.js .ac-pillarrow {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
 
   /* Сохраняем центрирование логотипов даже при reduced-motion override */
-  .logo.reveal {
+  html.js .logo.reveal,
+  html.js .card--logos .logo {
     transform: translateY(-50%) !important;
   }
 }
