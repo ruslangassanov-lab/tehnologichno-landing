@@ -56,7 +56,10 @@
   padding:0 0 2.6cqw;
 }
 
-/* Hard clip window: padding-based overflow fails because clip edge = padding edge */
+/* Hard clip window: overflow clips at the padding edge.
+   Visible cards get .is-active → translateY(-6px) + shadow; without vertical
+   padding those tops (and radius) are sliced flat. Vertical pad only — horizontal
+   pad would let card 4 peek; width stays the 3-card clip (border-box). */
 .ac-viewport{
   position:relative;
   width:79.87421cqw; /* 2032/25.44 */
@@ -64,6 +67,7 @@
   margin-right:auto;
   margin-top:0; /* must stay 0 — negative mt collapsed with .ac-title mb and ate the gap */
   overflow:hidden;
+  padding:8px 0 28px; /* lift 6px + shadow blur room */
 }
 
 /* Figma Ellipse 5–8 are subtle 12% #000057 stroke rings — not soft blue glow
@@ -164,7 +168,8 @@
 /* Carousel arrows — Figma Arrow 2/3 exported SVGs (ARROW_LINES → filled)
    Abs: Arrow3 @1229 (39+head→41), Arrow2 @1275; gap 5; cards→arrows y=47 */
 .ac-carousel{
-  margin-top:1.84748cqw;
+  /* Was 1.84748cqw; reduced so viewport padding-bottom (shadow room) keeps similar air */
+  margin-top:0.55cqw;
   display:flex;
   justify-content:center;
   align-items:center;

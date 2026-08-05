@@ -1253,34 +1253,76 @@ body.docs-modal-open {
 
 @media (max-width: 768px) {
   .faq__title {
-    margin: 2.5rem 1rem 1.25rem;
+    margin: 2.5rem 1rem 1.35rem;
     text-align: center;
   }
 
   .faq__cards {
     grid-template-columns: 1fr;
-    gap: 0.85rem;
-    padding: 0 1rem;
+    gap: 1.15rem;
+    padding: 0 1.15rem;
+    max-width: 26.5rem;
+    margin-inline: auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .faq__card {
     min-height: 0;
-    padding: 1.35rem 1.2rem 1.45rem;
+    padding: 1.65rem 1.4rem 1.75rem;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 0.7rem;
+    border-radius: 1.35rem;
+    /* Keep gear art; cover avoids squash on full-width cards */
+    background-size: cover;
+    background-position: center;
+    box-shadow:
+      0 2px 8px rgba(0, 0, 40, 0.14),
+      0 10px 28px rgba(0, 5, 50, 0.22);
   }
 
   .faq__card h3 {
-    font-size: clamp(1.2rem, 5vw, 1.45rem);
+    font-family: 'FuturaDemiC', 'FuturaBookC', sans-serif;
+    font-size: clamp(1.28rem, 5.4vw, 1.55rem);
+    line-height: 1.22;
+    letter-spacing: 0.01em;
     text-align: center;
+    margin: 0;
+    max-width: 18.5rem;
   }
 
   .faq__card p {
-    font-size: clamp(0.9375rem, 3.6vw, 1.05rem);
+    font-size: clamp(0.9375rem, 3.7vw, 1.0625rem);
+    line-height: 1.55;
     text-align: center;
+    margin: 0;
+    max-width: 20rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Tap-friendly partner link — expanded hit area, clear underline */
+  .faq__card .ac-link,
+  .faq__card .faq__link {
+    position: relative;
+    display: inline;
+    color: #fff;
+    font-family: 'FuturaDemiC', 'FuturaBookC', sans-serif;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.28em;
+    text-decoration-color: rgba(255, 255, 255, 0.85);
+    padding: 0.15em 0.05em;
+  }
+
+  .faq__card .ac-link::after,
+  .faq__card .faq__link::after {
+    content: '';
+    position: absolute;
+    inset: -0.65em -0.55em;
   }
 
   .logos-section {
@@ -1327,37 +1369,61 @@ body.docs-modal-open {
     margin-inline: auto;
   }
 
+  /* Compact contacts|hours — left-aligned icon rows, not stacked centered blocks */
   .site-footer__inner {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 2.25rem max(1rem, env(safe-area-inset-left)) calc(1.75rem + env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-right));
-    justify-items: center;
-    text-align: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1.1rem;
+    padding: 1.25rem max(0.85rem, env(safe-area-inset-left)) calc(0.9rem + env(safe-area-inset-bottom, 0px)) max(0.85rem, env(safe-area-inset-right));
+    justify-items: stretch;
+    text-align: left;
   }
 
   .site-footer__block {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
     width: 100%;
+    min-width: 0;
+    gap: 0.15rem;
   }
 
   .footer-title {
-    text-align: center;
+    text-align: left;
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.05rem, 4.2vw, 1.35rem);
   }
 
   .footer-row {
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: left;
+    margin: 0;
+    min-height: 0;
+    gap: 0.4em;
+    font-size: clamp(0.8125rem, 3.2vw, 0.9375rem);
   }
 
   .footer-row a {
     word-break: break-word;
+    /* Tap target on links only — hours rows stay compact */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.35rem 0;
+    margin: -0.15rem 0;
+  }
+
+  .footer-icon,
+  .footer-icon--clock {
+    width: 1.15rem;
+    height: 1.15rem;
   }
 
   .footer-legal {
     text-align: center;
+    margin: 0.1rem 0 0;
+    font-size: clamp(0.6875rem, 2.8vw, 0.8125rem);
+    line-height: 1.3;
   }
 
   .about-modal {
@@ -1392,6 +1458,34 @@ body.docs-modal-open {
 @media (max-width: 480px) {
   .faq::before {
     border-radius: 0 0 1.5rem 1.5rem;
+  }
+
+  .faq__title {
+    margin: 2.15rem 0.85rem 1.15rem;
+    font-size: clamp(1.7rem, 7.2vw, 2.1rem);
+  }
+
+  .faq__cards {
+    gap: 1rem;
+    padding: 0 0.9rem;
+    max-width: 23.5rem;
+  }
+
+  .faq__card {
+    padding: 1.5rem 1.2rem 1.6rem;
+    border-radius: 1.25rem;
+    gap: 0.65rem;
+  }
+
+  .faq__card h3 {
+    font-size: clamp(1.22rem, 5.8vw, 1.4rem);
+    max-width: 17rem;
+  }
+
+  .faq__card p {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    max-width: 19rem;
   }
 
   .site-footer {
