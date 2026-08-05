@@ -32,6 +32,114 @@
     });
   })();
 
+  /* About championship modal — nav «О чемпионате» */
+  (function setupAboutModal() {
+    var trigger = document.querySelector('.ah-nav a.n1');
+    var modal = document.getElementById('about-modal');
+    if (!trigger || !modal) return;
+
+    var dialog = modal.querySelector('.about-modal__dialog');
+    var closeBtn = modal.querySelector('.about-modal__close');
+    var lastFocus = null;
+
+    var focusableSelector =
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+
+    var getFocusable = function () {
+      return Array.prototype.slice.call(dialog.querySelectorAll(focusableSelector))
+        .filter(function (el) {
+          return el.offsetParent !== null || el === document.activeElement;
+        });
+    };
+
+    var open = function () {
+      lastFocus = document.activeElement;
+      modal.hidden = false;
+      document.body.classList.add('about-modal-open');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          modal.classList.add('is-open');
+          if (closeBtn) closeBtn.focus();
+          else if (dialog) dialog.focus();
+        });
+      });
+    };
+
+    var close = function () {
+      modal.classList.remove('is-open');
+      document.body.classList.remove('about-modal-open');
+
+      var finish = function () {
+        modal.hidden = true;
+        if (lastFocus && typeof lastFocus.focus === 'function') {
+          lastFocus.focus();
+        }
+      };
+
+      if (reduce) {
+        finish();
+        return;
+      }
+
+      var done = false;
+      var onEnd = function (e) {
+        if (e.target !== modal) return;
+        done = true;
+        modal.removeEventListener('transitionend', onEnd);
+        finish();
+      };
+      modal.addEventListener('transitionend', onEnd);
+      setTimeout(function () {
+        if (done) return;
+        modal.removeEventListener('transitionend', onEnd);
+        finish();
+      }, 350);
+    };
+
+    trigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      open();
+    });
+
+    modal.addEventListener('click', function (e) {
+      if (e.target.closest('[data-about-close]')) {
+        close();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!modal.classList.contains('is-open')) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+        return;
+      }
+
+      if (e.key !== 'Tab') return;
+
+      var items = getFocusable();
+      if (!items.length) {
+        e.preventDefault();
+        if (dialog) dialog.focus();
+        return;
+      }
+
+      var first = items[0];
+      var last = items[items.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first || !dialog.contains(document.activeElement)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+  })();
+
   /* Competencies: hover/focus highlights a whole competence card */
   (function setupCompetenciesHover() {
     var cards = document.querySelectorAll('.ac-sec .ac-card');
