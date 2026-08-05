@@ -57,9 +57,10 @@
      viewports grow toward ~92vw (cap 2200) so cqw elements scale up and
      side gutters shrink — avoids a tiny 1272 strip on 1920/2560. */
   --ah-canvas-max: clamp(1272px, 92vw, 2200px);
-  /* Shared plate curve: Figma r=132 / Frame 14 2544. Cap with canvas-max so
-     FAQ + footer stay equal L/R (no bare-100vw scrollbar skew). */
-  --ah-plate-radius: calc(min(100vw, var(--ah-canvas-max)) * 132 / 2544);
+  /* Shared circular plate curve — one length for L and R (never %-radius:
+     % resolves vs width AND height → ellipse). Figma r=132 / Frame 14 2544
+     on the painted full-bleed plate (100dvw). Identical token for FAQ + footer. */
+  --ah-plate-radius: calc(100dvw * 132 / 2544);
 }
 
 * { box-sizing: border-box; }
@@ -352,21 +353,25 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Rect 23 continuation below gradient terminus / CTA band.
    (4750-4243)/1866 ≈ 27.17% — matches CTA bottom (~26.74%).
-   Full-bleed: center on canvas (viewport-centered) so L/R curves stay even;
-   html/body overflow-x:hidden clips any vw/scrollbar gutter. Bottom radii
-   match .site-footer via --ah-plate-radius (identical L + R). */
+   Full-bleed plate: left:50% + margin-left:-50dvw + width:100dvw (no
+   translate, no calc(50%-50vw) skew). html/body overflow-x:hidden clips
+   any dvw/scrollbar gutter evenly. Bottom corners only — identical circular R. */
 .faq::before {
   content: '';
   position: absolute;
   left: 50%;
-  width: 100vw;
+  margin-left: -50dvw;
+  width: 100dvw;
   right: auto;
-  translate: -50% 0;
+  translate: none;
   top: calc(100% * (4750 - 4243) / 1866);
   bottom: 0;
   background: #000057;
-  /* Same token as footer top — equal bottom-left + bottom-right */
-  border-radius: 0 0 var(--ah-plate-radius) var(--ah-plate-radius);
+  /* Longhands: one circular length, L === R (bottom only) */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: var(--ah-plate-radius);
+  border-bottom-right-radius: var(--ah-plate-radius);
   z-index: -1;
   pointer-events: none;
 }
@@ -410,9 +415,28 @@ img { display: block; max-width: 100%; height: auto; }
 .faq__card:nth-child(2) { left: 37.633%; }
 .faq__card:nth-child(3) { left: 65.216%; }
 
-/* Шестерёнка уже в faq-card-bg — SVG-дубль скрываем */
-.faq__star {
-  display: none;
+/* Gear overlay: covers baked gear in faq-card-bg so it can spin on hover */
+.faq__gear {
+  position: absolute;
+  left: 3.81%;
+  top: 5.88%;
+  width: 7.62%;
+  aspect-ratio: 1;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  /* Match local card-bg blue so the static PNG gear is hidden underneath */
+  background-color: #0135c6;
+  background-image: url('../assets/faq-gear.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 85% 85%;
+  transform: rotate(0deg);
+}
+
+@keyframes faq-gear-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .faq__card h3 {
@@ -521,11 +545,16 @@ img { display: block; max-width: 100%; height: auto; }
   position: relative;
   width: 100%;
   max-width: none;
+  margin-left: 0;
+  margin-right: 0;
   /* Was 4.7170cqw while inside canvas; keep same px via canvas-width formula */
-  margin: calc(min(100vw, var(--ah-canvas-max)) * 4.7170 / 100) 0 0;
+  margin-top: calc(min(100vw, var(--ah-canvas-max)) * 4.7170 / 100);
   background: #b6b6b6;
-  /* Same token as FAQ bottom — equal top-left + top-right */
-  border-radius: var(--ah-plate-radius) var(--ah-plate-radius) 0 0;
+  /* Longhands: one circular length, L === R (top only) — same --ah-plate-radius */
+  border-top-left-radius: var(--ah-plate-radius);
+  border-top-right-radius: var(--ah-plate-radius);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   overflow: hidden;
   color: var(--white);
 }
@@ -967,6 +996,11 @@ html.js .logo.reveal {
       0 12px 28px rgba(0, 10, 60, 0.18);
     z-index: 3;
   }
+
+  /* Easter egg: gear spins once per hover (hover media — no sticky touch) */
+  .faq__card:hover .faq__gear {
+    animation: faq-gear-spin 0.7s ease;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -998,6 +1032,11 @@ html.js .logo.reveal {
   html.js .faq__card.reveal.is-visible:hover,
   html.js .faq__card.reveal.is-visible:focus-within {
     transform: none;
+  }
+
+  .faq__card:hover .faq__gear,
+  .faq__gear {
+    animation: none !important;
   }
 
   .faq__card {
@@ -1341,7 +1380,12 @@ body.docs-modal-open {
 
   .site-footer {
     margin-top: clamp(2rem, 5vw, 3.5rem);
-    border-radius: calc(100vw * 80 / 1024) calc(100vw * 80 / 1024) 0 0;
+    /* Mobile: still one circular length, L === R */
+    --ah-plate-radius: calc(100dvw * 80 / 1024);
+    border-top-left-radius: var(--ah-plate-radius);
+    border-top-right-radius: var(--ah-plate-radius);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     /* Room for consent sticky + home indicator */
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
@@ -1449,6 +1493,11 @@ body.docs-modal-open {
     box-shadow:
       0 2px 8px rgba(0, 0, 40, 0.14),
       0 10px 28px rgba(0, 5, 50, 0.22);
+  }
+
+  /* Overlay only matches desktop stretch; rely on baked gear under cover */
+  .faq__gear {
+    display: none;
   }
 
   .faq__card h3 {
@@ -1734,7 +1783,11 @@ body.docs-modal-open {
   }
 
   .site-footer {
-    border-radius: 1.5rem 1.5rem 0 0;
+    --ah-plate-radius: 1.5rem;
+    border-top-left-radius: var(--ah-plate-radius);
+    border-top-right-radius: var(--ah-plate-radius);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   .site-footer__inner {

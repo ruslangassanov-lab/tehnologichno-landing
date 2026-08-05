@@ -59,6 +59,9 @@ html, body.ah{
 }
 .ah-canvas, .ah-canvas *{text-rendering:geometricPrecision;font-kerning:normal;}
 .ah-canvas{
+  /* Shared with header + apply-band CTA so both pills track one scale. */
+  --ah-header-scale:1.7;
+  --ah-hs:calc(var(--ah-header-scale) / 1.4);
   container-type:inline-size;
   width:100%;max-width:var(--ah-canvas-max);margin-inline:auto;position:relative;
   background:none;
@@ -84,15 +87,14 @@ html, body.ah{
 }
 
 /* ================= ШАПКА (Figma Frame 9 @191,111)
-   --ah-header-scale: multiplier vs Figma cqw (was 1.40 baked).
-   --ah-hs: relative to the prior 1.40 bake so media queries can retune
-   one variable without rewriting every cqw. Desktop aim: nav ~body/UI
-   readable (~17px @1272), CTA meatier padding+type, logo stays balanced.
-   Height tracks scaled logo/pill bottoms so flex free space (hero
-   equal margins) still starts below the chrome row. */
+   --ah-header-scale / --ah-hs live on .ah-canvas (shared with apply CTA).
+   Multiplier vs Figma cqw (was 1.40 baked); --ah-hs is relative to that
+   bake so one variable retunes chrome without rewriting every cqw.
+   Desktop aim: nav ~body/UI readable (~17px @1272), CTA meatier
+   padding+type, logo stays balanced. Height tracks scaled logo/pill
+   bottoms so flex free space (hero equal margins) still starts below
+   the chrome row. */
 .ah-header{
-  --ah-header-scale:1.7;
-  --ah-hs:calc(var(--ah-header-scale) / 1.4);
   position:relative;flex:0 0 auto;
   height:calc(6.1cqw + 2.9cqw * var(--ah-hs));
 }
@@ -514,21 +516,22 @@ html, body.ah{
   line-height:1.1;
 }
 
-/* Match hero/header pills: 999px radius + optically centered label
-   (extra left inset offsets arrow mass so «Оставить заявку» sits true-center). */
+/* Match header .ah-pill via --ah-hs (same cqw container = same px).
+   Flex + space-between mirrors absolute text/arrow insets on .ah-pill. */
 .faq .cta-block__button{
   margin:1.2cqw auto 0;
   display:flex !important;
   align-items:center;
-  justify-content:center;
-  gap:1.05cqw;
+  justify-content:space-between;
+  gap:0;
   position:relative !important;
   top:auto !important;
   left:auto !important;
-  width:11.64701cqw !important;
-  height:3.19969cqw !important;
-  padding:0 0.4cqw 0 1.3cqw !important;
-  border:0.11570cqw solid #fff !important;
+  width:calc(10.22626cqw * var(--ah-hs)) !important;
+  height:calc(2.81361cqw * var(--ah-hs)) !important;
+  /* Right inset = pillW − arrowL − arrowW (same geometry as .ah-pill). */
+  padding:0 calc(0.63677cqw * var(--ah-hs)) 0 calc(0.91207cqw * var(--ah-hs)) !important;
+  border:calc(0.10160cqw * var(--ah-hs)) solid #fff !important;
   background:transparent !important;
   border-radius:999px !important;
   box-sizing:border-box;
@@ -542,7 +545,7 @@ html, body.ah{
   margin:0;
   color:#fff;
   font-family:'FuturaBookC',sans-serif;
-  font-size:1.03873cqw;
+  font-size:calc(0.91207cqw * var(--ah-hs));
   line-height:1;
   white-space:nowrap;
   flex:0 1 auto;
@@ -552,8 +555,8 @@ html, body.ah{
   position:static !important;
   left:auto !important;
   top:auto !important;
-  width:2.28774cqw !important;
-  height:2.28774cqw !important;
+  width:calc(2.00656cqw * var(--ah-hs)) !important;
+  height:calc(2.00656cqw * var(--ah-hs)) !important;
   display:block;
   flex:0 0 auto;
   /* Rest: webp disc from styles.css — do not force mask tint here */
@@ -972,25 +975,26 @@ html.js .faq .cta-block.is-visible{
     width: auto !important;
     min-width: 11rem;
     max-width: calc(100% - 2rem);
-    height: auto !important;
-    min-height: 48px !important;
+    height: 44px !important;
+    min-height: 44px !important;
     margin-top: 1rem;
-    padding: 0.7rem 1.25rem !important;
+    padding: 0 0.5rem 0 1.05rem !important;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 0.55rem;
   }
 
   .cta-block .ac-pill {
-    gap: 1.5rem;
+    gap: 0.55rem;
+    justify-content: center;
   }
 
   .faq .cta-block__button .ac-ctapilltext {
-    font-size: 1rem !important;
+    font-size: 0.875rem !important;
   }
 
   .faq .cta-block__button .ac-pillarrow {
-    width: 1.85rem !important;
-    height: 1.85rem !important;
+    width: 22px !important;
+    height: 22px !important;
   }
 }
 
@@ -1252,11 +1256,21 @@ html.js .faq .cta-block.is-visible{
   .faq .cta-block__button {
     width: min(100%, 18rem) !important;
     margin-inline: auto;
-    gap: 1.5rem;
+    gap: 0.5rem;
+    padding: 0 0.45rem 0 0.95rem !important;
+  }
+
+  .faq .cta-block__button .ac-ctapilltext {
+    font-size: 0.8125rem !important;
+  }
+
+  .faq .cta-block__button .ac-pillarrow {
+    width: 20px !important;
+    height: 20px !important;
   }
 
   .cta-block .ac-pill {
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
 }
 

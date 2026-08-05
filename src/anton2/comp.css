@@ -247,16 +247,16 @@
   top:auto !important;
 }
 
+/* Same size as header .ah-pill (--ah-hs on .ah-canvas). Loads after hero.css. */
 .cta-block .ac-pill{
-  width:11.64701cqw !important;
-  height:3.19969cqw !important;
-  /* Asymmetric insets: nudge label toward visual center (arrow on right). */
-  padding:0 0.4cqw 0 1.3cqw !important;
+  width:calc(10.22626cqw * var(--ah-hs)) !important;
+  height:calc(2.81361cqw * var(--ah-hs)) !important;
+  padding:0 calc(0.63677cqw * var(--ah-hs)) 0 calc(0.91207cqw * var(--ah-hs)) !important;
   display:flex !important;
   align-items:center;
-  justify-content:center;
-  gap:1.05cqw;
-  border:0.11570cqw solid #fff !important;
+  justify-content:space-between;
+  gap:0;
+  border:calc(0.10160cqw * var(--ah-hs)) solid #fff !important;
   background:transparent !important;
   box-sizing:border-box;
   border-radius:999px !important;
@@ -266,12 +266,13 @@
   position:static !important;
   margin:0;
   flex:0 1 auto;
+  font-size:calc(0.91207cqw * var(--ah-hs));
 }
 
 .cta-block .ac-pillarrow{
   position:static !important;
-  width:2.28774cqw !important;
-  height:2.28774cqw !important;
+  width:calc(2.00656cqw * var(--ah-hs)) !important;
+  height:calc(2.00656cqw * var(--ah-hs)) !important;
   display:block;
   flex:0 0 auto;
   /* Resting disc webp + invert mask live in styles.css / hero.css */
@@ -388,9 +389,10 @@ html.js .ac-card:focus-within{
     height: 16px;
   }
 
-  /* Apply CTA — air between label and arrow on tablet/mobile */
+  /* Apply CTA — match header .ah-pill flex gap on tablet/mobile */
   .cta-block .ac-pill {
-    gap: 1.5rem;
+    gap: 0.55rem;
+    justify-content: center;
   }
 }
 
@@ -471,7 +473,7 @@ html.js .ac-card:focus-within{
   }
 
   .cta-block .ac-pill {
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
 }
 
