@@ -53,7 +53,9 @@ html, body.ah{
 /* First viewport = header + hero card + blue margin only.
    #vswitch is fixed; body has padding-top for it. min-height fills the
    remaining visual viewport so #competencies never peeks on first load.
-   Prefer 100svh (stable, ignores mobile URL-bar chrome). */
+   Prefer 100svh (stable, ignores mobile URL-bar chrome).
+   flex: hero gets margin-top:auto so free blue sits above the card;
+   smaller padding-bottom so the larger card occupies bottom air. */
 .ah-first-screen{
   width:100%;
   box-sizing:border-box;
@@ -63,38 +65,50 @@ html, body.ah{
   min-height:calc(100vh - var(--ah-switcher-h));
   min-height:calc(100dvh - var(--ah-switcher-h));
   min-height:calc(100svh - var(--ah-switcher-h));
-  /* Blue band under the card + insurance before #competencies */
-  padding-bottom:6cqw;
+  padding-bottom:3cqw;
   margin-bottom:3cqw;
 }
 
 /* ================= ШАПКА (Figma Frame 9 @191,111)
-   ×1.25 vs Figma cqw — more legible on narrower/clamped canvas (~912px). ===== */
-.ah-header{position:relative;height:13.07cqw;}
-.ah-header__logo{position:absolute;left:7.50786cqw;top:5.4206cqw;
-  width:3.86694cqw;height:2.56486cqw;display:block;}
-.ah-header__word{position:absolute;left:11.53597cqw;top:6.13208cqw;
-  font-family:'GoodHeadPro',sans-serif;font-size:0.98615cqw;line-height:1;
+   ×1.40 vs Figma cqw (~+12.5% atop prior ×1.25) for clamped canvas. ===== */
+.ah-header{position:relative;flex:0 0 auto;height:14.70cqw;}
+.ah-header__logo{position:absolute;left:7.50786cqw;top:6.09818cqw;
+  width:4.35031cqw;height:2.88547cqw;display:block;}
+.ah-header__word{position:absolute;left:12.01934cqw;top:6.89859cqw;
+  font-family:'GoodHeadPro',sans-serif;font-size:1.10942cqw;line-height:1;
   color:#fff;white-space:nowrap;}
 .ah-nav a{position:absolute;font-family:'FuturaBookC',sans-serif;
-  font-size:0.9827cqw;line-height:1;color:#fff;white-space:nowrap;text-decoration:none;}
-.ah-nav .n1{left:37.17374cqw;top:6.13699cqw;}
-.ah-nav .n2{left:47.65330cqw;top:6.13699cqw;}
-.ah-nav .n3{left:57.92846cqw;top:6.13699cqw;}
+  font-size:1.10554cqw;line-height:1;color:#fff;white-space:nowrap;text-decoration:none;}
+.ah-nav .n1{left:37.17374cqw;top:6.90411cqw;}
+.ah-nav .n2{left:47.65330cqw;top:6.90411cqw;}
+.ah-nav .n3{left:57.92846cqw;top:6.90411cqw;}
 
-.ah-pill{position:absolute;left:82.94222cqw;top:5.45401cqw;
-  width:9.09001cqw;height:2.50099cqw;border:0.09031cqw solid #fff;border-radius:1.25786cqw;
+.ah-pill{position:absolute;left:81.80597cqw;top:6.13576cqw;
+  width:10.22626cqw;height:2.81361cqw;border:0.10160cqw solid #fff;border-radius:1.41509cqw;
   box-sizing:border-box;text-decoration:none;display:block;background:transparent;}
-.ah-pill__t{position:absolute;left:0.81073cqw;top:0.75669cqw;
-  font-family:'FuturaBookC',sans-serif;font-size:0.81073cqw;line-height:1;
+.ah-pill__t{position:absolute;left:0.91207cqw;top:0.85128cqw;
+  font-family:'FuturaBookC',sans-serif;font-size:0.91207cqw;line-height:1;
   color:#fff;white-space:nowrap;}
-.ah-pill__a{position:absolute;left:6.74038cqw;top:0.31446cqw;
-  width:1.78361cqw;height:1.78361cqw;display:block;}
+.ah-pill__a{position:absolute;left:7.58293cqw;top:0.35377cqw;
+  width:2.00656cqw;height:2.00656cqw;display:block;}
 
-/* ================= HERO-КАРТОЧКА (Figma 134:196 @116,266) ================= */
-.ah-hero{position:relative;margin-left:4.55975cqw;margin-top:0;
-  width:90.95912cqw;height:33.05818cqw;
-  background:#fff;border-radius:3.21737cqw;overflow:hidden;}
+/* ================= HERO-КАРТОЧКА (Figma 134:196 @116,266)
+   Layout box ×1.10; inner .ah-hero__card scaled so absolute kids stay in
+   Figma cqw. Scale lives on the card (not .ah-hero) so reveal transform:none
+   on .ah-hero does not wipe it. margin auto fills leftover blue above/below. */
+.ah-hero{
+  --ah-hero-scale:1.1;
+  position:relative;
+  flex:0 0 auto;
+  margin-left:calc((100% - 90.95912cqw * var(--ah-hero-scale)) / 2);
+  margin-top:auto;
+  margin-bottom:auto;
+  width:calc(90.95912cqw * var(--ah-hero-scale));
+  height:calc(33.05818cqw * var(--ah-hero-scale));
+  background:transparent;
+  border-radius:calc(3.21737cqw * var(--ah-hero-scale));
+  overflow:hidden;
+}
 
 .ah-hero__tt{position:absolute;left:52.72170cqw;top:6.05346cqw;
   width:42.95440cqw;height:28.66352cqw;display:block;}
@@ -129,8 +143,23 @@ html, body.ah{
 /* ===== anton2 — Figma Page 6 (Frame 14 @2544 → canvas 1272, ÷2) ===== */
 .ah-header{display:block;}
 
-/* Nested wrappers collapse so absolute children anchor to .ah-hero */
-.ah-hero__card,
+/* Card is the scaled paint layer; transform makes it the CB for absolute kids
+   (same 90.96×33.06 cqw box as before, then ×--ah-hero-scale). */
+.ah-hero__card{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:90.95912cqw;
+  height:33.05818cqw;
+  margin:0;
+  padding:0;
+  display:block;
+  background:#fff;
+  border-radius:3.21737cqw;
+  overflow:hidden;
+  transform:translate(-50%,-50%) scale(var(--ah-hero-scale,1.1));
+  transform-origin:center center;
+}
 .ah-hero__card-left,
 .ah-hero__card-right{
   position:static;
