@@ -276,7 +276,6 @@ html, body.ah{
   height:2.89546cqw;
   display:block;
   flex:0 0 auto;
-  object-fit:contain;
 }
 
 /* Date + year: FuturaDemiC */
@@ -542,7 +541,9 @@ html, body.ah{
   height:2.28774cqw !important;
   display:block;
   flex:0 0 auto;
-  background-color:transparent;
+  /* Tint comes from unified mask arrow in styles.css — keep white on blue band */
+  background-color:#fff;
+  background-image:none;
   box-shadow:none;
 }
 
@@ -550,40 +551,52 @@ html, body.ah{
   position:relative !important;
 }
 
-/* Hover / focus — match header .ah-pill invert (overrides transparent !important) */
-.faq .cta-block__button:hover,
+/* Hover / focus / active — invert outline pill (overrides transparent !important).
+   Pointer hover gated so touch doesn’t stick white. */
 .faq .cta-block__button:focus-visible,
-.cta-block .ac-pill:hover,
-.cta-block .ac-pill:focus-visible{
+.faq .cta-block__button:active,
+.cta-block .ac-pill:focus-visible,
+.cta-block .ac-pill:active{
   background:#fff !important;
   box-shadow:0 8px 22px rgba(0,0,0,0.2);
   transform:translateY(-2px);
 }
 
-.faq .cta-block__button:hover .ac-ctapilltext,
 .faq .cta-block__button:focus-visible .ac-ctapilltext,
-.cta-block .ac-pill:hover .ac-ctapilltext,
-.cta-block .ac-pill:focus-visible .ac-ctapilltext{
+.faq .cta-block__button:active .ac-ctapilltext,
+.cta-block .ac-pill:focus-visible .ac-ctapilltext,
+.cta-block .ac-pill:active .ac-ctapilltext{
   color:#0947F1;
 }
 
-.faq .cta-block__button:hover .ac-pillarrow,
 .faq .cta-block__button:focus-visible .ac-pillarrow,
-.cta-block .ac-pill:hover .ac-pillarrow,
-.cta-block .ac-pill:focus-visible .ac-pillarrow{
-  /* Disc-free arrow tinted to match hover label — no white plate */
+.faq .cta-block__button:active .ac-pillarrow,
+.cta-block .ac-pill:focus-visible .ac-pillarrow,
+.cta-block .ac-pill:active .ac-pillarrow{
   background-color:#0947F1;
   background-image:none;
-  box-shadow:none;
-  -webkit-mask-image:url("../assets/anton/arrow-about.svg");
-  mask-image:url("../assets/anton/arrow-about.svg");
-  -webkit-mask-size:contain;
-  mask-size:contain;
-  -webkit-mask-repeat:no-repeat;
-  mask-repeat:no-repeat;
-  -webkit-mask-position:center;
-  mask-position:center;
-  transform:scale(1.08);
+  transform:scale(1.04);
+}
+
+@media (hover: hover) and (pointer: fine){
+  .faq .cta-block__button:hover,
+  .cta-block .ac-pill:hover{
+    background:#fff !important;
+    box-shadow:0 8px 22px rgba(0,0,0,0.2);
+    transform:translateY(-2px);
+  }
+
+  .faq .cta-block__button:hover .ac-ctapilltext,
+  .cta-block .ac-pill:hover .ac-ctapilltext{
+    color:#0947F1;
+  }
+
+  .faq .cta-block__button:hover .ac-pillarrow,
+  .cta-block .ac-pill:hover .ac-pillarrow{
+    background-color:#0947F1;
+    background-image:none;
+    transform:scale(1.04);
+  }
 }
 
 .faq .cta-block__button:focus-visible,
@@ -595,15 +608,19 @@ html, body.ah{
 @media (prefers-reduced-motion:reduce){
   .faq .cta-block__button:hover,
   .faq .cta-block__button:focus-visible,
+  .faq .cta-block__button:active,
   .cta-block .ac-pill:hover,
-  .cta-block .ac-pill:focus-visible{
+  .cta-block .ac-pill:focus-visible,
+  .cta-block .ac-pill:active{
     transform:none;
   }
 
   .faq .cta-block__button:hover .ac-pillarrow,
   .faq .cta-block__button:focus-visible .ac-pillarrow,
+  .faq .cta-block__button:active .ac-pillarrow,
   .cta-block .ac-pill:hover .ac-pillarrow,
-  .cta-block .ac-pill:focus-visible .ac-pillarrow{
+  .cta-block .ac-pill:focus-visible .ac-pillarrow,
+  .cta-block .ac-pill:active .ac-pillarrow{
     transform:none;
   }
 }
