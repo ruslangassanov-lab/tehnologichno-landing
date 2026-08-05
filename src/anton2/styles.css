@@ -1254,6 +1254,7 @@ body.docs-modal-open {
 @media (max-width: 768px) {
   .faq__title {
     margin: 2.5rem 1rem 1.25rem;
+    text-align: center;
   }
 
   .faq__cards {
@@ -1265,14 +1266,21 @@ body.docs-modal-open {
   .faq__card {
     min-height: 0;
     padding: 1.35rem 1.2rem 1.45rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .faq__card h3 {
     font-size: clamp(1.2rem, 5vw, 1.45rem);
+    text-align: center;
   }
 
   .faq__card p {
     font-size: clamp(0.9375rem, 3.6vw, 1.05rem);
+    text-align: center;
   }
 
   .logos-section {
@@ -1288,10 +1296,17 @@ body.docs-modal-open {
     padding: 1.75rem 1.15rem 1.85rem;
     gap: 1.25rem 1.5rem;
     border-radius: 1.25rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logos__title {
+    text-align: center;
   }
 
   .logos-section--organizers .card--logos .logo {
     max-width: min(46%, 200px);
+    margin-inline: auto;
   }
 
   .logos-section--partners .card--logos {
@@ -1303,21 +1318,46 @@ body.docs-modal-open {
 
   .logos-section--partners .logos__title {
     grid-column: 1 / -1;
+    text-align: center;
   }
 
   .logos-section--partners .card--logos .logo {
     max-width: 100%;
     width: min(100%, 140px);
+    margin-inline: auto;
   }
 
   .site-footer__inner {
     grid-template-columns: 1fr;
     gap: 2rem;
     padding: 2.25rem max(1rem, env(safe-area-inset-left)) calc(1.75rem + env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-right));
+    justify-items: center;
+    text-align: center;
+  }
+
+  .site-footer__block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-title {
+    text-align: center;
+  }
+
+  .footer-row {
+    justify-content: center;
+    text-align: center;
   }
 
   .footer-row a {
     word-break: break-word;
+  }
+
+  .footer-legal {
+    text-align: center;
   }
 
   .about-modal {

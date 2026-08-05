@@ -383,6 +383,10 @@ html.js .ac-card:focus-within{
 }
 
 @media (max-width: 768px) {
+  .ac-sec .ac-title {
+    text-align: center;
+  }
+
   .ac-viewport {
     width: calc(100% - 2rem);
     margin-left: 1rem;
@@ -394,6 +398,7 @@ html.js .ac-card:focus-within{
     width: 100%;
     flex: 0 0 100%;
     padding: 1.65rem 1.2rem 1.35rem;
+    text-align: center;
   }
 
   .ac-card__title,
@@ -410,10 +415,12 @@ html.js .ac-card:focus-within{
   .ac-R2a,
   .ac-R2b {
     font-size: clamp(1.2rem, 5vw, 1.45rem) !important;
+    text-align: center;
   }
 
   .ac-card__desc {
     font-size: clamp(0.9375rem, 3.8vw, 1.0625rem);
+    text-align: center;
   }
 
   /* Soften hover lift on touch devices */
@@ -433,6 +440,12 @@ html.js .ac-card:focus-within{
     transform: none !important;
     box-shadow: 0 8px 22px rgba(0, 0, 40, 0.14);
     filter: none;
+  }
+
+  /* Keep carousel arrows centered as a control group (not stretched) */
+  .ac-carousel {
+    justify-content: center;
+    margin-inline: auto;
   }
 }
 

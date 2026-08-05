@@ -1013,6 +1013,8 @@ html.js .faq .cta-block.is-visible{
     min-height: 48px;
     padding: 0.65rem 0.15rem;
     font-size: 1.0625rem;
+    justify-content: center;
+    text-align: center;
   }
 
   .ah-pill {
@@ -1041,28 +1043,40 @@ html.js .faq .cta-block.is-visible{
     gap: 1.5rem;
     padding: 1.35rem 1.2rem 1.5rem;
     border-radius: 1.25rem;
+    justify-items: center;
+    text-align: center;
   }
 
   .ah-hero__card-left {
     gap: 0.75rem;
+    align-items: center;
+    text-align: center;
+    width: 100%;
   }
 
   .ah-hero__card-right {
     order: 2;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
   }
 
   .ah-hero__brand {
     font-size: clamp(2.1rem, 11vw, 2.85rem);
+    text-align: center;
   }
 
   .ah-hero__subtitle {
     font-size: clamp(1.05rem, 4.2vw, 1.25rem);
+    text-align: center;
   }
 
   .ah-hero__tagline {
     font-size: 0.6875rem;
     letter-spacing: 0.02em;
+    text-align: center;
+    margin-inline: auto;
   }
 
   .ah-hero__tagline br {
@@ -1070,45 +1084,90 @@ html.js .faq .cta-block.is-visible{
   }
 
   .ah-hero__btn {
-    width: 100% !important;
+    width: auto !important;
     max-width: 100%;
+    min-width: min(100%, 14rem);
     justify-content: space-between;
+    align-self: center;
+    margin-inline: auto;
   }
 
   .ah-hero__btn-t {
     white-space: normal;
-    text-align: left;
+    text-align: center;
     line-height: 1.2;
   }
 
   .ah-hero__date {
     font-size: clamp(1.15rem, 4.5vw, 1.4rem);
+    text-align: center;
   }
 
   .ah-hero__year {
     font-size: clamp(4.25rem, 28vw, 6.25rem);
+    text-align: center;
   }
 
   .about-block {
     padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
+    text-align: center;
   }
 
   .about-block__title {
     font-size: clamp(1.75rem, 8vw, 2.25rem);
   }
 
+  .about-block__text,
+  .about-block__subtext,
+  .about-block__hitech {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .about-bullets-wrap {
+    margin-inline: auto;
+  }
+
+  .about-bullets {
+    align-items: center;
+  }
+
+  .about-bullet {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.55rem;
+  }
+
+  .about-bullet__icon {
+    margin-top: 0;
+  }
+
+  .about-bullet__text {
+    width: 100%;
+    text-align: center;
+  }
+
+  .about-bullet__line {
+    margin-inline: auto;
+  }
+
   .faq .cta-block {
     margin: 0 0 2rem;
     padding: 2rem max(1rem, env(safe-area-inset-left)) 2.15rem max(1rem, env(safe-area-inset-right));
+    text-align: center;
   }
 
   .faq .cta-block__title {
     font-size: clamp(1.5rem, 6.5vw, 2rem);
     line-height: 1.15;
+    text-align: center;
   }
 
   .faq .cta-block__button {
     width: min(100%, 18rem) !important;
+    margin-inline: auto;
   }
 }
 
@@ -1132,6 +1191,7 @@ html.js .faq .cta-block.is-visible{
 
   .ah-hero__card {
     padding: 1.2rem 1rem 1.35rem;
+    text-align: center;
   }
 
   .ah-hero__btn-t {
@@ -1140,6 +1200,11 @@ html.js .faq .cta-block.is-visible{
 
   .about-bullets {
     padding: 1.15rem 1rem;
+    align-items: center;
+  }
+
+  .about-bullet__text {
+    text-align: center;
   }
 }
 
