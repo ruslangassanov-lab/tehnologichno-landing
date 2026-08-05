@@ -535,6 +535,9 @@ img { display: block; max-width: 100%; height: auto; }
   /* Figma подвал 134:6: gray 2544×2129 clipped by page at y=7872 → visible 524 */
   aspect-ratio: 2544 / 524;
   min-height: 0;
+  /* Shared icon track so all footer-row text shares one left gutter */
+  --footer-icon-col: 3.3019cqw; /* 42/1272 — fits clock; contacts center in cell */
+  --footer-icon-gap: 0.55em;
 }
 
 .site-footer__block {
@@ -557,17 +560,18 @@ img { display: block; max-width: 100%; height: auto; }
   line-height: 1;
 }
 
-/* Positions ÷ visible plate 2544×524 (titles y=85, rows 217/328).
-   Address sits in the middle band between contacts (13.601%) and hours
-   (60.888%), vertically aligned with those blocks — not alone at bottom. */
+/* Positions ÷ visible plate 2544×524 (titles y=85, rows 217/328, address 481).
+   Address is bottom-center of the plate — equidistant from contacts/hours. */
 .site-footer__block--contacts .footer-title { left: 13.601%; top: 16.221%; white-space: nowrap; }
 .site-footer__block--hours .footer-title { left: 60.888%; top: 16.221%; white-space: nowrap; }
 
 .footer-row {
   position: absolute;
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--footer-icon-col) max-content;
+  column-gap: var(--footer-icon-gap);
   align-items: center;
-  gap: 0.55em;
+  justify-content: start;
   margin: 0;
   color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
@@ -586,6 +590,7 @@ img { display: block; max-width: 100%; height: auto; }
   width: 2.9088cqw;   /* 74/2 / 12.72 — Figma icon ellipse */
   height: 2.9088cqw;
   flex: none;
+  justify-self: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -598,29 +603,24 @@ img { display: block; max-width: 100%; height: auto; }
   display: block;
 }
 .footer-icon--clock {
-  width: 3.3019cqw;   /* 42/1272 */
-  height: 3.3019cqw;
+  width: var(--footer-icon-col);
+  height: var(--footer-icon-col);
 }
 
-/* Middle lane: equal inset from contacts ≈28.8% end and hours 60.888% start.
-   Vertical box spans title→last row so address shares the same midline. */
+/* Bottom center of grey plate (Figma y=481 → 91.794% of 524). */
 .footer-legal {
   position: absolute;
-  left: 31.5%;
-  right: 39.112%; /* 100% − 60.888% — flush to hours column */
-  top: 16.221%;
-  bottom: 37.374%; /* 100% − 62.626% — flush to last row */
-  width: auto;
+  left: 0;
+  right: 0;
+  top: 91.794%;
+  width: 100%;
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
   color: var(--white);
   font-family: 'FuturaBookC', sans-serif;
-  font-size: 0.9402cqw; /* 23.92/25.44 */
-  line-height: 1.35;
-  white-space: normal;
+  font-size: 1.06132cqw; /* match footer-row 27/25.44 — was too small at 0.94 */
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 /* ===== Progressive polish (ah-* build): nav / buttons / FAQ / reveal ===== */
@@ -665,15 +665,24 @@ img { display: block; max-width: 100%; height: auto; }
 .ah-pill__a,
 .ah-hero__btn-a,
 .ac-pillarrow {
-  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-image 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
   transform-origin: center center;
+}
+
+/* Default: webp with white disc (readable on blue / transparent pills) */
+.ah-pill__a,
+.ac-pillarrow {
+  background: url("../assets/anton/arrow-pill.webp") center / contain no-repeat;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .ah-pill:hover,
 .ah-pill:focus-visible {
   background: #fff;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-  isolation: isolate; /* contain arrow multiply to white pill */
 }
 
 .ah-pill:hover .ah-pill__t,
@@ -683,8 +692,10 @@ img { display: block; max-width: 100%; height: auto; }
 
 .ah-pill:hover .ah-pill__a,
 .ah-pill:focus-visible .ah-pill__a {
-  /* White disc × white pill → invisible; blue arrow stays */
-  mix-blend-mode: multiply;
+  /* Disc-free SVG — no white plate on white pill (mix-blend fails under transform) */
+  background-color: transparent;
+  background-image: url("../assets/anton/arrow-about.svg");
+  box-shadow: none;
   transform: scale(1.08);
 }
 
@@ -730,7 +741,6 @@ img { display: block; max-width: 100%; height: auto; }
   background: #fff;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
-  isolation: isolate; /* contain arrow multiply to white pill */
 }
 
 .ac-pill:hover .ac-ctapilltext,
@@ -738,11 +748,20 @@ img { display: block; max-width: 100%; height: auto; }
   color: #0947F1;
 }
 
-.ac-sec:has(.ac-pill:hover) .ac-pillarrow,
-.ac-sec:has(.ac-pill:focus-visible) .ac-pillarrow,
-.cta-block:has(.ac-pill:hover) .ac-pillarrow,
-.cta-block:has(.ac-pill:focus-visible) .ac-pillarrow {
-  mix-blend-mode: multiply;
+.ac-pill:hover .ac-pillarrow,
+.ac-pill:focus-visible .ac-pillarrow {
+  /* Disc-free arrow tinted to match hover label — no white plate */
+  background-color: #0947F1;
+  background-image: none;
+  box-shadow: none;
+  -webkit-mask-image: url("../assets/anton/arrow-about.svg");
+  mask-image: url("../assets/anton/arrow-about.svg");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
   transform: scale(1.08);
 }
 
@@ -1106,13 +1125,17 @@ body.docs-modal-open {
   .faq {
     aspect-ratio: auto;
     min-height: 0;
-    padding-bottom: 2rem;
+    /* Even air after last card — matches title top rhythm; square navy edge */
+    padding-bottom: 3.5rem;
+    /* Navy slab (not white): desktop bottom radii are Page-6→organizers only.
+       White + radius on stacked mobile paints clipped “ears” under the cards. */
+    background-color: var(--ah-navy, #000057);
   }
 
-  /* Keep navy full-bleed underlay; start nearer top once aspect-ratio drops */
+  /* Full-bleed navy underlay; square bottom — curve stays desktop-only */
   .faq::before {
     top: 0;
-    border-radius: 0 0 calc(100vw * 80 / 1024) calc(100vw * 80 / 1024);
+    border-radius: 0;
   }
 
   .faq__title {
@@ -1160,6 +1183,12 @@ body.docs-modal-open {
 
   .logos-section {
     padding-inline: 1.25rem;
+  }
+
+  /* FAQ already ends with bottom padding; don’t double a huge navy gap */
+  .logos-section--organizers {
+    margin-top: 0;
+    padding-top: 2rem;
   }
 
   .logos-section .card--logos,
@@ -1225,11 +1254,12 @@ body.docs-modal-open {
     min-height: 0;
     padding: 2.5rem 1.5rem 2rem;
     display: grid;
-    /* contacts | address | hours — same band as desktop */
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: 1.5rem 1.25rem;
-    align-items: center;
+    /* contacts | hours — address spans bottom under both */
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem 2rem;
     box-sizing: border-box;
+    --footer-icon-col: 1.75rem;
+    --footer-icon-gap: 0.65rem;
   }
 
   .site-footer__block {
@@ -1237,14 +1267,10 @@ body.docs-modal-open {
     inset: auto;
   }
 
-  .site-footer__block--contacts {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
+  .site-footer__block--contacts,
   .site-footer__block--hours {
-    grid-column: 3;
-    grid-row: 1;
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .footer-title {
@@ -1256,6 +1282,11 @@ body.docs-modal-open {
 
   .footer-row {
     position: static;
+    display: grid;
+    grid-template-columns: var(--footer-icon-col) minmax(0, max-content);
+    column-gap: var(--footer-icon-gap);
+    align-items: center;
+    justify-content: start;
     margin: 0 0 0.85rem;
     font-size: clamp(0.9375rem, 2vw, 1.0625rem);
     min-height: 44px;
@@ -1263,21 +1294,22 @@ body.docs-modal-open {
 
   .footer-icon,
   .footer-icon--clock {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: var(--footer-icon-col);
+    height: var(--footer-icon-col);
+    justify-self: center;
   }
 
   .footer-legal {
     position: static;
     inset: auto;
     display: block;
-    grid-column: 2;
-    grid-row: 1;
-    align-self: center;
-    margin: 0;
+    grid-column: 1 / -1;
+    grid-row: auto;
+    align-self: auto;
+    margin: 0.5rem 0 0;
     padding: 0;
     border: none;
-    font-size: clamp(0.8125rem, 1.8vw, 0.9375rem);
+    font-size: clamp(0.875rem, 1.9vw, 1.0625rem);
     white-space: normal;
     line-height: 1.35;
     text-align: center;
@@ -1285,6 +1317,10 @@ body.docs-modal-open {
 }
 
 @media (max-width: 768px) {
+  .faq {
+    padding-bottom: 2.75rem;
+  }
+
   .faq__title {
     margin: 2.5rem 1rem 1.35rem;
     text-align: center;
@@ -1363,7 +1399,8 @@ body.docs-modal-open {
   }
 
   .logos-section--organizers {
-    margin-top: 3rem;
+    margin-top: 0;
+    padding-top: 1.75rem;
   }
 
   .logos-section--organizers .card--logos,
@@ -1403,23 +1440,34 @@ body.docs-modal-open {
   }
 
   /*
-   Mobile footer ≤768: centered stacked column.
-   Icon+text rows center as units; even gaps between contacts / hours / address.
+   Mobile footer ≤768: one centered stack.
+   Shared max-content column → icon gutter aligns across contacts/hours;
+   equal row gap inside blocks; larger equal section gap between blocks
+   and before address. Tap pad on links only (no 44px row min-heights).
    */
   .site-footer {
     margin-top: clamp(1.75rem, 4.5vw, 2.75rem);
   }
 
   .site-footer__inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.35rem;
-    padding: 1.65rem max(1.15rem, env(safe-area-inset-left, 0px))
+    --footer-icon-col: 1.35rem;
+    --footer-icon-gap: 0.65rem;
+    --footer-gap-row: 0.55rem;
+    --footer-gap-section: 1.35rem;
+    display: grid;
+    /* Sizes to longest icon+text row; address must not widen the track */
+    grid-template-columns: minmax(0, max-content);
+    justify-content: center;
+    justify-items: stretch;
+    align-content: start;
+    gap: 0; /* section spacing via margins — avoids double-counting legal pad */
+    padding: 1.75rem max(1.25rem, env(safe-area-inset-left, 0px))
       calc(1.35rem + env(safe-area-inset-bottom, 0px))
-      max(1.15rem, env(safe-area-inset-right, 0px));
+      max(1.25rem, env(safe-area-inset-right, 0px));
     box-sizing: border-box;
     text-align: center;
+    width: 100%;
+    max-width: 100%;
   }
 
   .site-footer__block,
@@ -1427,21 +1475,28 @@ body.docs-modal-open {
   .site-footer__block--hours {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.45rem;
-    width: 100%;
+    align-items: stretch;
+    gap: var(--footer-gap-row);
+    /* width:auto so justify-items:stretch equalizes both blocks → icon column */
+    width: auto;
+    max-width: 100%;
     min-width: 0;
     position: static;
     inset: auto;
     grid-column: auto;
     grid-row: auto;
+    box-sizing: border-box;
+  }
+
+  .site-footer__block + .site-footer__block {
+    margin-top: var(--footer-gap-section);
   }
 
   .footer-title {
     position: static;
     margin: 0;
     font-size: clamp(1.2rem, 5vw, 1.45rem);
-    line-height: 1.15;
+    line-height: 1.2;
     white-space: normal;
     text-align: center;
     width: 100%;
@@ -1449,34 +1504,39 @@ body.docs-modal-open {
 
   .footer-row {
     position: static;
-    display: flex;
+    display: grid;
+    grid-template-columns: var(--footer-icon-col) minmax(0, max-content);
+    column-gap: var(--footer-icon-gap);
     align-items: center;
-    justify-content: center;
-    gap: 0.55em;
+    justify-content: start;
     width: 100%;
     margin: 0;
+    /* Override ≤1024 row min-height: 44px + margin-bottom */
     min-height: 0;
     font-size: clamp(0.875rem, 3.6vw, 1rem);
-    line-height: 1.35;
-    text-align: center;
+    line-height: 1.4;
+    text-align: left;
+    box-sizing: border-box;
   }
 
   .footer-row a {
     color: inherit;
     word-break: break-word;
     overflow-wrap: anywhere;
-    /* Tap target on links only — hours rows stay compact */
+    /* Usable tap pad without forcing a 44px-tall row box */
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    padding: 0.25rem 0;
+    min-height: 0;
+    padding: 0.2rem 0;
+    margin: 0;
   }
 
   .footer-icon,
   .footer-icon--clock {
-    width: 1.35rem;
-    height: 1.35rem;
+    width: var(--footer-icon-col);
+    height: var(--footer-icon-col);
     flex: none;
+    justify-self: center;
   }
 
   .footer-legal {
@@ -1485,14 +1545,19 @@ body.docs-modal-open {
     display: block;
     grid-column: auto;
     grid-row: auto;
-    width: 100%;
-    margin: 0;
-    padding-top: 1.35rem;
+    /* Take column width without contributing to max-content sizing */
+    width: 0;
+    min-width: 100%;
+    max-width: min(100vw - 2.5rem, 22rem);
+    margin: var(--footer-gap-section) 0 0;
+    padding-top: var(--footer-gap-section);
     border-top: 1px solid rgba(255, 255, 255, 0.28);
+    box-sizing: border-box;
     text-align: center;
     font-size: clamp(0.75rem, 3.1vw, 0.875rem);
-    line-height: 1.4;
+    line-height: 1.45;
     white-space: normal;
+    justify-self: center;
   }
 
   .about-modal {
@@ -1525,13 +1590,17 @@ body.docs-modal-open {
 }
 
 @media (max-width: 480px) {
-  .faq::before {
-    border-radius: 0 0 1.5rem 1.5rem;
+  .faq {
+    padding-bottom: 2.5rem;
   }
 
   .faq__title {
     margin: 2.15rem 0.85rem 1.15rem;
     font-size: clamp(1.7rem, 7.2vw, 2.1rem);
+  }
+
+  .logos-section--organizers {
+    padding-top: 1.5rem;
   }
 
   .faq__cards {
@@ -1562,40 +1631,24 @@ body.docs-modal-open {
   }
 
   .site-footer__inner {
-    gap: 1.25rem;
-    padding: 1.5rem max(1rem, env(safe-area-inset-left, 0px))
-      calc(1.25rem + env(safe-area-inset-bottom, 0px))
-      max(1rem, env(safe-area-inset-right, 0px));
-  }
-
-  .site-footer__block,
-  .site-footer__block--contacts,
-  .site-footer__block--hours {
-    gap: 0.4rem;
+    --footer-icon-col: 1.25rem;
+    --footer-icon-gap: 0.6rem;
+    --footer-gap-row: 0.5rem;
+    --footer-gap-section: 1.25rem;
+    padding: 1.5rem max(1.1rem, env(safe-area-inset-left, 0px))
+      calc(1.2rem + env(safe-area-inset-bottom, 0px))
+      max(1.1rem, env(safe-area-inset-right, 0px));
   }
 
   .footer-title {
-    margin: 0;
     font-size: clamp(1.15rem, 5.4vw, 1.35rem);
-    text-align: center;
   }
 
   .footer-row {
     font-size: clamp(0.875rem, 3.8vw, 0.9375rem);
-    justify-content: center;
-    text-align: center;
-  }
-
-  .footer-icon,
-  .footer-icon--clock {
-    width: 1.25rem;
-    height: 1.25rem;
   }
 
   .footer-legal {
-    margin: 0;
-    padding-top: 1.25rem;
-    text-align: center;
     font-size: 0.75rem;
   }
 

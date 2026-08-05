@@ -250,11 +250,11 @@
 .cta-block .ac-pill{
   width:11.64701cqw !important;
   height:3.19969cqw !important;
-  padding:0 0.72cqw !important;
+  padding:0 0.85cqw !important;
   display:flex !important;
   align-items:center;
   justify-content:center;
-  gap:0.573cqw;
+  gap:1.05cqw;
   border:0.11570cqw solid #fff !important;
   background:transparent !important;
   box-sizing:border-box;
@@ -273,7 +273,8 @@
   height:2.28774cqw !important;
   display:block;
   flex:0 0 auto;
-  object-fit:contain;
+  background-color:transparent;
+  box-shadow:none;
 }
 
 .cta-block{
@@ -310,7 +311,7 @@ html.js .ac-card:focus-within{
 @media (max-width: 1024px) {
   .ac-sec {
     margin-top: clamp(2.5rem, 6vw, 4rem);
-    padding: 0 0 1.75rem;
+    padding: 0 0 1.25rem;
   }
 
   .ac-sec .ac-title {
@@ -388,6 +389,10 @@ html.js .ac-card:focus-within{
 }
 
 @media (max-width: 768px) {
+  .ac-sec {
+    padding: 0 0 0.75rem;
+  }
+
   .ac-sec .ac-title {
     text-align: center;
   }
@@ -396,6 +401,12 @@ html.js .ac-card:focus-within{
     width: calc(100% - 2rem);
     margin-left: 1rem;
     margin-right: 1rem;
+    /* Shadow room is desktop hover lift; keep a little air, not a tall pad */
+    padding: 6px 0 16px;
+  }
+
+  .ac-carousel {
+    margin-top: 0.85rem;
   }
 
   /* 1 card; optional slight peek via 94% if desired — full width is cleaner */
