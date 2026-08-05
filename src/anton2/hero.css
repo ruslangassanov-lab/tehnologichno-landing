@@ -50,12 +50,13 @@ html, body.ah{
   background:none;
 }
 
-/* First viewport = header + hero card + blue margin only.
+/* First viewport = header + hero card + blue air only.
    #vswitch is fixed; body has padding-top for it. min-height fills the
    remaining visual viewport so #competencies never peeks on first load.
    Prefer 100svh (stable, ignores mobile URL-bar chrome).
-   flex: hero gets margin-top:auto so free blue sits above the card;
-   smaller padding-bottom so the larger card occupies bottom air. */
+   Hero uses margin-top/bottom:auto so blue air above (nav row → card)
+   equals air below (card → viewport bottom). No padding-bottom here —
+   that would bias the bottom gap. margin-bottom gaps to #competencies. */
 .ah-first-screen{
   width:100%;
   box-sizing:border-box;
@@ -65,37 +66,56 @@ html, body.ah{
   min-height:calc(100vh - var(--ah-switcher-h));
   min-height:calc(100dvh - var(--ah-switcher-h));
   min-height:calc(100svh - var(--ah-switcher-h));
-  padding-bottom:3cqw;
   margin-bottom:3cqw;
 }
 
 /* ================= ШАПКА (Figma Frame 9 @191,111)
-   ×1.40 vs Figma cqw (~+12.5% atop prior ×1.25) for clamped canvas. ===== */
-.ah-header{position:relative;flex:0 0 auto;height:14.70cqw;}
-.ah-header__logo{position:absolute;left:7.50786cqw;top:6.09818cqw;
-  width:4.35031cqw;height:2.88547cqw;display:block;}
-.ah-header__word{position:absolute;left:12.01934cqw;top:6.89859cqw;
-  font-family:'GoodHeadPro',sans-serif;font-size:1.10942cqw;line-height:1;
+   --ah-header-scale: multiplier vs Figma cqw (was 1.40 baked).
+   --ah-hs: relative to the prior 1.40 bake so media queries can retune
+   one variable without rewriting every cqw. Desktop aim: nav ~body/UI
+   readable (~17px @1272), CTA meatier padding+type, logo stays balanced.
+   Height tracks scaled logo/pill bottoms so flex free space (hero
+   equal margins) still starts below the chrome row. */
+.ah-header{
+  --ah-header-scale:1.7;
+  --ah-hs:calc(var(--ah-header-scale) / 1.4);
+  position:relative;flex:0 0 auto;
+  height:calc(6.1cqw + 2.9cqw * var(--ah-hs));
+}
+.ah-header__brand{position:absolute;left:7.50786cqw;top:6.09818cqw;
+  width:calc(22cqw * var(--ah-hs));height:calc(3.2cqw * var(--ah-hs));
+  display:block;z-index:2;text-decoration:none;color:inherit;}
+.ah-header__logo{position:absolute;left:0;top:0;
+  width:calc(4.35031cqw * var(--ah-hs));height:calc(2.88547cqw * var(--ah-hs));display:block;}
+.ah-header__word{position:absolute;left:calc(4.51148cqw * var(--ah-hs));top:calc(0.80041cqw * var(--ah-hs));
+  font-family:'GoodHeadPro',sans-serif;font-size:calc(1.10942cqw * var(--ah-hs));line-height:1;
   color:#fff;white-space:nowrap;}
+.ah-nav-toggle{display:none;}
 .ah-nav a{position:absolute;font-family:'FuturaBookC',sans-serif;
-  font-size:1.10554cqw;line-height:1;color:#fff;white-space:nowrap;text-decoration:none;}
-.ah-nav .n1{left:37.17374cqw;top:6.90411cqw;}
-.ah-nav .n2{left:47.65330cqw;top:6.90411cqw;}
-.ah-nav .n3{left:57.92846cqw;top:6.90411cqw;}
+  font-size:calc(1.10554cqw * var(--ah-hs));line-height:1;color:#fff;white-space:nowrap;text-decoration:none;}
+/* Optical vertical center with scaled pill (anchors stay Figma left). */
+.ah-nav .n1,.ah-nav .n2,.ah-nav .n3{
+  top:calc(6.13576cqw + (2.81361cqw - 1.10554cqw) * var(--ah-hs) / 2);
+}
+.ah-nav .n1{left:37.17374cqw;}
+.ah-nav .n2{left:47.65330cqw;}
+.ah-nav .n3{left:57.92846cqw;}
 
 .ah-pill{position:absolute;left:81.80597cqw;top:6.13576cqw;
-  width:10.22626cqw;height:2.81361cqw;border:0.10160cqw solid #fff;border-radius:1.41509cqw;
+  width:calc(10.22626cqw * var(--ah-hs));height:calc(2.81361cqw * var(--ah-hs));
+  border:calc(0.10160cqw * var(--ah-hs)) solid #fff;border-radius:calc(1.41509cqw * var(--ah-hs));
   box-sizing:border-box;text-decoration:none;display:block;background:transparent;}
-.ah-pill__t{position:absolute;left:0.91207cqw;top:0.85128cqw;
-  font-family:'FuturaBookC',sans-serif;font-size:0.91207cqw;line-height:1;
+.ah-pill__t{position:absolute;left:calc(0.91207cqw * var(--ah-hs));top:calc(0.85128cqw * var(--ah-hs));
+  font-family:'FuturaBookC',sans-serif;font-size:calc(0.91207cqw * var(--ah-hs));line-height:1;
   color:#fff;white-space:nowrap;}
-.ah-pill__a{position:absolute;left:7.58293cqw;top:0.35377cqw;
-  width:2.00656cqw;height:2.00656cqw;display:block;}
+.ah-pill__a{position:absolute;left:calc(7.58293cqw * var(--ah-hs));top:calc(0.35377cqw * var(--ah-hs));
+  width:calc(2.00656cqw * var(--ah-hs));height:calc(2.00656cqw * var(--ah-hs));display:block;}
 
 /* ================= HERO-КАРТОЧКА (Figma 134:196 @116,266)
    Layout box ×1.10; inner .ah-hero__card scaled so absolute kids stay in
    Figma cqw. Scale lives on the card (not .ah-hero) so reveal transform:none
-   on .ah-hero does not wipe it. margin auto fills leftover blue above/below. */
+   on .ah-hero does not wipe it. margin-top/bottom:auto splits leftover
+   blue equally between nav row and viewport bottom. */
 .ah-hero{
   --ah-hero-scale:1.1;
   position:relative;
@@ -579,4 +599,554 @@ html, body.ah{
 html.js .faq .cta-block:not(.is-visible),
 html.js .faq .cta-block.is-visible{
   transform:none;
+}
+
+/* ============================================================
+   RESPONSIVE — tablet + phone (anton2)
+   Desktop Figma/cqw layout remains the large-screen baseline.
+   Below ~1024 abandon cramped absolute cqw for readable flex/grid.
+   Breakpoints: 1024 (compact desk/tablet), 768 (tablet), 480 (phone).
+   ============================================================ */
+
+/* ----- ≤1024: flex header, stacked-aware hero, fluid about ----- */
+@media (max-width: 1024px) {
+  .ah-first-screen {
+    min-height: calc(100svh - var(--ah-switcher-h));
+    margin-bottom: 2rem;
+    padding-inline: max(0px, env(safe-area-inset-left)) max(0px, env(safe-area-inset-right));
+  }
+
+  .ah-header {
+    height: auto;
+    min-height: 3.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem 1rem;
+    padding: 0.85rem max(1.25rem, env(safe-area-inset-right)) 0.75rem max(1.25rem, env(safe-area-inset-left));
+    box-sizing: border-box;
+  }
+
+  .ah-header__brand {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex: 0 1 auto;
+    min-height: 44px;
+  }
+
+  .ah-header__logo {
+    position: static;
+    width: 36px;
+    height: auto;
+  }
+
+  .ah-header__word {
+    position: static;
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+  }
+
+  .ah-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem 1.35rem;
+    margin-left: auto;
+    margin-right: 0.25rem;
+  }
+
+  .ah-nav a {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0;
+  }
+
+  .ah-pill {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem;
+    padding: 0 0.45rem 0 1rem;
+    border-width: 1.5px;
+    border-radius: 999px;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+  }
+
+  .ah-pill__t {
+    position: static;
+    font-size: 0.875rem;
+  }
+
+  .ah-pill__a {
+    position: static;
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Hero: drop Figma absolute + scale; readable two-column card */
+  .ah-hero {
+    --ah-hero-scale: 1;
+    width: calc(100% - 2.5rem);
+    max-width: 960px;
+    height: auto !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 1.5rem;
+    overflow: visible;
+    background: transparent;
+  }
+
+  .ah-hero__card {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: clamp(1.5rem, 3.5vw, 2.35rem) clamp(1.35rem, 3vw, 2.25rem) clamp(1.6rem, 3.5vw, 2.5rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: end;
+    border-radius: 1.5rem;
+    transform: none !important;
+    box-sizing: border-box;
+  }
+
+  .ah-hero__card-left,
+  .ah-hero__card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    min-width: 0;
+  }
+
+  .ah-hero__card-right {
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0.15rem;
+  }
+
+  .ah-hero__brand,
+  .ah-hero__subtitle,
+  .ah-hero__tagline,
+  .ah-hero__btn,
+  .ah-hero__date,
+  .ah-hero__year {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    width: auto;
+    max-width: none;
+  }
+
+  .ah-hero__brand {
+    font-size: clamp(2.35rem, 6.5vw, 4rem);
+    line-height: 0.95;
+    white-space: normal;
+  }
+
+  .ah-hero__subtitle {
+    font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+    line-height: 1.3;
+    width: 100%;
+  }
+
+  .ah-hero__tagline {
+    font-size: clamp(0.7rem, 1.5vw, 0.8125rem);
+    line-height: 1.4;
+    width: 100%;
+    max-width: 28rem;
+    opacity: 0.5;
+  }
+
+  .ah-hero__btn {
+    width: auto !important;
+    max-width: 100%;
+    height: auto !important;
+    min-height: 48px;
+    margin-top: 0.35rem;
+    padding: 0.55rem 0.55rem 0.55rem 1.15rem !important;
+    border-radius: 999px;
+    align-self: flex-start;
+  }
+
+  .ah-hero__btn-t {
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem) !important;
+    white-space: nowrap;
+  }
+
+  .ah-hero__btn-a {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+
+  .ah-hero__date {
+    font-size: clamp(1.15rem, 2.6vw, 1.65rem);
+    white-space: normal;
+  }
+
+  .ah-hero__year {
+    font-size: clamp(4.5rem, 14vw, 7.5rem);
+    line-height: 0.82;
+  }
+
+  /* About — fluid type, full-width content */
+  .about-block {
+    margin-top: clamp(3rem, 8vw, 5rem);
+    padding-inline: max(1.25rem, env(safe-area-inset-left)) max(1.25rem, env(safe-area-inset-right));
+    box-sizing: border-box;
+  }
+
+  .about-block__title {
+    font-size: clamp(1.85rem, 5.5vw, 2.75rem);
+  }
+
+  .about-block__text,
+  .about-block__subtext,
+  .about-block__hitech {
+    width: min(40rem, 100%);
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
+    line-height: 1.45;
+  }
+
+  .about-block__bands {
+    margin-top: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .about-block__band--thick {
+    height: clamp(1.25rem, 3.5vw, 2.5rem);
+  }
+
+  .about-block__band--thin {
+    height: clamp(0.45rem, 1.4vw, 0.9rem);
+  }
+
+  .about-bullets-wrap {
+    width: 100%;
+    max-width: 52rem;
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .about-bullets {
+    min-height: 0;
+    padding: clamp(1.25rem, 3vw, 2rem) clamp(1.15rem, 3vw, 2.5rem);
+    gap: 1.25rem;
+    border-radius: 1.15rem;
+  }
+
+  .about-bullet {
+    max-width: 100%;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.85rem;
+  }
+
+  .about-bullet__line {
+    width: 100%;
+    height: 3px;
+  }
+
+  .about-bullet__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.2rem;
+  }
+
+  .about-bullet__text {
+    width: auto;
+    flex: 1 1 auto;
+    font-size: clamp(0.9375rem, 2.2vw, 1.125rem);
+  }
+
+  .about-block__hitech {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 1rem;
+  }
+
+  /* FAQ CTA must leave absolute Page-6 slot once .faq drops aspect-ratio */
+  .faq .cta-block {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0;
+    margin: 0 0 1.5rem;
+    padding: 2.25rem max(1.25rem, env(safe-area-inset-left)) 2.35rem max(1.25rem, env(safe-area-inset-right));
+    box-sizing: border-box;
+  }
+
+  .faq .cta-block__title {
+    font-size: clamp(1.65rem, 4.5vw, 2.75rem);
+    padding-inline: 1rem;
+  }
+
+  .faq .cta-block__button {
+    width: auto !important;
+    min-width: 11rem;
+    max-width: calc(100% - 2rem);
+    height: auto !important;
+    min-height: 48px !important;
+    margin-top: 1rem;
+    padding: 0.55rem 0.55rem 0.55rem 1.1rem !important;
+  }
+
+  .faq .cta-block__button .ac-ctapilltext {
+    font-size: 1rem !important;
+  }
+
+  .faq .cta-block__button .ac-pillarrow {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+}
+
+/* ----- ≤768: phone/tablet portrait — burger nav, stacked hero, flow FAQ CTA ----- */
+@media (max-width: 768px) {
+  .ah-first-screen {
+    min-height: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .ah-header {
+    padding: 0.65rem max(1rem, env(safe-area-inset-right)) 0.65rem max(1rem, env(safe-area-inset-left));
+    gap: 0.5rem 0.75rem;
+  }
+
+  .ah-header__word {
+    font-size: 0.8125rem;
+  }
+
+  .ah-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    padding: 0;
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    border-radius: 12px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    flex: 0 0 auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ah-nav-toggle__bars,
+  .ah-nav-toggle__bars::before,
+  .ah-nav-toggle__bars::after {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    position: relative;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .ah-nav-toggle__bars::before,
+  .ah-nav-toggle__bars::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .ah-nav-toggle__bars::before { top: -6px; }
+  .ah-nav-toggle__bars::after { top: 6px; }
+
+  .ah-header.is-nav-open .ah-nav-toggle__bars {
+    background: transparent;
+  }
+
+  .ah-header.is-nav-open .ah-nav-toggle__bars::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .ah-header.is-nav-open .ah-nav-toggle__bars::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  .ah-nav {
+    display: none;
+    order: 10;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+    margin: 0.15rem 0 0;
+    padding: 0.35rem 0 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .ah-header.is-nav-open .ah-nav {
+    display: flex;
+  }
+
+  .ah-nav a {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.65rem 0.15rem;
+    font-size: 1.0625rem;
+  }
+
+  .ah-pill {
+    order: 0;
+    height: 44px;
+    padding: 0 0.4rem 0 0.85rem;
+  }
+
+  .ah-pill__t {
+    font-size: 0.8125rem;
+  }
+
+  .ah-pill__a {
+    width: 26px;
+    height: 26px;
+  }
+
+  .ah-hero {
+    width: calc(100% - 2rem);
+    margin-top: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .ah-hero__card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.35rem 1.2rem 1.5rem;
+    border-radius: 1.25rem;
+  }
+
+  .ah-hero__card-left {
+    gap: 0.75rem;
+  }
+
+  .ah-hero__card-right {
+    order: 2;
+    align-items: flex-start;
+  }
+
+  .ah-hero__brand {
+    font-size: clamp(2.1rem, 11vw, 2.85rem);
+  }
+
+  .ah-hero__subtitle {
+    font-size: clamp(1.05rem, 4.2vw, 1.25rem);
+  }
+
+  .ah-hero__tagline {
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+  }
+
+  .ah-hero__tagline br {
+    display: none;
+  }
+
+  .ah-hero__btn {
+    width: 100% !important;
+    max-width: 100%;
+    justify-content: space-between;
+  }
+
+  .ah-hero__btn-t {
+    white-space: normal;
+    text-align: left;
+    line-height: 1.2;
+  }
+
+  .ah-hero__date {
+    font-size: clamp(1.15rem, 4.5vw, 1.4rem);
+  }
+
+  .ah-hero__year {
+    font-size: clamp(4.25rem, 28vw, 6.25rem);
+  }
+
+  .about-block {
+    padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
+  }
+
+  .about-block__title {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
+  }
+
+  .faq .cta-block {
+    margin: 0 0 2rem;
+    padding: 2rem max(1rem, env(safe-area-inset-left)) 2.15rem max(1rem, env(safe-area-inset-right));
+  }
+
+  .faq .cta-block__title {
+    font-size: clamp(1.5rem, 6.5vw, 2rem);
+    line-height: 1.15;
+  }
+
+  .faq .cta-block__button {
+    width: min(100%, 18rem) !important;
+  }
+}
+
+/* ----- ≤480: phone refinements ----- */
+@media (max-width: 480px) {
+  .ah-header__word {
+    /* Keep brand mark; truncate long wordmark if needed on very narrow */
+    max-width: 9.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ah-pill__t {
+    /* Slightly shorter label space — still full text if it fits */
+    font-size: 0.75rem;
+  }
+
+  .ah-hero {
+    width: calc(100% - 1.5rem);
+  }
+
+  .ah-hero__card {
+    padding: 1.2rem 1rem 1.35rem;
+  }
+
+  .ah-hero__btn-t {
+    font-size: 0.9375rem !important;
+  }
+
+  .about-bullets {
+    padding: 1.15rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ah-nav-toggle__bars,
+  .ah-nav-toggle__bars::before,
+  .ah-nav-toggle__bars::after {
+    transition: none;
+  }
 }

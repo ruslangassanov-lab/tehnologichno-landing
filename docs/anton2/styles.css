@@ -504,15 +504,24 @@ img { display: block; max-width: 100%; height: auto; }
 .logo--arpm { left: 52.220%; top: 70%; width: 14.638%; transform: translateY(-50%); }
 .logo--fcbas { left: 70.066%; top: 70%; width: 14.638%; transform: translateY(-50%); }
 
-/* ===== Футер (PDF): серая плита #B6B6B6, белый текст/иконки;
-   ширина как у .card (margin-inline 2.2013cqw). Блоки inset:0 —
-   иначе transform/reveal на коллапсированном блоке сбивает % top в кучу. */
+/* ===== Футер (PDF): серая плита #B6B6B6, белый текст/иконки.
+   Footer lives OUTSIDE .ah-canvas (see index.html) so the grey plate is a
+   normal block at viewport width — not a 100vw breakout child of the
+   max-width + container-type canvas. In-flow 100vw + margin-left breakout
+   still left white body.ah gutters (~(100vw − canvas)/2) beside the plate;
+   FAQ succeeds because its navy is position:absolute ::before, not the
+   section box itself. Content stays canvas-aligned in .site-footer__inner.
+   Блоки inset:0 — иначе transform/reveal на коллапсированном блоке
+   сбивает % top в кучу. */
 .site-footer {
   position: relative;
-  margin-inline: 0;
-  margin-top: 4.7170cqw;
+  width: 100%;
+  max-width: none;
+  /* Was 4.7170cqw while inside canvas; keep same px via canvas-width formula */
+  margin: calc(min(100vw, var(--ah-canvas-max)) * 4.7170 / 100) 0 0;
   background: #b6b6b6;
-  border-radius: 5.18868cqw 5.18868cqw 0 0;
+  /* r=132 on Frame 14 width 2544 — scale to viewport (plate is full-bleed) */
+  border-radius: calc(100vw * 132 / 2544) calc(100vw * 132 / 2544) 0 0;
   overflow: hidden;
   color: var(--white);
 }
@@ -521,6 +530,8 @@ img { display: block; max-width: 100%; height: auto; }
   position: relative;
   container-type: inline-size;
   width: 100%;
+  max-width: var(--ah-canvas-max);
+  margin-inline: auto;
   /* Figma подвал 134:6: gray 2544×2129 clipped by page at y=7872 → visible 524 */
   aspect-ratio: 2544 / 524;
   min-height: 0;
@@ -749,14 +760,11 @@ img { display: block; max-width: 100%; height: auto; }
 html.js .faq__title:not(.is-visible),
 html.js .logos__title:not(.is-visible),
 html.js .faq__card:not(.is-visible),
-html.js .ac-title:not(.is-visible),
 html.js .ac-ctatitle:not(.is-visible),
-html.js .ac-card:not(.is-visible),
 html.js .about-block:not(.is-visible),
 html.js .cta-block:not(.is-visible),
 html.js .ac-pill:not(.is-visible),
-html.js .ah-hero:not(.is-visible),
-html.js .ac-sec:not(.is-visible) {
+html.js .ah-hero:not(.is-visible) {
   opacity: 0;
   transform: translateY(22px);
   transition:
@@ -788,14 +796,11 @@ html.js .reveal.is-visible,
 html.js .faq__title.is-visible,
 html.js .logos__title.is-visible,
 html.js .faq__card.is-visible,
-html.js .ac-title.is-visible,
 html.js .ac-ctatitle.is-visible,
-html.js .ac-card.is-visible,
 html.js .about-block.is-visible,
 html.js .cta-block.is-visible,
 html.js .ac-pill.is-visible,
 html.js .ah-hero.is-visible,
-html.js .ac-sec.is-visible,
 html.js .card--logos .logo.is-visible,
 html.js .ac-pillarrow.is-visible {
   opacity: 1;
@@ -804,14 +809,11 @@ html.js .ac-pillarrow.is-visible {
 html.js .reveal:not(.reveal--fade):not(.faq__card).is-visible,
 html.js .faq__title.is-visible,
 html.js .logos__title.is-visible,
-html.js .ac-title.is-visible,
 html.js .ac-ctatitle.is-visible,
-html.js .ac-card.is-visible,
 html.js .about-block.is-visible,
 html.js .cta-block.is-visible,
 html.js .ac-pill.is-visible,
-html.js .ah-hero.is-visible,
-html.js .ac-sec.is-visible {
+html.js .ah-hero.is-visible {
   transform: none;
 }
 
@@ -881,14 +883,11 @@ html.js .logo.reveal {
   html.js .faq__title,
   html.js .logos__title,
   html.js .faq__card,
-  html.js .ac-title,
   html.js .ac-ctatitle,
-  html.js .ac-card,
   html.js .about-block,
   html.js .cta-block,
   html.js .ac-pill,
   html.js .ah-hero,
-  html.js .ac-sec,
   html.js .card--logos .logo,
   html.js .ac-pillarrow {
     opacity: 1 !important;
@@ -903,7 +902,7 @@ html.js .logo.reveal {
   }
 }
 
-/* ===== About championship modal (nav «О чемпионате») ===== */
+/* ===== Modal chrome (docs modal; class name kept for shared styles) ===== */
 .about-modal {
   position: fixed;
   inset: 0;
@@ -1019,14 +1018,6 @@ html.js .logo.reveal {
   color: rgba(0, 0, 87, 0.92);
 }
 
-.about-modal__body p {
-  margin: 0 0 1em;
-}
-
-.about-modal__body p:last-child {
-  margin-bottom: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .about-modal,
   .about-modal__dialog {
@@ -1038,7 +1029,346 @@ html.js .logo.reveal {
   }
 }
 
-body.about-modal-open {
+body.docs-modal-open {
   overflow: hidden;
+}
+
+/* ===== Documents modal list (reuses .about-modal chrome) ===== */
+.docs-modal__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.docs-modal__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(0, 0, 87, 0.14);
+  border-radius: 14px;
+  background: rgba(9, 71, 241, 0.04);
+  color: var(--text-navy);
+  font-family: 'FuturaBookC', 'Montserrat', sans-serif;
+  font-size: clamp(1rem, 2.4vw, 1.125rem);
+  line-height: 1.3;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.docs-modal__link::after {
+  content: 'PDF';
+  flex-shrink: 0;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--accent-blue);
+  opacity: 0.85;
+}
+
+.docs-modal__link:hover,
+.docs-modal__link:focus-visible {
+  background: rgba(9, 71, 241, 0.1);
+  border-color: rgba(9, 71, 241, 0.35);
+  color: var(--accent-blue);
+}
+
+.docs-modal__link:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   RESPONSIVE — FAQ / logos / footer / modals / consent coexistence
+   Desktop Page-6 absolute geometry stays ≥1025px.
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .faq {
+    aspect-ratio: auto;
+    min-height: 0;
+    padding-bottom: 2rem;
+  }
+
+  /* Keep navy full-bleed underlay; start nearer top once aspect-ratio drops */
+  .faq::before {
+    top: 0;
+    border-radius: 0 0 calc(100vw * 80 / 1024) calc(100vw * 80 / 1024);
+  }
+
+  .faq__title {
+    position: static;
+    margin: 3.5rem 1.25rem 1.5rem;
+    font-size: clamp(1.85rem, 5vw, 2.75rem);
+  }
+
+  .faq__cards {
+    position: static;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 0 1.25rem;
+    box-sizing: border-box;
+  }
+
+  .faq__card {
+    position: relative;
+    left: auto !important;
+    top: auto;
+    width: 100%;
+    height: auto;
+    min-height: 14rem;
+    border-radius: 1.15rem;
+    padding: 1.35rem 1.15rem 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .faq__card h3 {
+    position: static;
+    width: auto;
+    margin: 0 0 1rem;
+    font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+  }
+
+  .faq__card p {
+    position: static;
+    width: auto;
+    margin: 0;
+    font-size: clamp(0.875rem, 1.8vw, 1rem);
+    line-height: 1.4;
+  }
+
+  .logos-section {
+    padding-inline: 1.25rem;
+  }
+
+  .logos-section .card--logos,
+  .card--logos {
+    margin-inline: 0;
+  }
+
+  .logos-section--organizers .card--logos,
+  .logos-section--partners .card--logos {
+    aspect-ratio: auto;
+    min-height: 0;
+    padding: 2rem 1.5rem 2.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem 2.5rem;
+    box-sizing: border-box;
+  }
+
+  .logos__title {
+    position: static;
+    width: 100%;
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.65rem, 4.5vw, 2.5rem);
+    white-space: normal;
+  }
+
+  .card--logos .logo {
+    position: static;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+    width: auto;
+    max-width: min(42%, 220px);
+    height: auto;
+    max-height: 4.5rem;
+    object-fit: contain;
+  }
+
+  .logos-section--partners .card--logos .logo {
+    max-width: min(38%, 160px);
+    max-height: 3.75rem;
+  }
+
+  /* Reveal used translateY(-50%) for logos — neutralize on flex layout */
+  html.js .card--logos .logo,
+  html.js .card--logos .logo.is-visible,
+  html.js .logo.reveal,
+  html.js .logo.reveal.is-visible {
+    transform: none !important;
+  }
+
+  .site-footer {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    border-radius: calc(100vw * 80 / 1024) calc(100vw * 80 / 1024) 0 0;
+    /* Room for consent sticky + home indicator */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .site-footer__inner {
+    aspect-ratio: auto;
+    min-height: 0;
+    padding: 2.5rem 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem 2rem;
+    box-sizing: border-box;
+  }
+
+  .site-footer__block {
+    position: static;
+    inset: auto;
+  }
+
+  .footer-title {
+    position: static;
+    margin: 0 0 1rem;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    white-space: normal;
+  }
+
+  .footer-row {
+    position: static;
+    margin: 0 0 0.85rem;
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    min-height: 44px;
+  }
+
+  .footer-icon,
+  .footer-icon--clock {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .footer-legal {
+    position: static;
+    grid-column: 1 / -1;
+    margin: 0.5rem 0 0;
+    font-size: clamp(0.8125rem, 1.8vw, 0.9375rem);
+    white-space: normal;
+    line-height: 1.35;
+  }
+}
+
+@media (max-width: 768px) {
+  .faq__title {
+    margin: 2.5rem 1rem 1.25rem;
+  }
+
+  .faq__cards {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    padding: 0 1rem;
+  }
+
+  .faq__card {
+    min-height: 0;
+    padding: 1.35rem 1.2rem 1.45rem;
+  }
+
+  .faq__card h3 {
+    font-size: clamp(1.2rem, 5vw, 1.45rem);
+  }
+
+  .faq__card p {
+    font-size: clamp(0.9375rem, 3.6vw, 1.05rem);
+  }
+
+  .logos-section {
+    padding-inline: 1rem;
+  }
+
+  .logos-section--organizers {
+    margin-top: 3rem;
+  }
+
+  .logos-section--organizers .card--logos,
+  .logos-section--partners .card--logos {
+    padding: 1.75rem 1.15rem 1.85rem;
+    gap: 1.25rem 1.5rem;
+    border-radius: 1.25rem;
+  }
+
+  .logos-section--organizers .card--logos .logo {
+    max-width: min(46%, 200px);
+  }
+
+  .logos-section--partners .card--logos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .logos-section--partners .logos__title {
+    grid-column: 1 / -1;
+  }
+
+  .logos-section--partners .card--logos .logo {
+    max-width: 100%;
+    width: min(100%, 140px);
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2.25rem max(1rem, env(safe-area-inset-left)) calc(1.75rem + env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-right));
+  }
+
+  .footer-row a {
+    word-break: break-word;
+  }
+
+  .about-modal {
+    padding: max(0.75rem, env(safe-area-inset-top, 0px))
+      max(0.75rem, env(safe-area-inset-right, 0px))
+      max(0.75rem, env(safe-area-inset-bottom, 0px))
+      max(0.75rem, env(safe-area-inset-left, 0px));
+    align-items: flex-end;
+  }
+
+  .about-modal__dialog {
+    width: 100%;
+    max-height: min(88dvh, 40rem);
+    border-radius: 18px 18px 14px 14px;
+    padding: 1.35rem 1.15rem 1.25rem;
+  }
+
+  .about-modal__close {
+    width: 44px;
+    height: 44px;
+    top: 0.35rem;
+    right: 0.35rem;
+    font-size: 1.85rem;
+  }
+
+  .docs-modal__link {
+    min-height: 48px;
+    padding: 0.95rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq::before {
+    border-radius: 0 0 1.5rem 1.5rem;
+  }
+
+  .site-footer {
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
+
+  .logos-section--partners .card--logos .logo {
+    width: min(100%, 120px);
+  }
+}
+
+/* Consent bar sits above footer; avoid sideways overflow from 100vw bands */
+@media (max-width: 1024px) {
+  .about-block__bands {
+    /* Prefer % breakout that can't exceed layout when scrollbar present */
+    width: 100vw;
+    max-width: 100vw;
+  }
 }
 

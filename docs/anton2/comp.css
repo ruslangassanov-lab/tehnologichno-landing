@@ -275,9 +275,186 @@
   margin-top:2.0cqw;
 }
 
-/* anton2: ensure competencies background is visible even if IntersectionObserver
-   doesn't toggle .is-visible in QuickLook renders. */
-html.js .ac-sec:not(.is-visible){
+/* Competencies: no entrance/reveal — always painted (carousel paging keeps its own transition). */
+html.js .ac-sec,
+html.js .ac-sec:not(.is-visible),
+html.js .ac-title,
+html.js .ac-title:not(.is-visible),
+html.js .ac-card,
+html.js .ac-card:not(.is-visible){
   opacity:1 !important;
   transform:none !important;
+  transition:none !important;
+  transition-delay:0ms !important;
+}
+/* Restore card hover lift after killing reveal transitions above. */
+html.js .ac-card{
+  transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease !important;
+}
+html.js .ac-card.is-hot,
+html.js .ac-card.is-active,
+html.js .ac-card:hover,
+html.js .ac-card:focus-within{
+  transform: translateY(-6px) !important;
+}
+
+/* ============================================================
+   RESPONSIVE — competencies carousel (tablet + phone)
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .ac-sec {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    padding: 0 0 1.75rem;
+  }
+
+  .ac-sec .ac-title {
+    font-size: clamp(1.85rem, 5vw, 2.75rem) !important;
+    line-height: 1.1 !important;
+    margin: 0 0 1.25rem;
+    padding-inline: 1rem;
+  }
+
+  .ac-viewport {
+    width: calc(100% - 2.5rem);
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+    touch-action: pan-y;
+  }
+
+  .ac-cards {
+    gap: 1rem;
+  }
+
+  /* 2 visible cards on tablet */
+  .ac-card {
+    width: calc((100% - 1rem) / 2);
+    flex: 0 0 calc((100% - 1rem) / 2);
+    min-height: 0;
+    padding: 1.85rem 1.25rem 1.35rem;
+    border-radius: 1.15rem;
+  }
+
+  .ac-card__title,
+  .ac-L1,
+  .ac-L2a,
+  .ac-L2b,
+  .ac-L3a,
+  .ac-L3b,
+  .ac-L4a,
+  .ac-L4b,
+  .ac-L5a,
+  .ac-L5b,
+  .ac-R1,
+  .ac-R2a,
+  .ac-R2b {
+    font-size: clamp(1.15rem, 2.8vw, 1.45rem) !important;
+    line-height: 1.2 !important;
+  }
+
+  .ac-card__title {
+    margin-bottom: 0.85rem;
+  }
+
+  .ac-card__desc {
+    font-size: clamp(0.9375rem, 2.1vw, 1.05rem);
+    line-height: 1.4;
+  }
+
+  .ac-carousel {
+    margin-top: 1.25rem;
+    gap: 0.35rem;
+  }
+
+  .ac-carousel__arrow {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.65rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ac-carousel__arrow svg {
+    width: 28px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ac-viewport {
+    width: calc(100% - 2rem);
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  /* 1 card; optional slight peek via 94% if desired — full width is cleaner */
+  .ac-card {
+    width: 100%;
+    flex: 0 0 100%;
+    padding: 1.65rem 1.2rem 1.35rem;
+  }
+
+  .ac-card__title,
+  .ac-L1,
+  .ac-L2a,
+  .ac-L2b,
+  .ac-L3a,
+  .ac-L3b,
+  .ac-L4a,
+  .ac-L4b,
+  .ac-L5a,
+  .ac-L5b,
+  .ac-R1,
+  .ac-R2a,
+  .ac-R2b {
+    font-size: clamp(1.2rem, 5vw, 1.45rem) !important;
+  }
+
+  .ac-card__desc {
+    font-size: clamp(0.9375rem, 3.8vw, 1.0625rem);
+  }
+
+  /* Soften hover lift on touch devices */
+  .ac-card:hover,
+  .ac-card:focus-within,
+  html.js .ac-card:hover,
+  html.js .ac-card:focus-within {
+    transform: none;
+    box-shadow: none;
+    filter: none;
+  }
+
+  .ac-card.is-hot,
+  .ac-card.is-active,
+  html.js .ac-card.is-hot,
+  html.js .ac-card.is-active {
+    transform: none !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 40, 0.14);
+    filter: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .ac-viewport {
+    width: calc(100% - 1.5rem);
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+  }
+
+  .ac-sec .ac-title {
+    font-size: clamp(1.65rem, 8vw, 2rem) !important;
+  }
+}
+
+@media (hover: none) {
+  .ac-card:hover,
+  .ac-card:focus-within,
+  html.js .ac-card.reveal.is-visible:hover,
+  html.js .ac-card.reveal.is-visible:focus-within {
+    transform: none;
+    box-shadow: none;
+    filter: none;
+  }
 }

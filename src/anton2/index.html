@@ -3,7 +3,7 @@
 <head>
 <meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ТЕХНОЛОГИЧНО — Международный открытый чемпионат высокотехнологичных профессий</title>
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="../assets/fonts/futurabookc.woff2" as="font" type="font/woff2" crossorigin>
@@ -23,12 +23,23 @@
 
   <div class="ah-first-screen">
   <header class="ah-header">
-    <a href="#top"><img class="ah-header__logo" src="../assets/anton/logo-tt.webp" alt="ТехноЛогично"></a>
-    <span class="ah-header__word">ТЕХНОЛОГИЧНО</span>
-    <nav class="ah-nav" aria-label="Основная навигация">
-      <a class="n1" href="#about" aria-haspopup="dialog" aria-controls="about-modal">О чемпионате</a>
+    <a class="ah-header__brand" href="#top">
+      <img class="ah-header__logo" src="../assets/anton/logo-tt.webp" alt="ТехноЛогично">
+      <span class="ah-header__word">ТЕХНОЛОГИЧНО</span>
+    </a>
+    <button
+      type="button"
+      class="ah-nav-toggle"
+      aria-label="Открыть меню"
+      aria-expanded="false"
+      aria-controls="ah-site-nav"
+    >
+      <span class="ah-nav-toggle__bars" aria-hidden="true"></span>
+    </button>
+    <nav class="ah-nav" id="ah-site-nav" aria-label="Основная навигация">
+      <a class="n1" href="#about">О чемпионате</a>
       <a class="n2" href="#competencies">Компетенции</a>
-      <a class="n3" href="#docs">Документы</a>
+      <a class="n3" href="#docs" aria-haspopup="dialog" aria-controls="docs-modal">Документы</a>
     </nav>
     <a class="ah-pill" href="#apply">
       <span class="ah-pill__t">Оставить заявку</span>
@@ -68,98 +79,98 @@
       <!-- Cards (carousel track). Visible window is controlled by JS -->
       <article class="ac-card ac-card--1">
         <h3 class="ac-card__title">
-          <span class="ac-L1">Компьютерное зрение<br>в промышленности</span>
+          <span class="ac-L1">Промышленный дизайн</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Разработка концепции промышленного изделия или производственного модуля с учетом эргономики, функциональности и требований современного производства.
         </p>
       </article>
 
       <article class="ac-card ac-card--2">
         <h3 class="ac-card__title">
-          <span class="ac-L2a">Цифровые двойники</span>
-          <span class="ac-L2b">технологических процессов</span>
+          <span class="ac-L2a">Аддитивное производство</span>
+          <span class="ac-L2b">и обратный инжиниринг</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Создание цифровой модели детали, ее восстановление методом обратного инжиниринга и изготовление прототипа с применением аддитивных технологий.
         </p>
       </article>
 
       <article class="ac-card ac-card--3">
         <h3 class="ac-card__title">
-          <span class="ac-R1">Электромеханика</span>
-          <span class="ac-R1">вертикального транспорта</span>
+          <span class="ac-R1">Техническое обслуживание БАС</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Диагностика, техническое обслуживание и оценка состояния беспилотных авиационных систем промышленного назначения.
         </p>
       </article>
 
       <article class="ac-card ac-card--4">
         <h3 class="ac-card__title">
-          <span class="ac-L1">Промышленный дизайн</span>
+          <span class="ac-R2a">Проектирование внутренних</span>
+          <span class="ac-R2b">логистических цепочек предприятия</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Разработка цифровой модели логистических процессов предприятия для повышения эффективности перемещения материалов и продукции.
         </p>
       </article>
 
       <article class="ac-card ac-card--5">
         <h3 class="ac-card__title">
-          <span class="ac-L2a">Аддитивное производство</span>
-          <span class="ac-L2b">и обратный инжиниринг</span>
+          <span class="ac-L3a">Программирование автоматических</span>
+          <span class="ac-L3b">логистических роботов</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Создание алгоритмов управления автономными роботами, обеспечивающими выполнение логистических операций на производстве.
         </p>
       </article>
 
       <article class="ac-card ac-card--6">
         <h3 class="ac-card__title">
-          <span class="ac-L3a">Программирование логистических</span>
-          <span class="ac-L3b">роботов</span>
+          <span class="ac-L4a">Управление процессами роботизации</span>
+          <span class="ac-L4b">промышленного предприятия</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Проектирование роботизированных производственных участков и оценка эффективности внедрения робототехнических решений.
         </p>
       </article>
 
       <article class="ac-card ac-card--7">
         <h3 class="ac-card__title">
-          <span class="ac-L4a">Роботизация промышленного</span>
-          <span class="ac-L4b">предприятия</span>
+          <span class="ac-L2a">Цифровые двойники технологических</span>
+          <span class="ac-L2b">процессов на промышленных производствах</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Создание цифровых моделей производственных процессов для анализа, оптимизации и прогнозирования их работы.
         </p>
       </article>
 
       <article class="ac-card ac-card--8">
         <h3 class="ac-card__title">
-          <span class="ac-L5a">Машинное обучение</span>
-          <span class="ac-L5b">и большие данные</span>
+          <span class="ac-L1">Компьютерное зрение<br>в промышленности</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Разработка систем компьютерного зрения для автоматического контроля качества продукции и мониторинга производственных процессов.
         </p>
       </article>
 
       <article class="ac-card ac-card--9">
         <h3 class="ac-card__title">
-          <span class="ac-R1">Техническое обслуживание БАС</span>
+          <span class="ac-L5a">Машинное обучение</span>
+          <span class="ac-L5b">и большие данные</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Создание моделей машинного обучения для анализа производственных данных, выявления закономерностей и поддержки принятия решений.
         </p>
       </article>
 
       <article class="ac-card ac-card--10">
         <h3 class="ac-card__title">
-          <span class="ac-R2a">Проектирование логистических</span>
-          <span class="ac-R2b">цепочек на предприятии</span>
+          <span class="ac-R1">Электромеханика</span>
+          <span class="ac-R1">вертикального транспорта</span>
         </h3>
         <p class="ac-card__desc">
-          Необходимо зарегистрироваться на сайте нашего партнера, перейдя по кнопке "Участвовать в чемпионате" или по <a class="ac-link" href="#apply">ссылке</a>
+          Монтаж, настройка и ввод в эксплуатацию подъемного оборудования с соблюдением требований безопасности и технической документации.
         </p>
       </article>
     </div>
@@ -265,6 +276,9 @@
       </div>
     </section>
 
+</div>
+
+  <!-- Outside .ah-canvas so grey plate is naturally full viewport width. -->
   <footer class="site-footer">
     <div class="site-footer__inner">
       <div class="site-footer__block site-footer__block--contacts">
@@ -301,23 +315,36 @@
     </div>
   </footer>
 
-</div>
-
-  <div class="about-modal" id="about-modal" hidden>
-    <div class="about-modal__backdrop" data-about-close tabindex="-1"></div>
+  <div class="about-modal docs-modal" id="docs-modal" hidden>
+    <div class="about-modal__backdrop" data-docs-close tabindex="-1"></div>
     <div
       class="about-modal__dialog"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="about-modal-title"
+      aria-labelledby="docs-modal-title"
       tabindex="-1"
     >
-      <button type="button" class="about-modal__close" aria-label="Закрыть" data-about-close>&times;</button>
-      <h2 id="about-modal-title" class="about-modal__title">О чемпионате</h2>
+      <button type="button" class="about-modal__close" aria-label="Закрыть" data-docs-close>&times;</button>
+      <h2 id="docs-modal-title" class="about-modal__title">Документы</h2>
       <div class="about-modal__body">
-        <p>Международный открытый отборочный чемпионат высокотехнологичных профессий «ТехноЛогично» — практико-ориентированная площадка для выявления сильнейших специалистов, апробации передовых производственных решений и развития международного экспертного сотрудничества. Чемпионат имеет международный, открытый и отборочный статус: к участию допускаются специалисты промышленных предприятий Москвы и Центрального федерального округа, а также представители иностранных государств без обязательного предварительного отбора на региональном уровне.</p>
-        <p>«ТехноЛогично» является отборочным этапом Международного чемпионата высокотехнологичных профессий «Хайтек: навыки будущего». Организатор Чемпионата — ООО «Региональное управление КМЗ». Мероприятие проводится при участии и содействии Департамента инвестиционной и промышленной политики города Москвы, АНО «Агентство развития профессионального мастерства (Ворлдскиллс Россия)» и АНО «Федеральный центр беспилотных авиационных систем».</p>
-        <p>Чемпионат объединяет промышленность, экспертное сообщество и систему подготовки кадров, способствует обмену лучшими практиками, актуализации профессиональных стандартов и образовательных программ, популяризации высокотехнологичных профессий и повышению престижа инженерных и рабочих специальностей.</p>
+        <ul class="docs-modal__list">
+          <li>
+            <a
+              class="docs-modal__link"
+              href="../assets/docs/polozhenie-o-chempionate.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Положение о чемпионате</a>
+          </li>
+          <li>
+            <a
+              class="docs-modal__link"
+              href="../assets/docs/reglament-provedeniya-chempionata.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Регламент проведения чемпионата</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
