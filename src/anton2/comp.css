@@ -273,8 +273,7 @@
   height:2.28774cqw !important;
   display:block;
   flex:0 0 auto;
-  background-color:#fff;
-  background-image:none;
+  /* Resting disc webp + invert mask live in styles.css / hero.css */
   box-shadow:none;
 }
 

@@ -541,9 +541,7 @@ html, body.ah{
   height:2.28774cqw !important;
   display:block;
   flex:0 0 auto;
-  /* Tint comes from unified mask arrow in styles.css — keep white on blue band */
-  background-color:#fff;
-  background-image:none;
+  /* Rest: webp disc from styles.css — do not force mask tint here */
   box-shadow:none;
 }
 
@@ -552,7 +550,7 @@ html, body.ah{
 }
 
 /* Hover / focus / active — invert outline pill (overrides transparent !important).
-   Pointer hover gated so touch doesn’t stick white. */
+   Pointer hover gated so touch doesn’t stick white. Disc-free blue ↗ on white. */
 .faq .cta-block__button:focus-visible,
 .faq .cta-block__button:active,
 .cta-block .ac-pill:focus-visible,
@@ -575,6 +573,17 @@ html, body.ah{
 .cta-block .ac-pill:active .ac-pillarrow{
   background-color:#0947F1;
   background-image:none;
+  box-shadow:none;
+  -webkit-mask-image:url("../assets/anton/arrow-ne.svg");
+  mask-image:url("../assets/anton/arrow-ne.svg");
+  -webkit-mask-size:contain;
+  mask-size:contain;
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-position:center;
+  -webkit-mask-mode:alpha;
+  mask-mode:alpha;
   transform:scale(1.04);
 }
 
@@ -595,6 +604,17 @@ html, body.ah{
   .cta-block .ac-pill:hover .ac-pillarrow{
     background-color:#0947F1;
     background-image:none;
+    box-shadow:none;
+    -webkit-mask-image:url("../assets/anton/arrow-ne.svg");
+    mask-image:url("../assets/anton/arrow-ne.svg");
+    -webkit-mask-size:contain;
+    mask-size:contain;
+    -webkit-mask-repeat:no-repeat;
+    mask-repeat:no-repeat;
+    -webkit-mask-position:center;
+    mask-position:center;
+    -webkit-mask-mode:alpha;
+    mask-mode:alpha;
     transform:scale(1.04);
   }
 }
@@ -926,8 +946,8 @@ html.js .faq .cta-block.is-visible{
   }
 
   .about-block__hitech {
-    margin-top: clamp(2.5rem, 6vw, 4rem);
-    margin-bottom: 1rem;
+    margin-top: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: clamp(1.75rem, 4.5vw, 2.75rem);
   }
 
   /* FAQ CTA must leave absolute Page-6 slot once .faq drops aspect-ratio */
