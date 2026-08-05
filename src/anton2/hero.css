@@ -1135,6 +1135,7 @@ html.js .faq .cta-block.is-visible{
   }
 
   .ah-hero__year {
+    margin-top: 0.4rem;
     font-size: clamp(4.25rem, 28vw, 6.25rem);
     text-align: center;
   }
@@ -1228,6 +1229,10 @@ html.js .faq .cta-block.is-visible{
   .ah-hero__card {
     padding: 1.2rem 1rem 1.35rem;
     text-align: center;
+  }
+
+  .ah-hero__year {
+    margin-top: 0.5rem;
   }
 
   .ah-hero__btn-t {
