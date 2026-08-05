@@ -514,7 +514,8 @@ html, body.ah{
   line-height:1.1;
 }
 
-/* Match hero/header pills: 999px radius + centered label/icon with equal insets */
+/* Match hero/header pills: 999px radius + optically centered label
+   (extra left inset offsets arrow mass so «Оставить заявку» sits true-center). */
 .faq .cta-block__button{
   margin:1.2cqw auto 0;
   display:flex !important;
@@ -526,7 +527,7 @@ html, body.ah{
   left:auto !important;
   width:11.64701cqw !important;
   height:3.19969cqw !important;
-  padding:0 0.85cqw !important;
+  padding:0 0.4cqw 0 1.3cqw !important;
   border:0.11570cqw solid #fff !important;
   background:transparent !important;
   border-radius:999px !important;

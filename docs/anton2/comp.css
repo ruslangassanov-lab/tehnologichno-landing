@@ -250,7 +250,8 @@
 .cta-block .ac-pill{
   width:11.64701cqw !important;
   height:3.19969cqw !important;
-  padding:0 0.85cqw !important;
+  /* Asymmetric insets: nudge label toward visual center (arrow on right). */
+  padding:0 0.4cqw 0 1.3cqw !important;
   display:flex !important;
   align-items:center;
   justify-content:center;

@@ -57,6 +57,9 @@
      viewports grow toward ~92vw (cap 2200) so cqw elements scale up and
      side gutters shrink — avoids a tiny 1272 strip on 1920/2560. */
   --ah-canvas-max: clamp(1272px, 92vw, 2200px);
+  /* Shared plate curve: Figma r=132 / Frame 14 2544. Cap with canvas-max so
+     FAQ + footer stay equal L/R (no bare-100vw scrollbar skew). */
+  --ah-plate-radius: calc(min(100vw, var(--ah-canvas-max)) * 132 / 2544);
 }
 
 * { box-sizing: border-box; }
@@ -349,20 +352,21 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Rect 23 continuation below gradient terminus / CTA band.
    (4750-4243)/1866 ≈ 27.17% — matches CTA bottom (~26.74%).
-   Full-bleed breakout: canvas is centered (max --ah-canvas-max) in a wider
-   body — without 100vw the bottom radii leave white corners beside the curve.
-   html/body overflow-x:hidden clips the classic 100vw+scrollbar gutter. */
+   Full-bleed: center on canvas (viewport-centered) so L/R curves stay even;
+   html/body overflow-x:hidden clips any vw/scrollbar gutter. Bottom radii
+   match .site-footer via --ah-plate-radius (identical L + R). */
 .faq::before {
   content: '';
   position: absolute;
-  left: calc(50% - 50vw);
+  left: 50%;
   width: 100vw;
   right: auto;
+  translate: -50% 0;
   top: calc(100% * (4750 - 4243) / 1866);
   bottom: 0;
   background: #000057;
-  /* r=132 on Frame 14 width 2544 — scale to viewport (band is full-bleed) */
-  border-radius: 0 0 calc(100vw * 132 / 2544) calc(100vw * 132 / 2544);
+  /* Same token as footer top — equal bottom-left + bottom-right */
+  border-radius: 0 0 var(--ah-plate-radius) var(--ah-plate-radius);
   z-index: -1;
   pointer-events: none;
 }
@@ -520,8 +524,8 @@ img { display: block; max-width: 100%; height: auto; }
   /* Was 4.7170cqw while inside canvas; keep same px via canvas-width formula */
   margin: calc(min(100vw, var(--ah-canvas-max)) * 4.7170 / 100) 0 0;
   background: #b6b6b6;
-  /* r=132 on Frame 14 width 2544 — scale to viewport (plate is full-bleed) */
-  border-radius: calc(100vw * 132 / 2544) calc(100vw * 132 / 2544) 0 0;
+  /* Same token as FAQ bottom — equal top-left + top-right */
+  border-radius: var(--ah-plate-radius) var(--ah-plate-radius) 0 0;
   overflow: hidden;
   color: var(--white);
 }
@@ -561,9 +565,11 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* Positions ÷ visible plate 2544×524 (titles y=85, rows 217/328, address 481).
-   Address is bottom-center of the plate — equidistant from contacts/hours. */
-.site-footer__block--contacts .footer-title { left: 13.601%; top: 16.221%; white-space: nowrap; }
-.site-footer__block--hours .footer-title { left: 60.888%; top: 16.221%; white-space: nowrap; }
+   Side columns mirrored about 50%: equal gap from address center to each
+   column’s nearest edge (titles are widest). Was 13.601/60.888 — void
+   midpoint sat at ~46.3%, so address looked closer to hours. */
+.site-footer__block--contacts .footer-title { left: 17.305%; top: 16.221%; white-space: nowrap; }
+.site-footer__block--hours .footer-title { left: 64.593%; top: 16.221%; white-space: nowrap; }
 
 .footer-row {
   position: absolute;
@@ -581,10 +587,10 @@ img { display: block; max-width: 100%; height: auto; }
 
 .footer-row a { color: inherit; }
 
-.site-footer__block--contacts .footer-row:nth-of-type(1) { left: 13.601%; top: 41.443%; }
-.site-footer__block--contacts .footer-row:nth-of-type(2) { left: 13.601%; top: 62.626%; }
-.site-footer__block--hours .footer-row:nth-of-type(1) { left: 60.888%; top: 41.443%; }
-.site-footer__block--hours .footer-row:nth-of-type(2) { left: 60.888%; top: 62.626%; }
+.site-footer__block--contacts .footer-row:nth-of-type(1) { left: 17.305%; top: 41.443%; }
+.site-footer__block--contacts .footer-row:nth-of-type(2) { left: 17.305%; top: 62.626%; }
+.site-footer__block--hours .footer-row:nth-of-type(1) { left: 64.593%; top: 41.443%; }
+.site-footer__block--hours .footer-row:nth-of-type(2) { left: 64.593%; top: 62.626%; }
 
 .footer-icon {
   width: 2.9088cqw;   /* 74/2 / 12.72 — Figma icon ellipse */
