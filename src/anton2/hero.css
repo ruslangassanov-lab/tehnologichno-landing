@@ -16,6 +16,8 @@
   --ah-navy:#000057;
   --ah-blue:#0947F1;
   --ah-grey:#707070;
+  /* switcher.css: body{padding-top:46px}; +6px buffer for border/zoom */
+  --ah-switcher-h:52px;
 }
 
 /* Page 6 Frame 14 fill = white; Rectangle 26 = GRADIENT_LINEAR 180deg
@@ -48,27 +50,46 @@ html, body.ah{
   background:none;
 }
 
-/* ================= ШАПКА (Figma Frame 9 @191,111) ================= */
-.ah-header{position:relative;height:10.456cqw;}
-.ah-header__logo{position:absolute;left:7.50786cqw;top:4.33648cqw;
-  width:3.09355cqw;height:2.05189cqw;display:block;}
-.ah-header__word{position:absolute;left:10.76258cqw;top:4.90566cqw;
-  font-family:'GoodHeadPro',sans-serif;font-size:0.78892cqw;line-height:1;
+/* First viewport = header + hero card + blue margin only.
+   #vswitch is fixed; body has padding-top for it. min-height fills the
+   remaining visual viewport so #competencies never peeks on first load.
+   Prefer 100svh (stable, ignores mobile URL-bar chrome). */
+.ah-first-screen{
+  width:100%;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  min-height:calc(100vh - var(--ah-switcher-h));
+  min-height:calc(100dvh - var(--ah-switcher-h));
+  min-height:calc(100svh - var(--ah-switcher-h));
+  /* Blue band under the card + insurance before #competencies */
+  padding-bottom:6cqw;
+  margin-bottom:3cqw;
+}
+
+/* ================= ШАПКА (Figma Frame 9 @191,111)
+   ×1.25 vs Figma cqw — more legible on narrower/clamped canvas (~912px). ===== */
+.ah-header{position:relative;height:13.07cqw;}
+.ah-header__logo{position:absolute;left:7.50786cqw;top:5.4206cqw;
+  width:3.86694cqw;height:2.56486cqw;display:block;}
+.ah-header__word{position:absolute;left:11.53597cqw;top:6.13208cqw;
+  font-family:'GoodHeadPro',sans-serif;font-size:0.98615cqw;line-height:1;
   color:#fff;white-space:nowrap;}
 .ah-nav a{position:absolute;font-family:'FuturaBookC',sans-serif;
-  font-size:0.78616cqw;line-height:1;color:#fff;white-space:nowrap;text-decoration:none;}
-.ah-nav .n1{left:37.17374cqw;top:4.90959cqw;}
-.ah-nav .n2{left:47.65330cqw;top:4.90959cqw;}
-.ah-nav .n3{left:57.92846cqw;top:4.90959cqw;}
+  font-size:0.9827cqw;line-height:1;color:#fff;white-space:nowrap;text-decoration:none;}
+.ah-nav .n1{left:37.17374cqw;top:6.13699cqw;}
+.ah-nav .n2{left:47.65330cqw;top:6.13699cqw;}
+.ah-nav .n3{left:57.92846cqw;top:6.13699cqw;}
 
-.ah-pill{position:absolute;left:84.76022cqw;top:4.36321cqw;
-  width:7.27201cqw;height:2.00079cqw;border:0.07225cqw solid #fff;border-radius:1.00629cqw;
+.ah-pill{position:absolute;left:82.94222cqw;top:5.45401cqw;
+  width:9.09001cqw;height:2.50099cqw;border:0.09031cqw solid #fff;border-radius:1.25786cqw;
   box-sizing:border-box;text-decoration:none;display:block;background:transparent;}
-.ah-pill__t{position:absolute;left:0.64858cqw;top:0.60535cqw;
-  font-family:'FuturaBookC',sans-serif;font-size:0.64858cqw;line-height:1;
+.ah-pill__t{position:absolute;left:0.81073cqw;top:0.75669cqw;
+  font-family:'FuturaBookC',sans-serif;font-size:0.81073cqw;line-height:1;
   color:#fff;white-space:nowrap;}
-.ah-pill__a{position:absolute;left:5.39230cqw;top:0.25157cqw;
-  width:1.42689cqw;height:1.42689cqw;display:block;}
+.ah-pill__a{position:absolute;left:6.74038cqw;top:0.31446cqw;
+  width:1.78361cqw;height:1.78361cqw;display:block;}
 
 /* ================= HERO-КАРТОЧКА (Figma 134:196 @116,266) ================= */
 .ah-hero{position:relative;margin-left:4.55975cqw;margin-top:0;
