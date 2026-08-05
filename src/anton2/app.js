@@ -224,6 +224,7 @@
 
     var step = 0;
     var baseOffset = 0;
+    var lastLayoutWidth = window.innerWidth;
 
     var getVisibleCount = function () {
       var w = window.innerWidth;
@@ -238,13 +239,23 @@
       });
     };
 
+    var syncChrome = function () {
+      updateActive();
+      leftBtn.disabled = index <= 0;
+      rightBtn.disabled = index >= maxIndex;
+    };
+
+    /* Measure card step at translateX(0). Must restore the current page
+       offset while transition is still none — otherwise the next apply()
+       animates 0 → index and looks like spontaneous sliding (common on
+       mobile when URL-bar show/hide fires resize). */
     var measure = function () {
       visibleCount = getVisibleCount();
       section.setAttribute('data-ac-visible', String(visibleCount));
 
-      // Reset so offsetLeft measurements are stable.
       track.style.transition = 'none';
       track.style.transform = 'translateX(0px)';
+      void track.offsetWidth;
 
       var card1Offset = cards.length > 1 ? cards[1].offsetLeft : 0;
       var card0Offset = cards[0].offsetLeft;
@@ -254,72 +265,89 @@
 
       maxIndex = Math.max(0, cards.length - visibleCount);
       index = Math.min(index, maxIndex);
+
+      var x = baseOffset - index * step;
+      track.style.transform = 'translateX(' + x + 'px)';
+      void track.offsetWidth;
     };
 
-    var apply = function () {
+    var apply = function (animated) {
       var x = baseOffset - index * step;
-      var transition = reduce ? 'none' : 'transform 420ms cubic-bezier(.22,.61,.36,1)';
+      var useMotion = animated !== false && !reduce;
+      var transition = useMotion
+        ? 'transform 420ms cubic-bezier(.22,.61,.36,1)'
+        : 'none';
       track.style.transition = transition;
       track.style.transform = 'translateX(' + x + 'px)';
-      updateActive();
-
-      leftBtn.disabled = index <= 0;
-      rightBtn.disabled = index >= maxIndex;
+      if (!useMotion) void track.offsetWidth;
+      syncChrome();
     };
 
     var go = function (delta) {
       index = Math.max(0, Math.min(maxIndex, index + delta));
-      apply();
+      apply(true);
     };
 
     carousel.classList.add('is-active');
     measure();
-    apply();
+    apply(false);
 
     leftBtn.addEventListener('click', function () { go(-1); });
     rightBtn.addEventListener('click', function () { go(1); });
 
-    /* Touch / pointer swipe on the viewport */
+    /* Touch / pointer swipe — discrete page steps only, no momentum.
+       Capture only after horizontal lock so vertical page scroll stays free. */
     (function setupSwipe() {
       var target = viewport || track;
       var startX = 0;
       var startY = 0;
       var tracking = false;
       var axis = null;
+      var activePointerId = null;
+
+      var endGesture = function () {
+        tracking = false;
+        axis = null;
+        activePointerId = null;
+      };
 
       target.addEventListener('pointerdown', function (e) {
         if (e.pointerType === 'mouse' && e.button !== 0) return;
         tracking = true;
         axis = null;
+        activePointerId = e.pointerId;
         startX = e.clientX;
         startY = e.clientY;
-        try { target.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
       });
 
       target.addEventListener('pointermove', function (e) {
-        if (!tracking) return;
+        if (!tracking || e.pointerId !== activePointerId) return;
         var dx = e.clientX - startX;
         var dy = e.clientY - startY;
         if (!axis) {
           if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
           axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+          if (axis === 'x') {
+            try { target.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+          } else {
+            endGesture();
+            return;
+          }
         }
         if (axis === 'x') e.preventDefault();
       }, { passive: false });
 
       target.addEventListener('pointerup', function (e) {
-        if (!tracking) return;
-        tracking = false;
+        if (!tracking || e.pointerId !== activePointerId) return;
         var dx = e.clientX - startX;
-        if (axis === 'x' && Math.abs(dx) > 40) {
-          go(dx < 0 ? 1 : -1);
-        }
-        axis = null;
+        var didSwipe = axis === 'x' && Math.abs(dx) > 40;
+        endGesture();
+        if (didSwipe) go(dx < 0 ? 1 : -1);
       });
 
-      target.addEventListener('pointercancel', function () {
-        tracking = false;
-        axis = null;
+      target.addEventListener('pointercancel', function (e) {
+        if (activePointerId != null && e.pointerId !== activePointerId) return;
+        endGesture();
       });
     })();
 
@@ -327,8 +355,12 @@
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
+        var w = window.innerWidth;
+        /* Height-only resize (mobile chrome) must not remasure/animate. */
+        if (w === lastLayoutWidth) return;
+        lastLayoutWidth = w;
         measure();
-        apply();
+        apply(false);
       }, 80);
     });
   })();
