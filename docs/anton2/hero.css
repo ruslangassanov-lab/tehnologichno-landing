@@ -18,6 +18,20 @@
   --ah-grey:#707070;
   /* switcher.css: body{padding-top:46px}; +6px buffer for border/zoom */
   --ah-switcher-h:52px;
+  /* Hash anchors: switcher + generous air (title must sit fully below chrome).
+     CSS alone is unreliable — html/body overflow-x:hidden clips scroll-margin;
+     app.js applies the same offset via scrollTo. */
+  --ah-hash-scroll-mt:max(5rem, calc(var(--ah-switcher-h) + 4rem));
+}
+
+html{
+  scroll-padding-top:var(--ah-hash-scroll-mt);
+}
+
+/* Ids live on the visible H2 titles (#about, #competencies). */
+#about,
+#competencies{
+  scroll-margin-top:var(--ah-hash-scroll-mt);
 }
 
 /* Page 6 Frame 14 fill = white; Rectangle 26 = GRADIENT_LINEAR 180deg
@@ -370,9 +384,9 @@ html, body.ah{
 .about-block__band--thick{height:3.96934cqw;} /* Rect 27 strokeWeight 101 */
 .about-block__band--thin{height:1.45440cqw;}  /* Rect 28 strokeWeight 37 */
 
-/* 134:169 — 40px / 986 wide; margin after thin band bottom (81.5) */
+/* 134:169 — 40px / 986 wide; equal gap thin band ↔ subtext ↔ white card */
 .about-block__subtext{
-  margin:3.20362cqw auto 0;
+  margin:6.39741cqw auto 0;
   width:38.75786cqw;
   font-family:'FuturaBookC',sans-serif;
   font-size:1.57233cqw;
@@ -385,7 +399,7 @@ html, body.ah{
 .about-bullets-wrap{
   position:relative;
   z-index:0;
-  margin:9.59119cqw auto 0;
+  margin:6.39741cqw auto 0;
   width:83.09748cqw; /* 2114 */
   overflow:visible;
 }
@@ -962,7 +976,11 @@ html.js .faq .cta-block.is-visible{
     margin-top: 1rem;
     padding: 0.7rem 1.25rem !important;
     justify-content: center;
-    gap: 1.25rem;
+    gap: 1.5rem;
+  }
+
+  .cta-block .ac-pill {
+    gap: 1.5rem;
   }
 
   .faq .cta-block__button .ac-ctapilltext {
@@ -1233,6 +1251,11 @@ html.js .faq .cta-block.is-visible{
   .faq .cta-block__button {
     width: min(100%, 18rem) !important;
     margin-inline: auto;
+    gap: 1.5rem;
+  }
+
+  .cta-block .ac-pill {
+    gap: 1.5rem;
   }
 }
 

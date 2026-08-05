@@ -386,6 +386,11 @@ html.js .ac-card:focus-within{
     width: 28px;
     height: 16px;
   }
+
+  /* Apply CTA — air between label and arrow on tablet/mobile */
+  .cta-block .ac-pill {
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -462,6 +467,10 @@ html.js .ac-card:focus-within{
   .ac-carousel {
     justify-content: center;
     margin-inline: auto;
+  }
+
+  .cta-block .ac-pill {
+    gap: 1.5rem;
   }
 }
 

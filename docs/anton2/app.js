@@ -199,11 +199,106 @@
     else if (typeof mq.addListener === 'function') mq.addListener(onMq);
   })();
 
+  /* Hash nav: #about / #competencies (and #top) land with H2 fully below chrome.
+     Native hash + scroll-margin fail here — html/body overflow-x:hidden clips
+     scroll-margin, so titles sit under fixed #vswitch and look “mid-section”.
+     Offset mirrors --ah-hash-scroll-mt: max(5rem, switcher + 4rem). */
+  (function setupHashNav() {
+    var SKIP = { docs: true };
+
+    var remPx = function () {
+      return parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    };
+
+    var hashOffset = function () {
+      var switcher = document.getElementById('vswitch');
+      var sh = switcher ? switcher.getBoundingClientRect().height : 52;
+      if (!sh || sh < 40) sh = 52;
+      var rem = remPx();
+      return Math.max(5 * rem, sh + 4 * rem);
+    };
+
+    var revealTarget = function (el) {
+      var block = el.closest('.about-block, .ac-sec');
+      if (block) block.classList.add('is-visible');
+      el.classList.add('is-visible');
+    };
+
+    var scrollToEl = function (el, smooth) {
+      if (!el) return;
+      revealTarget(el);
+      var top = el.getBoundingClientRect().top + window.pageYOffset - hashOffset();
+      if (top < 0) top = 0;
+      window.scrollTo({
+        top: top,
+        behavior: smooth && !reduce ? 'smooth' : 'auto'
+      });
+    };
+
+    var scrollToHash = function (hash, smooth) {
+      if (!hash || hash === '#') return false;
+      var id = hash.charAt(0) === '#' ? hash.slice(1) : hash;
+      if (!id || SKIP[id]) return false;
+      var el = document.getElementById(id);
+      if (!el) return false;
+      scrollToEl(el, smooth);
+      return true;
+    };
+
+    var onAnchorClick = function (e) {
+      var link = e.currentTarget;
+      var href = link.getAttribute('href');
+      if (!href || href.charAt(0) !== '#') return;
+      var id = href.slice(1);
+      if (!id || SKIP[id]) return;
+      if (!document.getElementById(id)) return;
+      e.preventDefault();
+      if (history.pushState) {
+        history.pushState(null, '', href);
+      } else {
+        location.hash = href;
+      }
+      scrollToHash(href, true);
+    };
+
+    document.querySelectorAll(
+      '.ah-nav a[href^="#"], .ah-header__brand[href^="#"]'
+    ).forEach(function (link) {
+      link.addEventListener('click', onAnchorClick);
+    });
+
+    var applyLocationHash = function (smooth) {
+      if (!location.hash || location.hash === '#') return;
+      scrollToHash(location.hash, smooth);
+    };
+
+    window.addEventListener('hashchange', function () {
+      applyLocationHash(true);
+    });
+
+    /* After layout + switcher mount (switcher.js is sync after this defer file
+       on first paint order — re-run on load for cold #hash URLs). */
+    if (location.hash && location.hash !== '#' && !SKIP[location.hash.slice(1)]) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          applyLocationHash(false);
+        });
+      });
+      window.addEventListener('load', function () {
+        applyLocationHash(false);
+      });
+    }
+  })();
+
   /* Competencies carousel (ac-carousel): slide track + highlight visible cards.
      Runs before the reveal early-return so arrows work with reduced motion.
-     visibleCount: 3 desktop / 2 tablet / 1 phone; touch swipe supported. */
+     visibleCount: 3 desktop / 2 tablet / 1 phone; touch swipe supported.
+     #competencies lives on the H2 — resolve .ac-sec for queries. */
   (function setupCompetencyCarousel() {
-    var section = document.getElementById('competencies');
+    var heading = document.getElementById('competencies');
+    if (!heading) return;
+
+    var section = heading.closest('.ac-sec') || heading.parentElement;
     if (!section) return;
 
     var carousel = section.querySelector('.ac-carousel');
