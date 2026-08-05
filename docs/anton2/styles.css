@@ -664,8 +664,9 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /*
-  CTA arrows — Figma rest: blue ↗ on white disc (webp).
-  White invert (hover/focus/active): disc-free tinted mask (no white plate).
+  CTA arrows — Figma rest: blue/navy ↗ on white disc (webp).
+  White invert (hover/focus/active): same arrow pixels, disc punched out
+  (arrow-*-nodisc.png) so white circle doesn’t stack on white pill.
 */
 .ah-pill__a,
 .ah-hero__btn-a,
@@ -679,7 +680,6 @@ img { display: block; max-width: 100%; height: auto; }
   mask-image: none;
   transition:
     transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
-    background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
     background-image 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
   transform-origin: center center;
 }
@@ -693,25 +693,26 @@ img { display: block; max-width: 100%; height: auto; }
   background: url("../assets/anton/arrow-btn.webp") center / contain no-repeat;
 }
 
-/* Disc-free ↗ on white pill — shared mask recipe */
+/* Same Figma arrow geometry as rest — only without white disc */
 .ah-pill:focus-visible .ah-pill__a,
 .ah-pill:active .ah-pill__a,
-.ah-hero__btn:focus-visible .ah-hero__btn-a,
-.ah-hero__btn:active .ah-hero__btn-a,
 .ac-pill:focus-visible .ac-pillarrow,
 .ac-pill:active .ac-pillarrow {
-  background-image: none;
+  background: url("../assets/anton/arrow-pill-nodisc.png") center / contain no-repeat;
+  background-color: transparent;
   box-shadow: none;
-  -webkit-mask-image: url("../assets/anton/arrow-ne.svg");
-  mask-image: url("../assets/anton/arrow-ne.svg");
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-mode: alpha;
-  mask-mode: alpha;
+  -webkit-mask-image: none;
+  mask-image: none;
+  transform: scale(1.04);
+}
+
+.ah-hero__btn:focus-visible .ah-hero__btn-a,
+.ah-hero__btn:active .ah-hero__btn-a {
+  background: url("../assets/anton/arrow-btn-nodisc.png") center / contain no-repeat;
+  background-color: transparent;
+  box-shadow: none;
+  -webkit-mask-image: none;
+  mask-image: none;
   transform: scale(1.04);
 }
 
@@ -727,11 +728,6 @@ img { display: block; max-width: 100%; height: auto; }
   color: #000057;
 }
 
-.ah-pill:focus-visible .ah-pill__a,
-.ah-pill:active .ah-pill__a {
-  background-color: #000057;
-}
-
 .ah-hero__btn:focus-visible,
 .ah-hero__btn:active {
   background: #fff;
@@ -742,11 +738,6 @@ img { display: block; max-width: 100%; height: auto; }
 .ah-hero__btn:focus-visible .ah-hero__btn-t,
 .ah-hero__btn:active .ah-hero__btn-t {
   color: #0947F1;
-}
-
-.ah-hero__btn:focus-visible .ah-hero__btn-a,
-.ah-hero__btn:active .ah-hero__btn-a {
-  background-color: #0947F1;
 }
 
 .ac-pill:focus-visible,
@@ -761,11 +752,6 @@ img { display: block; max-width: 100%; height: auto; }
   color: #0947F1;
 }
 
-.ac-pill:focus-visible .ac-pillarrow,
-.ac-pill:active .ac-pillarrow {
-  background-color: #0947F1;
-}
-
 /* Real pointer hover only — prevents sticky white invert on touch */
 @media (hover: hover) and (pointer: fine) {
   .ah-pill:hover {
@@ -778,19 +764,11 @@ img { display: block; max-width: 100%; height: auto; }
   }
 
   .ah-pill:hover .ah-pill__a {
-    background-color: #000057;
-    background-image: none;
+    background: url("../assets/anton/arrow-pill-nodisc.png") center / contain no-repeat;
+    background-color: transparent;
     box-shadow: none;
-    -webkit-mask-image: url("../assets/anton/arrow-ne.svg");
-    mask-image: url("../assets/anton/arrow-ne.svg");
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-mode: alpha;
-    mask-mode: alpha;
+    -webkit-mask-image: none;
+    mask-image: none;
     transform: scale(1.04);
   }
 
@@ -805,19 +783,11 @@ img { display: block; max-width: 100%; height: auto; }
   }
 
   .ah-hero__btn:hover .ah-hero__btn-a {
-    background-color: #0947F1;
-    background-image: none;
+    background: url("../assets/anton/arrow-btn-nodisc.png") center / contain no-repeat;
+    background-color: transparent;
     box-shadow: none;
-    -webkit-mask-image: url("../assets/anton/arrow-ne.svg");
-    mask-image: url("../assets/anton/arrow-ne.svg");
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-mode: alpha;
-    mask-mode: alpha;
+    -webkit-mask-image: none;
+    mask-image: none;
     transform: scale(1.04);
   }
 
@@ -832,19 +802,11 @@ img { display: block; max-width: 100%; height: auto; }
   }
 
   .ac-pill:hover .ac-pillarrow {
-    background-color: #0947F1;
-    background-image: none;
+    background: url("../assets/anton/arrow-pill-nodisc.png") center / contain no-repeat;
+    background-color: transparent;
     box-shadow: none;
-    -webkit-mask-image: url("../assets/anton/arrow-ne.svg");
-    mask-image: url("../assets/anton/arrow-ne.svg");
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-mode: alpha;
-    mask-mode: alpha;
+    -webkit-mask-image: none;
+    mask-image: none;
     transform: scale(1.04);
   }
 

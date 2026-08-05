@@ -550,7 +550,8 @@ html, body.ah{
 }
 
 /* Hover / focus / active — invert outline pill (overrides transparent !important).
-   Pointer hover gated so touch doesn’t stick white. Disc-free blue ↗ on white. */
+   Pointer hover gated so touch doesn’t stick white.
+   Same Figma ↗ as rest — nodisc PNG (no white plate on white pill). */
 .faq .cta-block__button:focus-visible,
 .faq .cta-block__button:active,
 .cta-block .ac-pill:focus-visible,
@@ -571,19 +572,11 @@ html, body.ah{
 .faq .cta-block__button:active .ac-pillarrow,
 .cta-block .ac-pill:focus-visible .ac-pillarrow,
 .cta-block .ac-pill:active .ac-pillarrow{
-  background-color:#0947F1;
-  background-image:none;
+  background:url("../assets/anton/arrow-pill-nodisc.png") center / contain no-repeat;
+  background-color:transparent;
   box-shadow:none;
-  -webkit-mask-image:url("../assets/anton/arrow-ne.svg");
-  mask-image:url("../assets/anton/arrow-ne.svg");
-  -webkit-mask-size:contain;
-  mask-size:contain;
-  -webkit-mask-repeat:no-repeat;
-  mask-repeat:no-repeat;
-  -webkit-mask-position:center;
-  mask-position:center;
-  -webkit-mask-mode:alpha;
-  mask-mode:alpha;
+  -webkit-mask-image:none;
+  mask-image:none;
   transform:scale(1.04);
 }
 
@@ -602,19 +595,11 @@ html, body.ah{
 
   .faq .cta-block__button:hover .ac-pillarrow,
   .cta-block .ac-pill:hover .ac-pillarrow{
-    background-color:#0947F1;
-    background-image:none;
+    background:url("../assets/anton/arrow-pill-nodisc.png") center / contain no-repeat;
+    background-color:transparent;
     box-shadow:none;
-    -webkit-mask-image:url("../assets/anton/arrow-ne.svg");
-    mask-image:url("../assets/anton/arrow-ne.svg");
-    -webkit-mask-size:contain;
-    mask-size:contain;
-    -webkit-mask-repeat:no-repeat;
-    mask-repeat:no-repeat;
-    -webkit-mask-position:center;
-    mask-position:center;
-    -webkit-mask-mode:alpha;
-    mask-mode:alpha;
+    -webkit-mask-image:none;
+    mask-image:none;
     transform:scale(1.04);
   }
 }
@@ -1198,8 +1183,14 @@ html.js .faq .cta-block.is-visible{
     text-align: center;
   }
 
+  /* Even gap: thin band → subtext → white card (match bullets-wrap top) */
+  .about-block__subtext {
+    margin-top: clamp(2rem, 5vw, 3.25rem);
+  }
+
   .about-bullets-wrap {
     margin-inline: auto;
+    margin-top: clamp(2rem, 5vw, 3.25rem);
   }
 
   .about-bullets {
@@ -1274,6 +1265,14 @@ html.js .faq .cta-block.is-visible{
 
   .ah-hero__btn-t {
     font-size: 0.9375rem !important;
+  }
+
+  .about-block__subtext {
+    margin-top: 1.5rem;
+  }
+
+  .about-bullets-wrap {
+    margin-top: 1.5rem;
   }
 
   .about-bullets {
