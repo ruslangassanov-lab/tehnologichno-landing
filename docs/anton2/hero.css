@@ -501,22 +501,22 @@ html, body.ah{
   line-height:1.1;
 }
 
-/* Figma 134:187 — flex insets: L 28.19 / R 18.35 / ellipse 58.18 (÷25.44) */
+/* Match hero/header pills: 999px radius + centered label/icon with equal insets */
 .faq .cta-block__button{
   margin:1.2cqw auto 0;
   display:flex !important;
   align-items:center;
-  justify-content:space-between;
+  justify-content:center;
   gap:0.573cqw;
   position:relative !important;
   top:auto !important;
   left:auto !important;
   width:11.64701cqw !important;
   height:3.19969cqw !important;
-  padding:0 0.7214cqw 0 1.1085cqw !important;
+  padding:0 0.72cqw !important;
   border:0.11570cqw solid #fff !important;
   background:transparent !important;
-  border-radius:1.61164cqw !important;
+  border-radius:999px !important;
   box-sizing:border-box;
   text-decoration:none;
 }
@@ -557,6 +557,7 @@ html, body.ah{
   background:#fff !important;
   box-shadow:0 8px 22px rgba(0,0,0,0.2);
   transform:translateY(-2px);
+  isolation:isolate; /* contain arrow multiply to white pill */
 }
 
 .faq .cta-block__button:hover .ac-ctapilltext,
@@ -570,6 +571,8 @@ html, body.ah{
 .faq .cta-block__button:focus-visible .ac-pillarrow,
 .cta-block .ac-pill:hover .ac-pillarrow,
 .cta-block .ac-pill:focus-visible .ac-pillarrow{
+  /* White disc × white pill → invisible; blue arrow stays */
+  mix-blend-mode:multiply;
   transform:scale(1.08);
 }
 
@@ -910,7 +913,9 @@ html.js .faq .cta-block.is-visible{
     height: auto !important;
     min-height: 48px !important;
     margin-top: 1rem;
-    padding: 0.55rem 0.55rem 0.55rem 1.1rem !important;
+    padding: 0.65rem 1.1rem !important;
+    justify-content: center;
+    gap: 0.75rem;
   }
 
   .faq .cta-block__button .ac-ctapilltext {
@@ -918,8 +923,8 @@ html.js .faq .cta-block.is-visible{
   }
 
   .faq .cta-block__button .ac-pillarrow {
-    width: 2rem !important;
-    height: 2rem !important;
+    width: 1.85rem !important;
+    height: 1.85rem !important;
   }
 }
 

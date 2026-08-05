@@ -250,15 +250,15 @@
 .cta-block .ac-pill{
   width:11.64701cqw !important;
   height:3.19969cqw !important;
-  padding:0 0.7214cqw 0 1.1085cqw !important;
+  padding:0 0.72cqw !important;
   display:flex !important;
   align-items:center;
-  justify-content:space-between;
+  justify-content:center;
   gap:0.573cqw;
   border:0.11570cqw solid #fff !important;
   background:transparent !important;
   box-sizing:border-box;
-  border-radius:1.61164cqw !important;
+  border-radius:999px !important;
 }
 
 .cta-block .ac-ctapilltext{
