@@ -729,6 +729,131 @@ html.js .faq .cta-block.is-visible{
   }
 }
 
+/* Safari 15 and earlier do not understand container-query units (cqw).
+   Without this fallback every cqw declaration is discarded: the absolutely
+   positioned header piles up at the left edge and the hero collapses to 0px.
+   Keep the same 1272px Figma ratios with viewport units, capped at the
+   desktop reference stage (1600px). Modern browsers never enter this block. */
+@supports not (width: 1cqw) {
+  @media (min-width: 1025px) {
+    .ah-canvas {
+      --ah-hs: 1.2142857;
+    }
+
+    .ah-header {
+      height: min(4.462vw, 71.39px);
+    }
+
+    .ah-header__brand {
+      top: 0.15rem;
+      width: min(26.714vw, 427.43px);
+      height: min(3.886vw, 62.17px);
+    }
+
+    .ah-header__logo {
+      width: min(5.282vw, 84.52px);
+      height: min(3.503vw, 56.05px);
+    }
+
+    .ah-header__word {
+      left: min(5.478vw, 87.65px);
+      top: min(0.972vw, 15.56px);
+      font-size: min(1.347vw, 21.55px);
+    }
+
+    .ah-nav a {
+      font-size: min(1.342vw, 21.47px);
+    }
+
+    .ah-nav .n1,
+    .ah-nav .n2,
+    .ah-nav .n3 {
+      top: min(1.75vw, 28px);
+    }
+
+    .ah-nav .n1 { left: min(34.15vw, 546.4px); }
+    .ah-nav .n2 { left: min(47.6533vw, 762.45px); }
+    .ah-nav .n3 { left: min(61.15vw, 978.4px); }
+
+    .ah-pill {
+      width: min(12.417vw, 198.67px);
+      height: min(3.416vw, 54.66px);
+      border-width: min(0.1234vw, 1.97px);
+      border-radius: min(1.718vw, 27.49px);
+    }
+
+    .ah-pill__t {
+      left: min(1.108vw, 17.73px);
+      top: min(1.034vw, 16.55px);
+      font-size: min(1.108vw, 17.73px);
+    }
+
+    .ah-pill__a {
+      left: min(9.208vw, 147.33px);
+      top: min(0.43vw, 6.88px);
+      width: min(2.436vw, 38.98px);
+      height: min(2.436vw, 38.98px);
+    }
+
+    .ah-hero__card {
+      width: min(90.95912vw, 1455.35px);
+      height: min(33.05818vw, 528.93px);
+      border-radius: min(3.21737vw, 51.48px);
+    }
+
+    .ah-hero__brand {
+      left: min(7.93826vw, 127.01px);
+      top: min(3.81289vw, 61.01px);
+      font-size: min(7.46538vw, 119.45px);
+    }
+
+    .ah-hero__subtitle {
+      left: min(9.05769vw, 144.92px);
+      top: min(11.84547vw, 189.53px);
+      width: min(49.53091vw, 792.49px);
+      font-size: min(1.57306vw, 25.17px);
+    }
+
+    .ah-hero__tagline {
+      left: min(9.09362vw, 145.50px);
+      top: min(14.32611vw, 229.22px);
+      width: min(31.17682vw, 498.83px);
+      font-size: min(0.87677vw, 14.03px);
+    }
+
+    .ah-hero__btn {
+      gap: min(0.5vw, 8px);
+      left: min(9.08019vw, 145.28px);
+      top: min(23.58490vw, 377.36px);
+      width: min(18.94654vw, 303.14px);
+      height: min(4.053vw, 64.85px);
+      padding: 0 min(0.42515vw, 6.80px) 0 min(1.38713vw, 22.19px);
+      border-radius: min(2.03999vw, 32.64px);
+    }
+
+    .ah-hero__btn-t {
+      font-size: min(1.26961vw, 20.31px);
+    }
+
+    .ah-hero__btn-a {
+      width: min(2.89546vw, 46.33px);
+      height: min(2.89546vw, 46.33px);
+    }
+
+    .ah-hero__date {
+      left: min(57.31132vw, 916.98px);
+      top: min(15.99843vw, 255.97px);
+      font-size: min(2.60513vw, 41.68px);
+    }
+
+    .ah-hero__year {
+      left: min(57.32883vw, 917.26px);
+      top: min(19.57275vw, 313.16px);
+      font-size: min(12.43682vw, 198.99px);
+    }
+  }
+}
+
 /* ============================================================
    RESPONSIVE — tablet + phone (anton2)
    Desktop Figma/cqw layout remains the large-screen baseline.
