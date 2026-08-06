@@ -659,31 +659,19 @@ html.js .faq .cta-block.is-visible{
 
 /* ============================================================
    DESKTOP (≥1025) — first screen = exact viewport composition
-   Lock fold to 100svh so next section never peeks. Banner scales
-   uniformly to fill remaining height (aspect locked; text stays on
-   Figma cqw via card transform). Logo/pill track banner edges.
-   Nav absolute cluster unchanged. No fake “push next section down”.
+   Lock fold to 100svh so next section never peeks. Banner scale is
+   set by app.js fitFirstScreen (measures real height + cookie bar);
+   CSS fallback below is conservative. Logo/pill track banner edges.
    ============================================================ */
 @media (min-width: 1025px) {
   .ah-first-screen {
     --ah-fs-pad-top: 1.25rem;
     --ah-fs-header-h: calc(2.81361cqw * var(--ah-hs) + 0.35rem);
-    /* Min blue air above + below card after chrome (auto margins split rest) */
-    --ah-fs-air: 1.5rem;
-    /* Grow toward viewport, cap ~full canvas; shrink on short laptops */
-    --ah-fs-hero-scale: min(
-      1.1,
-      calc((100cqw * 0.98) / 90.95912cqw),
-      calc(
-        (
-          100svh
-          - var(--ah-switcher-h)
-          - var(--ah-fs-pad-top)
-          - var(--ah-fs-header-h)
-          - (2 * var(--ah-fs-air))
-        ) / 33.05818cqw
-      )
-    );
+    --ah-fs-air: 1.25rem;
+    /* Cookie bar reserve when visible (JS overrides scale precisely) */
+    --ah-fs-consent: 5.75rem;
+    /* Safe CSS fallback — never larger than Figma 1.0; JS may raise to 1.05 */
+    --ah-fs-hero-scale: 1;
 
     box-sizing: border-box;
     justify-content: flex-start;
@@ -695,12 +683,14 @@ html.js .faq .cta-block.is-visible{
     height: calc(100svh - var(--ah-switcher-h));
     min-height: calc(100svh - var(--ah-switcher-h));
     max-height: calc(100svh - var(--ah-switcher-h));
+    overflow: hidden;
   }
 
   .ah-header {
     width: 100%;
     height: var(--ah-fs-header-h);
     padding-top: 0;
+    flex-shrink: 0;
   }
 
   /* Logo/pill pin to live banner edges (scale from first-screen) */
@@ -736,6 +726,7 @@ html.js .faq .cta-block.is-visible{
     margin-right: auto !important;
     width: calc(90.95912cqw * var(--ah-hero-scale)) !important;
     height: calc(33.05818cqw * var(--ah-hero-scale));
+    max-width: 100%;
   }
 }
 

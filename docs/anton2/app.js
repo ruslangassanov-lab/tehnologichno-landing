@@ -6,6 +6,78 @@
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Desktop first screen: measure real viewport (zoom, DPI, cookie bar)
+     and set --ah-fs-hero-scale so the banner never clips. ≤1024 untouched. */
+  (function fitFirstScreen() {
+    var mq = window.matchMedia('(min-width: 1025px)');
+    var fs = document.querySelector('.ah-first-screen');
+    var canvas = document.querySelector('.ah-canvas');
+    if (!fs || !canvas) return;
+
+    var BASE_W = 0.9095912;
+    var BASE_H = 0.3305818;
+    var MAX_SCALE = 1.05;
+    var MIN_SCALE = 0.62;
+    var AIR = 20;
+    var PAD_TOP = 20;
+    var SWITCHER = 52;
+    var timer = 0;
+
+    function consentH() {
+      var el = document.getElementById('pd-consent');
+      if (!el || !el.classList.contains('is-visible')) return 0;
+      return el.getBoundingClientRect().height || 0;
+    }
+
+    function apply() {
+      if (!mq.matches) {
+        fs.style.removeProperty('--ah-fs-hero-scale');
+        return;
+      }
+      var cw = canvas.getBoundingClientRect().width;
+      if (cw < 1) return;
+      var header = fs.querySelector('.ah-header');
+      var headerH = header ? header.getBoundingClientRect().height : 48;
+      var avail =
+        window.innerHeight -
+        SWITCHER -
+        PAD_TOP -
+        headerH -
+        AIR * 2 -
+        consentH();
+      if (avail < 120) avail = 120;
+      var baseW = cw * BASE_W;
+      var baseH = cw * BASE_H;
+      var scale = Math.min(MAX_SCALE, (cw * 0.98) / baseW, avail / baseH);
+      if (scale < MIN_SCALE) scale = MIN_SCALE;
+      /* 4 decimals — enough for subpixel, avoids thrash */
+      fs.style.setProperty('--ah-fs-hero-scale', scale.toFixed(4));
+    }
+
+    function schedule() {
+      if (timer) window.clearTimeout(timer);
+      timer = window.setTimeout(apply, 50);
+    }
+
+    apply();
+    window.addEventListener('resize', schedule, { passive: true });
+    if (mq.addEventListener) mq.addEventListener('change', schedule);
+    else if (mq.addListener) mq.addListener(schedule);
+
+    /* Consent mounts async — watch class changes */
+    var mo = new MutationObserver(schedule);
+    mo.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    /* Also re-fit after fonts (cqw text metrics) */
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(schedule).catch(function () {});
+    }
+  })();
+
   /* Nav underline: fills left → right on hover */
   (function setupNavUnderline() {
     var links = document.querySelectorAll('.ah-nav a');
