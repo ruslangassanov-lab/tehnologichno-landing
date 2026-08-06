@@ -659,31 +659,26 @@ html.js .faq .cta-block.is-visible{
 
 /* ============================================================
    DESKTOP (≥1025) — first screen = exact viewport composition
-   Lock fold to 100svh so next section never peeks. Banner scale is
-   set by app.js fitFirstScreen (measures real height + cookie bar);
-   CSS fallback below is conservative. Logo/pill track banner edges.
+   Fold = 100svh. Banner scale set by app.js (px + --ah-hero-scale);
+   CSS keeps scale 1 fallback. No overflow:hidden — Safari + reveal
+   would clip/zero the hero. Logo/pill track banner edges.
    ============================================================ */
 @media (min-width: 1025px) {
   .ah-first-screen {
     --ah-fs-pad-top: 1.25rem;
     --ah-fs-header-h: calc(2.81361cqw * var(--ah-hs) + 0.35rem);
     --ah-fs-air: 1.25rem;
-    /* Cookie bar reserve when visible (JS overrides scale precisely) */
-    --ah-fs-consent: 5.75rem;
-    /* Safe CSS fallback — never larger than Figma 1.0; JS may raise to 1.05 */
     --ah-fs-hero-scale: 1;
 
     box-sizing: border-box;
     justify-content: flex-start;
     padding-top: var(--ah-fs-pad-top);
     padding-inline: 0;
-    /* Exact fold — next block starts just below; margin-bottom stays for scroll air */
     height: calc(100vh - var(--ah-switcher-h));
     height: calc(100dvh - var(--ah-switcher-h));
     height: calc(100svh - var(--ah-switcher-h));
-    min-height: calc(100svh - var(--ah-switcher-h));
-    max-height: calc(100svh - var(--ah-switcher-h));
-    overflow: hidden;
+    min-height: calc(100vh - var(--ah-switcher-h));
+    max-height: none;
   }
 
   .ah-header {
@@ -691,15 +686,17 @@ html.js .faq .cta-block.is-visible{
     height: var(--ah-fs-header-h);
     padding-top: 0;
     flex-shrink: 0;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
-  /* Logo/pill pin to live banner edges (scale from first-screen) */
+  /* Logo/pill pin to banner edges — prefer JS --ah-fs-banner-inset (px),
+     fall back to cqw calc for no-JS. */
   .ah-header__brand {
     top: 0.15rem;
-    left: calc((100% - 90.95912cqw * var(--ah-fs-hero-scale)) / 2) !important;
+    left: var(--ah-fs-banner-inset, calc((100% - 90.95912cqw) / 2)) !important;
   }
 
-  /* Nav cluster — still compact, slightly wider so it breathes vs logo/pill */
   .ah-nav .n1,
   .ah-nav .n2,
   .ah-nav .n3 {
@@ -713,20 +710,22 @@ html.js .faq .cta-block.is-visible{
   .ah-pill {
     top: 0.15rem;
     left: auto !important;
-    right: calc((100% - 90.95912cqw * var(--ah-fs-hero-scale)) / 2) !important;
+    right: var(--ah-fs-banner-inset, calc((100% - 90.95912cqw) / 2)) !important;
   }
 
   .ah-hero {
-    --ah-hero-scale: var(--ah-fs-hero-scale);
+    --ah-hero-scale: var(--ah-fs-hero-scale, 1);
     flex: 0 0 auto;
-    /* Equal blue air above/below — fills leftover after scale fit */
     margin-top: auto;
     margin-bottom: auto;
     margin-left: auto !important;
     margin-right: auto !important;
-    width: calc(90.95912cqw * var(--ah-hero-scale)) !important;
-    height: calc(33.05818cqw * var(--ah-hero-scale));
+    width: calc(90.95912cqw * var(--ah-hero-scale, 1)) !important;
+    height: calc(33.05818cqw * var(--ah-hero-scale, 1));
     max-width: 100%;
+    /* Never stay invisible on the first screen (Safari IO edge cases) */
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

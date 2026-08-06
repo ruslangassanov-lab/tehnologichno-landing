@@ -7,12 +7,14 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* Desktop first screen: measure real viewport (zoom, DPI, cookie bar)
-     and set --ah-fs-hero-scale so the banner never clips. ≤1024 untouched. */
+     and size the banner in px so Safari never collapses cqw×var height.
+     ≤1024 untouched. */
   (function fitFirstScreen() {
     var mq = window.matchMedia('(min-width: 1025px)');
     var fs = document.querySelector('.ah-first-screen');
     var canvas = document.querySelector('.ah-canvas');
-    if (!fs || !canvas) return;
+    var hero = document.querySelector('.ah-hero');
+    if (!fs || !canvas || !hero) return;
 
     var BASE_W = 0.9095912;
     var BASE_H = 0.3305818;
@@ -26,18 +28,27 @@
     function consentH() {
       var el = document.getElementById('pd-consent');
       if (!el || !el.classList.contains('is-visible')) return 0;
-      return el.getBoundingClientRect().height || 0;
+      var h = el.getBoundingClientRect().height;
+      return h > 0 ? h : 0;
     }
 
     function apply() {
       if (!mq.matches) {
         fs.style.removeProperty('--ah-fs-hero-scale');
+        fs.style.removeProperty('--ah-fs-banner-inset');
+        hero.style.removeProperty('--ah-hero-scale');
+        hero.style.removeProperty('width');
+        hero.style.removeProperty('height');
         return;
       }
+
       var cw = canvas.getBoundingClientRect().width;
-      if (cw < 1) return;
+      if (!(cw > 1)) return;
+
       var header = fs.querySelector('.ah-header');
       var headerH = header ? header.getBoundingClientRect().height : 48;
+      if (!(headerH > 0)) headerH = 48;
+
       var avail =
         window.innerHeight -
         SWITCHER -
@@ -45,13 +56,31 @@
         headerH -
         AIR * 2 -
         consentH();
-      if (avail < 120) avail = 120;
+      if (!(avail > 120)) avail = 120;
+
       var baseW = cw * BASE_W;
       var baseH = cw * BASE_H;
+      if (!(baseW > 0) || !(baseH > 0)) return;
+
       var scale = Math.min(MAX_SCALE, (cw * 0.98) / baseW, avail / baseH);
+      if (!(scale > 0) || !isFinite(scale)) scale = 1;
       if (scale < MIN_SCALE) scale = MIN_SCALE;
-      /* 4 decimals — enough for subpixel, avoids thrash */
-      fs.style.setProperty('--ah-fs-hero-scale', scale.toFixed(4));
+      if (scale > MAX_SCALE) scale = MAX_SCALE;
+
+      var w = baseW * scale;
+      var h = baseH * scale;
+      var inset = Math.max(0, (cw - w) / 2);
+      var scaleStr = scale.toFixed(4);
+
+      fs.style.setProperty('--ah-fs-hero-scale', scaleStr);
+      fs.style.setProperty('--ah-fs-banner-inset', inset.toFixed(2) + 'px');
+      hero.style.setProperty('--ah-hero-scale', scaleStr);
+      hero.style.width = w.toFixed(2) + 'px';
+      hero.style.height = h.toFixed(2) + 'px';
+
+      /* First screen must paint immediately (no scroll-reveal race in Safari) */
+      hero.classList.add('is-visible');
+      if (header) header.classList.add('is-visible');
     }
 
     function schedule() {
@@ -64,15 +93,22 @@
     if (mq.addEventListener) mq.addEventListener('change', schedule);
     else if (mq.addListener) mq.addListener(schedule);
 
-    /* Consent mounts async — watch class changes */
-    var mo = new MutationObserver(schedule);
-    mo.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['class']
-    });
-    /* Also re-fit after fonts (cqw text metrics) */
+    var consent = document.getElementById('pd-consent');
+    if (consent) {
+      var mo = new MutationObserver(schedule);
+      mo.observe(consent, { attributes: true, attributeFilter: ['class'] });
+    } else {
+      var boot = new MutationObserver(function () {
+        var el = document.getElementById('pd-consent');
+        if (!el) return;
+        boot.disconnect();
+        var mo = new MutationObserver(schedule);
+        mo.observe(el, { attributes: true, attributeFilter: ['class'] });
+        schedule();
+      });
+      boot.observe(document.body, { childList: true, subtree: true });
+    }
+
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(schedule).catch(function () {});
     }
