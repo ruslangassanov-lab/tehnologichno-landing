@@ -53,10 +53,15 @@
   --grad-1: #0303AC;
   --grad-2: #063FDF;
   --footer-grey: #B6B6B6;
-  /* Content column: Figma Frame 14 = 2544 → base 1272 (÷2). On wide
-     viewports grow toward ~92vw (cap 2200) so cqw elements scale up and
-     side gutters shrink — avoids a tiny 1272 strip on 1920/2560. */
-  --ah-canvas-max: clamp(1272px, 92vw, 2200px);
+  /* Content column: Figma Frame 14 = 2544 → base 1272 (÷2). Fixed cap
+     keeps desktop proportions identical at 1280/1920/2560; cqw scales only
+     below 1272 where width:100% shrinks the column linearly. */
+  --ah-canvas-max: 1272px;
+  /* Unified content column (Figma hero card @116 → width 2318/2544 ≈ 90.95912%
+     of canvas). Desktop ≥1025: header, hero, sections share these edges. */
+  --ah-content-frac: 0.9095912;
+  --ah-content-width: calc(min(100vw, var(--ah-canvas-max)) * var(--ah-content-frac));
+  --ah-content-inset: calc((min(100vw, var(--ah-canvas-max)) - var(--ah-content-width)) / 2);
   /* Shared circular plate curve — one length for L and R (never %-radius:
      % resolves vs width AND height → ellipse). Figma r=132 / Frame 14 2544
      on the painted full-bleed plate (100dvw). Identical token for FAQ + footer. */
@@ -91,8 +96,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 img { display: block; max-width: 100%; height: auto; }
 
 /* Единственный источник cqw-масштаба: 1cqw = 1% ширины .canvas.
-   База 1272 (½ Figma 2544). На широких экранах --ah-canvas-max растёт
-   (clamp 1272…92vw…2200), cqw-элементы пропорционально увеличиваются.
+   База 1272 (½ Figma 2544). --ah-canvas-max фиксирован на 1272 — на широких
+   экранах колонка центрируется с боковыми полями, cqw не раздувается.
    На узких — width:100%, всё сжимается линейно. Кегль-пол (clamp) ломает
    абсолютное %-позиционирование — не использовать. */
 .canvas {
@@ -1245,6 +1250,31 @@ body.docs-modal-open {
 .docs-modal__link:focus-visible {
   outline: 2px solid var(--accent-blue);
   outline-offset: 2px;
+}
+
+/* ============================================================
+   DESKTOP (≥1025) — unified content grid
+   Full-bleed bands/plates stay 100vw; inner blocks align to --ah-content-width.
+   ============================================================ */
+@media (min-width: 1025px) {
+  .faq__title,
+  .faq__cards {
+    left: var(--ah-content-inset);
+    width: var(--ah-content-width);
+  }
+
+  .logos-section {
+    padding-inline: var(--ah-content-inset);
+  }
+
+  .logos-section .card--logos {
+    margin-inline: 0;
+    width: 100%;
+  }
+
+  .site-footer__inner {
+    max-width: var(--ah-content-width);
+  }
 }
 
 /* ============================================================

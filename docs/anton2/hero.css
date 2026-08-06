@@ -62,6 +62,9 @@ html, body.ah{
   /* Shared with header + apply-band CTA so both pills track one scale. */
   --ah-header-scale:1.7;
   --ah-hs:calc(var(--ah-header-scale) / 1.4);
+  /* cqw form of unified grid — matches :root px tokens at canvas max */
+  --ah-content-width:90.95912cqw;
+  --ah-content-inset:calc((100% - var(--ah-content-width)) / 2);
   container-type:inline-size;
   width:100%;max-width:var(--ah-canvas-max);margin-inline:auto;position:relative;
   background:none;
@@ -652,6 +655,79 @@ html, body.ah{
 html.js .faq .cta-block:not(.is-visible),
 html.js .faq .cta-block.is-visible{
   transform:none;
+}
+
+/* ============================================================
+   DESKTOP (≥1025) — unified first screen
+   Pin header under switcher, drop Figma y=111 dead space, no hero
+   vertical centering (margin-top:auto), no transform overscale on card.
+   Side air = native ~9% canvas margin at scale 1 + optional inset.
+   ============================================================ */
+@media (min-width: 1025px) {
+  .ah-first-screen {
+    justify-content: flex-start;
+    padding-top: 1.25rem;
+    padding-inline: 0;
+    box-sizing: border-box;
+  }
+
+  /* Was simulating Frame-9 y=111 — on first screen that pushed nav onto hero */
+  .ah-header {
+    width: var(--ah-content-width);
+    margin-inline: auto;
+    height: calc(2.81361cqw * var(--ah-hs) + 0.35rem);
+    padding-top: 0;
+  }
+
+  /* Canvas-absolute Figma lefts → % of unified content column */
+  .ah-header__brand {
+    top: 0.15rem;
+    left: 3.2842%;
+  }
+
+  .ah-nav .n1 {
+    left: 35.8976%;
+  }
+
+  .ah-nav .n2 {
+    left: 47.4194%;
+  }
+
+  .ah-nav .n3 {
+    left: 58.7165%;
+  }
+
+  .ah-nav .n1,
+  .ah-nav .n2,
+  .ah-nav .n3 {
+    top: calc(0.15rem + (2.81361cqw - 1.10554cqw) * var(--ah-hs) / 2);
+  }
+
+  .ah-pill {
+    top: 0.15rem;
+    left: 84.9667%;
+  }
+
+  /* Scale 1.1 stretched card to ~100% canvas; inner cqw ≠ scaled box → warp */
+  .ah-hero {
+    --ah-hero-scale: 1;
+    margin-top: clamp(1.25rem, 3.5cqw, 2.75rem);
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: var(--ah-content-width);
+    height: calc(33.05818cqw * var(--ah-hero-scale));
+  }
+
+  /* About — inner copy aligns to hero edges; bands stay full-bleed */
+  .about-block {
+    width: var(--ah-content-width);
+    margin-inline: auto;
+  }
+
+  .about-bullets-wrap {
+    width: 91.357%;
+  }
 }
 
 /* ============================================================
