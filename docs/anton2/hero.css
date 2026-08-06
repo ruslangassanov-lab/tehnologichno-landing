@@ -62,7 +62,7 @@ html, body.ah{
   /* Shared with header + apply-band CTA so both pills track one scale. */
   --ah-header-scale:1.7;
   --ah-hs:calc(var(--ah-header-scale) / 1.4);
-  /* cqw form of unified grid — matches :root px tokens at canvas max */
+  /* Unified hero column — logo/pill pin to these edges on desktop */
   --ah-content-width:90.95912cqw;
   --ah-content-inset:calc((100% - var(--ah-content-width)) / 2);
   container-type:inline-size;
@@ -658,75 +658,84 @@ html.js .faq .cta-block.is-visible{
 }
 
 /* ============================================================
-   DESKTOP (≥1025) — unified first screen
-   Pin header under switcher, drop Figma y=111 dead space, no hero
-   vertical centering (margin-top:auto), no transform overscale on card.
-   Side air = native ~9% canvas margin at scale 1 + optional inset.
+   DESKTOP (≥1025) — first screen = exact viewport composition
+   Lock fold to 100svh so next section never peeks. Banner scales
+   uniformly to fill remaining height (aspect locked; text stays on
+   Figma cqw via card transform). Logo/pill track banner edges.
+   Nav absolute cluster unchanged. No fake “push next section down”.
    ============================================================ */
 @media (min-width: 1025px) {
   .ah-first-screen {
-    justify-content: flex-start;
-    padding-top: 1.25rem;
-    padding-inline: 0;
+    --ah-fs-pad-top: 1.25rem;
+    --ah-fs-header-h: calc(2.81361cqw * var(--ah-hs) + 0.35rem);
+    /* Min blue air above + below card after chrome (auto margins split rest) */
+    --ah-fs-air: 1.5rem;
+    /* Grow toward viewport, cap ~full canvas; shrink on short laptops */
+    --ah-fs-hero-scale: min(
+      1.1,
+      calc((100cqw * 0.98) / 90.95912cqw),
+      calc(
+        (
+          100svh
+          - var(--ah-switcher-h)
+          - var(--ah-fs-pad-top)
+          - var(--ah-fs-header-h)
+          - (2 * var(--ah-fs-air))
+        ) / 33.05818cqw
+      )
+    );
+
     box-sizing: border-box;
+    justify-content: flex-start;
+    padding-top: var(--ah-fs-pad-top);
+    padding-inline: 0;
+    /* Exact fold — next block starts just below; margin-bottom stays for scroll air */
+    height: calc(100vh - var(--ah-switcher-h));
+    height: calc(100dvh - var(--ah-switcher-h));
+    height: calc(100svh - var(--ah-switcher-h));
+    min-height: calc(100svh - var(--ah-switcher-h));
+    max-height: calc(100svh - var(--ah-switcher-h));
   }
 
-  /* Was simulating Frame-9 y=111 — on first screen that pushed nav onto hero */
   .ah-header {
-    width: var(--ah-content-width);
-    margin-inline: auto;
-    height: calc(2.81361cqw * var(--ah-hs) + 0.35rem);
+    width: 100%;
+    height: var(--ah-fs-header-h);
     padding-top: 0;
   }
 
-  /* Canvas-absolute Figma lefts → % of unified content column */
+  /* Logo/pill pin to live banner edges (scale from first-screen) */
   .ah-header__brand {
     top: 0.15rem;
-    left: 3.2842%;
+    left: calc((100% - 90.95912cqw * var(--ah-fs-hero-scale)) / 2) !important;
   }
 
-  .ah-nav .n1 {
-    left: 35.8976%;
-  }
-
-  .ah-nav .n2 {
-    left: 47.4194%;
-  }
-
-  .ah-nav .n3 {
-    left: 58.7165%;
-  }
-
+  /* Nav cluster — still compact, slightly wider so it breathes vs logo/pill */
   .ah-nav .n1,
   .ah-nav .n2,
   .ah-nav .n3 {
-    top: calc(0.15rem + (2.81361cqw - 1.10554cqw) * var(--ah-hs) / 2);
+    top: calc(0.15rem + (2.81361cqw * var(--ah-hs) - 1.10554cqw * var(--ah-hs)) / 2);
   }
+
+  .ah-nav .n1 { left: 34.15cqw; }
+  .ah-nav .n2 { left: 47.65330cqw; }
+  .ah-nav .n3 { left: 61.15cqw; }
 
   .ah-pill {
     top: 0.15rem;
-    left: 84.9667%;
+    left: auto !important;
+    right: calc((100% - 90.95912cqw * var(--ah-fs-hero-scale)) / 2) !important;
   }
 
-  /* Scale 1.1 stretched card to ~100% canvas; inner cqw ≠ scaled box → warp */
   .ah-hero {
-    --ah-hero-scale: 1;
-    margin-top: clamp(1.25rem, 3.5cqw, 2.75rem);
+    --ah-hero-scale: var(--ah-fs-hero-scale);
+    flex: 0 0 auto;
+    /* Equal blue air above/below — fills leftover after scale fit */
+    margin-top: auto;
     margin-bottom: auto;
-    margin-left: auto;
-    margin-right: auto;
-    width: var(--ah-content-width);
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: calc(90.95912cqw * var(--ah-hero-scale)) !important;
     height: calc(33.05818cqw * var(--ah-hero-scale));
-  }
-
-  /* About — inner copy aligns to hero edges; bands stay full-bleed */
-  .about-block {
-    width: var(--ah-content-width);
-    margin-inline: auto;
-  }
-
-  .about-bullets-wrap {
-    width: 91.357%;
   }
 }
 
@@ -802,7 +811,7 @@ html.js .faq .cta-block.is-visible{
   }
 
   .ah-nav a {
-    position: static !important;
+    position: relative !important;
     left: auto !important;
     top: auto !important;
     font-size: 0.9375rem;

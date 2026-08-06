@@ -12,6 +12,12 @@
     if (!links.length) return;
 
     links.forEach(function (link) {
+      /* Underline is position:absolute — needs a positioned anchor (flex
+         layouts often set static, which breaks hover line placement). */
+      if (getComputedStyle(link).position === 'static') {
+        link.style.position = 'relative';
+      }
+
       var line = document.createElement('span');
       line.className = 'ah-nav-line';
       line.setAttribute('aria-hidden', 'true');
@@ -262,7 +268,7 @@
     };
 
     document.querySelectorAll(
-      '.ah-nav a[href^="#"], .ah-header__brand[href^="#"]'
+      '.ah-nav a[href^="#"]:not(.n3), .ah-header__brand[href^="#"]'
     ).forEach(function (link) {
       link.addEventListener('click', onAnchorClick);
     });

@@ -499,16 +499,3 @@ html.js .ac-card:focus-within{
     filter: none;
   }
 }
-
-/* Desktop unified grid — competencies track hero content column */
-@media (min-width: 1025px) {
-  .ac-sec {
-    width: var(--ah-content-width);
-    margin-inline: auto;
-  }
-
-  .ac-viewport {
-    margin-left: 5.876%;
-    width: 87.814%;
-  }
-}
